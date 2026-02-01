@@ -16,4 +16,21 @@ public class Constants {
         public static final double shooterSpeed = 0.7;
     }
 
+    public static class SwivelConstants {
+        public static final int swivelMotorID = 1;
+    }
+
+    public static class IntakeConstants {
+        public static final int intakeMotorID = 5;
+    }
+
+    public static class WallBedConstants {
+        public static final int wallBedMotorID = 6;
+        public static final int wallBedLimitSwitchPort = 0;
+    }
+
+    public static class LimelightConstants {
+        public static final String limelightName = "";
+    }
+
 }

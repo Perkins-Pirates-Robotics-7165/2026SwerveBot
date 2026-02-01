@@ -33,7 +33,7 @@ This is just a planning markdown file to list subsystems / commands / whatever e
   - Motors:
     - Swivel Motor
   - Methods:
-    - swivel(speed)
+    - moveSwivel(speed)
 - Intake Subsystem
   - Motors:
     - Intake Motor
@@ -49,8 +49,8 @@ This is just a planning markdown file to list subsystems / commands / whatever e
 | Name | Params | Return Value |
 | --------------- | --------------- | --------------- |
 | setWallbedState | WallBedState.State | void |
-| moveMotor | speed | void |
-| softLimitSwitchState | void | boolean |
+| moveWallBedMotor | speed | void |
+| getWallBedLimitSwitchState | void | boolean |
 
 - Limelight Subsystem
   - Parts:
@@ -95,7 +95,7 @@ This is just a planning markdown file to list subsystems / commands / whatever e
 
 ### Drivetrain
 
-| Motor Use | Motor ID | Motor Type |
+| Motor Use | CAN ID | Motor Type |
 |----------|----------|------------|
 | FLeft    | 10       | Kraken Swerve |
 | FLeft    | 11       | Kraken Drive |
@@ -112,24 +112,24 @@ This is just a planning markdown file to list subsystems / commands / whatever e
 
 ### Shooter
 
-| Motor Use      | Motor ID | Motor Type |
+| Motor Use      | CAN ID | Motor Type |
 |---------------|----------|------------|
 | Shooter Motor | 0        | TalonFX    |
 
 ### Swivel
 
-| Motor Use    | Motor ID | Motor Type |
+| Motor Use    | CAN ID | Motor Type |
 |-------------|----------|------------|
 | Swivel Motor | 1        | TalonFX    |
 
 ### Intake
 
-| Motor Use     | Motor ID | Motor Type |
+| Motor Use     | CAN ID | Motor Type |
 |--------------|----------|------------|
 | Intake Motor | 5        | TalonFX    |
 
 ### WallBed
 
-| Motor Use | Motor ID | Motor Type |
+| Motor Use | CAN ID | Motor Type |
 | --------------- | --------------- | --------------- |
 | WallBed Motor | 6 | TalonFX |

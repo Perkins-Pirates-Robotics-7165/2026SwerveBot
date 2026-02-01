@@ -3,22 +3,22 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ShooterConstants;
+import frc.robot.Constants.SwivelConstants;
 
-public class ShooterSubsystem extends SubsystemBase {
+public class SwivelSubsystem extends SubsystemBase {
 
-    TalonFX shooterMotor = new TalonFX(ShooterConstants.shooterMotorID);
+    TalonFX swivelMotor = new TalonFX(SwivelConstants.swivelMotorID);
 
     // Initializer, use to set configurations and set attributes
-    public ShooterSubsystem() {}
+    public SwivelSubsystem() {}
 
     /*
-     * Start the shooter
+     * Move the swivel
      * 
-     * @param speed - Switch Motor drive percentage [-1.0, 1.0]
+     * @param speed - Swivel motor drive percentage [-1.0, 1.0]
      */
-    public void shoot(double speed) {
-        shooterMotor.set(speed);
+    public void moveSwivel(double speed) {
+        swivelMotor.set(speed);
     }
 
     // Period function on field, called every 20ms

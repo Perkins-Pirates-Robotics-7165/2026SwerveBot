@@ -3,22 +3,22 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ShooterConstants;
+import frc.robot.Constants.IntakeConstants;
 
-public class ShooterSubsystem extends SubsystemBase {
+public class IntakeSubsystem extends SubsystemBase {
 
-    TalonFX shooterMotor = new TalonFX(ShooterConstants.shooterMotorID);
+    TalonFX intakeMotor = new TalonFX(IntakeConstants.intakeMotorID);
 
     // Initializer, use to set configurations and set attributes
-    public ShooterSubsystem() {}
+    public IntakeSubsystem() {}
 
     /*
-     * Start the shooter
+     * Start the intake
      * 
-     * @param speed - Switch Motor drive percentage [-1.0, 1.0]
+     * @param speed - Intake motor drive percentage [-1.0, 1.0]
      */
-    public void shoot(double speed) {
-        shooterMotor.set(speed);
+    public void intake(double speed) {
+        intakeMotor.set(speed);
     }
 
     // Period function on field, called every 20ms
