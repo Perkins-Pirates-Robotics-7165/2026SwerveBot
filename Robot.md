@@ -45,20 +45,28 @@ This is just a planning markdown file to list subsystems / commands / whatever e
   - Parts:
     - Limit Switch
   - Methods:
-    - setWallbedState(WallBedState.State)
-    - moveMotor(speed)
-    - softLimitSwitchState() -> boolean
+
+| Name | Params | Return Value |
+| --------------- | --------------- | --------------- |
+| setWallbedState | WallBedState.State | void |
+| moveMotor | speed | void |
+| softLimitSwitchState | void | boolean |
+
 - Limelight Subsystem
   - Parts:
     - Limelight
   - Methods:
-    - getTx() -> double
-    - getTy() -> double
-    - getTa() -> double
-    - hasTarget() -> boolean
-    - getDistance() -> double
-    - getBotPose() -> ```double[6]```
-    - printTelemetry()
+
+| Name | Params | Return Value |
+| --------------- | --------------- | --------------- |
+| getTx | void | double |
+| getTy | void | double |
+| getTa | void | double |
+| hasTarget | void | boolean |
+| getDistance | void | double |
+| getBotPose | void | ```double[6]``` |
+| printTelemetry | void | void |
+
 - *Pigeon Subsystem?* - Maybe??
   - Parts:
     - Pigeon 2
