@@ -1,29 +1,29 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
-public class Shoot extends Command {
+public class Intake extends Command {
 
-    private final ShooterSubsystem shooterSubsystem;
+    private final IntakeSubsystem intakeSubsystem;
     private final double speed;
 
     /**
-     * Shoots balls with the shooter subsystem
+     * Intake balls with the intake subsystem
      * 
-     * @param shooterSubsystem - The subsystem for shooting
-     * @param speed - Shooter motor speed [-1.0, 1.0]. 
+     * @param intakeSubsystem - The intake subsystem to control intake
+     * @param speed - Swivel motor speed [-1.0, 1.0]. 
      */
-    public Shoot(ShooterSubsystem shooterSubsystem, double speed) {
+    public Intake(IntakeSubsystem intakeSubsystem, double speed) {
 
         // Set the subsystem
-        this.shooterSubsystem = shooterSubsystem;
+        this.intakeSubsystem = intakeSubsystem;
 
         // Save the speed
         this.speed = speed;
 
         // Adds the requirement of subsystem(s) so two commands can't use it at once
-        addRequirements(shooterSubsystem);
+        addRequirements(intakeSubsystem);
     }
 
     // Runs once when initialized
@@ -33,8 +33,8 @@ public class Shoot extends Command {
     // Runs while the command is 'sceduled' (aka. while the button is pressed on with a .whileTrue)
     @Override
     public void execute() {
-        // Shoot the balls with the set speed
-        shooterSubsystem.shoot(speed);
+        // Start the intake with the givin speed
+        intakeSubsystem.intake(speed);
     }
 
     // When the command is finished
