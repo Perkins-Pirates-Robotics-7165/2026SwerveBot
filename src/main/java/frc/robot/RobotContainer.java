@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.Constants.ComputerConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.Shoot;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -52,7 +53,7 @@ public class RobotContainer {
 
     /* Controllers */
 
-    // primary controller
+    // Primary controller
     private final CommandXboxController primary = new CommandXboxController(ComputerConstants.primaryPort);
 
     public RobotContainer() {
@@ -85,11 +86,11 @@ public class RobotContainer {
         /* Primary Controller */
 
 
-        // Set Brake - A
+        // Set wheel brake - A
         primary.a().whileTrue(drivetrain.applyRequest(() -> brake));
 
-        // Shoot - Left trigger, speed controlled
-        primary.leftTrigger().whileTrue(new Shoot(shooterSubsystem, primary.getLeftTriggerAxis()));
+        // Shoot - Left trigger
+        primary.leftTrigger(0.1).whileTrue(new Shoot(shooterSubsystem, ShooterConstants.shooterSpeed));
 
 
 
