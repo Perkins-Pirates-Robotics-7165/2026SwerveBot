@@ -86,10 +86,6 @@ This is just a planning markdown file to list subsystems / commands / whatever e
   - Subsystem Requirements:
     - Limelight Subsystem
     - Swivel Subsystem
-- AlignDriveToFunnel
-  - Subsystem Requirements:
-    - Limelight Subsystem
-    - Drivetrain
 
 ## Motor IDs
 
