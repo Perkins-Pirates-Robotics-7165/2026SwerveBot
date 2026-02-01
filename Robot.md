@@ -65,40 +65,40 @@ This is just a planning markdown file to list subsystems / commands / whatever e
 
 ### Drivetrain
 
-- FLeft
-10 - Kraken Swerve
-11 - Kraken Drive
-12 - Kraken CanCoder
+- FLeft  
+10 - Kraken Swerve  
+11 - Kraken Drive  
+12 - Kraken CanCoder  
 
-- FRight
-20 - Kraken Swerve
-21 - Kraken Drive
-22 - Kraken Cancoder
+- FRight  
+20 - Kraken Swerve  
+21 - Kraken Drive  
+22 - Kraken Cancoder  
 
-- BLeft
-30 - Kraken Swerve
-31 - Kraken Drive
-32 - Kraken Cancoder
+- BLeft  
+30 - Kraken Swerve  
+31 - Kraken Drive  
+32 - Kraken Cancoder  
 
-- BRight
-40 - Kraken Swerve
-41 - Kraken Drive
-42 - Kraken Cancoder
+- BRight  
+40 - Kraken Swerve  
+41 - Kraken Drive  
+42 - Kraken Cancoder  
 
 ### Shooter
 
-- Shooter Motor
-0 - TalonFX
+- Shooter Motor  
+0 - TalonFX  
 
 ### Swivel
 
-- Swivel Motor
-1 - TalonFX
+- Swivel Motor  
+1 - TalonFX  
 
 ### Intake
 
-- Intake Motor
-5 - TalonFX
+- Intake Motor  
+5 - TalonFX  
 
-- WallBed Motor
-6 - TalonFX
+- WallBed Motor  
+6 - TalonFX  
