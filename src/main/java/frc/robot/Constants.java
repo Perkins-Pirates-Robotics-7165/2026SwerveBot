@@ -18,6 +18,10 @@ public class Constants {
 
     public static class SwivelConstants {
         public static final int swivelMotorID = 1;
+
+        // Command AlignSwivelToFunnel
+        public static final double alignSwivelToFunnel_xDriveMax = 0.4;
+        public static final double alignSwivelToFunnel_xDriveMin = -0.4;
     }
 
     public static class IntakeConstants {
