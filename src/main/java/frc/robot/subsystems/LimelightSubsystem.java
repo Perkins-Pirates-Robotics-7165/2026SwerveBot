@@ -10,16 +10,16 @@ import frc.robot.Constants.LimelightConstants;
 public class LimelightSubsystem extends SubsystemBase {
 
     // Main Network table for limelight
-    private NetworkTable limelightTable;
+    private final NetworkTable limelightTable;
 
     // 't' entries
-    private NetworkTableEntry txEntry;
-    private NetworkTableEntry tyEntry;
-    private NetworkTableEntry taEntry;
-    private NetworkTableEntry tvEntry;
+    private final NetworkTableEntry txEntry;
+    private final NetworkTableEntry tyEntry;
+    private final NetworkTableEntry taEntry;
+    private final NetworkTableEntry tvEntry;
 
     // Bot position entry
-    private NetworkTableEntry botposeEntry;
+    private final NetworkTableEntry botposeEntry;
     
     public LimelightSubsystem() {
         

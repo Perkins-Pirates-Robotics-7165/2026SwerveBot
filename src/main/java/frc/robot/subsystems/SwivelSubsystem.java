@@ -7,7 +7,7 @@ import frc.robot.Constants.SwivelConstants;
 
 public class SwivelSubsystem extends SubsystemBase {
 
-    TalonFX swivelMotor = new TalonFX(SwivelConstants.swivelMotorID);
+    private final TalonFX swivelMotor = new TalonFX(SwivelConstants.swivelMotorID);
 
     // Initializer, use to set configurations and set attributes
     public SwivelSubsystem() {}

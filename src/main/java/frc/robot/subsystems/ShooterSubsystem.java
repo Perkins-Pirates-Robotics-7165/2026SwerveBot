@@ -7,7 +7,7 @@ import frc.robot.Constants.ShooterConstants;
 
 public class ShooterSubsystem extends SubsystemBase {
 
-    TalonFX shooterMotor = new TalonFX(ShooterConstants.shooterMotorID);
+    private final TalonFX shooterMotor = new TalonFX(ShooterConstants.shooterMotorID);
 
     // Initializer, use to set configurations and set attributes
     public ShooterSubsystem() {}

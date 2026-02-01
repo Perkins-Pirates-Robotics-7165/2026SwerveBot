@@ -9,9 +9,9 @@ import frc.robot.states.WallBedState;
 
 public class WallBedSubsystem extends SubsystemBase {
 
-    TalonFX wallBedMotor = new TalonFX(WallBedConstants.wallBedMotorID);
+    private final TalonFX wallBedMotor = new TalonFX(WallBedConstants.wallBedMotorID);
 
-    DigitalInput wallBedLimitSwitch = new DigitalInput(WallBedConstants.wallBedLimitSwitchPort);
+    private final DigitalInput wallBedLimitSwitch = new DigitalInput(WallBedConstants.wallBedLimitSwitchPort);
 
 
     // Initializer, use to set configurations and set attributes
