@@ -39,7 +39,9 @@ public class Shoot extends Command {
 
     // When the command is finished
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+        shooterSubsystem.shoot(0.0);
+    }
 
     @Override
     public boolean isFinished() {

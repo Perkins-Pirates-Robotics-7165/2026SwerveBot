@@ -89,7 +89,7 @@ public class RobotContainer {
         primary.a().whileTrue(drivetrain.applyRequest(() -> brake));
 
         // Shoot - Left trigger, speed controlled
-        primary.leftTrigger().whileTrue(new Shoot(shooterSubsystem, primary.getLeftTriggerAxis()));
+        primary.leftTrigger().whileTrue(new Shoot(shooterSubsystem, 0.7));
 
 
 
