@@ -1,13 +1,16 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.hardware.TalonFX;
+import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
 
 public class ShooterSubsystem extends SubsystemBase {
 
-    private final TalonFX shooterMotor = new TalonFX(ShooterConstants.shooterMotorID);
+    private final SparkFlex shooterMotor = new SparkFlex(ShooterConstants.shooterMotorID, MotorType.kBrushless);
+    private final SparkFlex bumpMotor = new SparkFlex(ShooterConstants.bumpMotorID, MotorType.kBrushless);
+
 
     // Initializer, use to set configurations and set attributes
     public ShooterSubsystem() {}
@@ -19,6 +22,10 @@ public class ShooterSubsystem extends SubsystemBase {
      */
     public void shoot(double speed) {
         shooterMotor.set(speed);
+    }
+
+    public void bump(double speed) {
+        bumpMotor.set(speed);
     }
 
     // Period function on field, called every 20ms

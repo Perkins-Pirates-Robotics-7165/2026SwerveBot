@@ -14,11 +14,18 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.Constants.ComputerConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.commands.Bump;
+import frc.robot.commands.Intake;
+import frc.robot.commands.MoveWallBed;
+import frc.robot.commands.RevShoot;
 import frc.robot.commands.Shoot;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.WallBedSubsystem;
 
 public class RobotContainer {
 
@@ -48,6 +55,8 @@ public class RobotContainer {
 
     // Shooter subsystem
     public final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+    public final WallBedSubsystem wallBedSubsystem = new WallBedSubsystem();
+    public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
 
 
@@ -87,12 +96,43 @@ public class RobotContainer {
 
 
         // Set wheel brake - A
-        primary.a().whileTrue(drivetrain.applyRequest(() -> brake));
+        // primary.a().whileTrue(drivetrain.applyRequest(() -> brake));
 
-        // Shoot - Left trigger
+        // // Shoot - Right trigger & Left Bumper
+        // primary.rightTrigger(0.1).whileTrue(new RevShoot(shooterSubsystem, -ShooterConstants.shooterSpeed, () -> primary.leftBumper().getAsBoolean(), ShooterConstants.bumpSpeed));
+
+        // // Shoot Rev - Left trigger
+        // primary.leftTrigger(0.1).whileTrue(new RevShoot(shooterSubsystem, ShooterConstants.shooterSpeed, () -> true, ShooterConstants.bumpSpeed));
+
+
+
+
+
+        // Shoot - Right trigger & Left Bumper
+        primary.rightTrigger(0.1).whileTrue(new Shoot(shooterSubsystem, -ShooterConstants.shooterSpeed));
+
+        // Shoot Rev - Left trigger
         primary.leftTrigger(0.1).whileTrue(new Shoot(shooterSubsystem, ShooterConstants.shooterSpeed));
 
+        // Intake Motor Rev - A
+        primary.a().whileTrue(new Intake(intakeSubsystem, IntakeConstants.intakeSpeed));
 
+        // Intake Motor - X
+        primary.x().whileTrue(new Intake(intakeSubsystem, -IntakeConstants.intakeSpeed));
+
+        // Move Wall Bed Forward - B
+        primary.b().whileTrue(new MoveWallBed(wallBedSubsystem, 0.1));
+
+        // Move Wall Bed Forward - Y
+        primary.y().whileTrue(new MoveWallBed(wallBedSubsystem, -0.1));
+
+        // Bump - POV UP
+        primary.povUp().whileTrue(new Bump(shooterSubsystem, ShooterConstants.bumpSpeed));
+
+        // Bump Rev - POV DOWN
+        primary.povDown().whileTrue(new Bump(shooterSubsystem, -ShooterConstants.bumpSpeed));
+
+        
 
 
         // Log Telemetry

@@ -29,11 +29,12 @@ This is just a planning markdown file to list subsystems / commands / whatever e
     - Shooter Motor
   - Methods:
     - shoot(speed)
-- Swivel Subsystem
+<!-- deprived -->
+<!-- - Swivel Subsystem
   - Motors:
     - Swivel Motor
   - Methods:
-    - moveSwivel(speed)
+    - moveSwivel(speed) -->
 - Intake Subsystem
   - Motors:
     - Intake Motor
@@ -76,16 +77,9 @@ This is just a planning markdown file to list subsystems / commands / whatever e
 - Shoot
   - Subsystem Requirements:
     - Shooter Subsystem
-- Swivel
-  - Subsystem Requirements:
-    - Swivel Subsystem
 - Intake
   - Subsystem Requirements:
     - Intake Subsystem
-- AlignSwivelToFunnel
-  - Subsystem Requirements:
-    - Limelight Subsystem
-    - Swivel Subsystem
 
 ## Motor IDs
 
@@ -111,21 +105,17 @@ This is just a planning markdown file to list subsystems / commands / whatever e
 | Motor Use      | CAN ID | Motor Type |
 |---------------|----------|------------|
 | Shooter Motor | 0        | TalonFX    |
-
-### Swivel
-
-| Motor Use    | CAN ID | Motor Type |
-|-------------|----------|------------|
-| Swivel Motor | 1        | TalonFX    |
+| Shooter Bump motor | 5        | TalonFX    |
 
 ### Intake
 
 | Motor Use     | CAN ID | Motor Type |
 |--------------|----------|------------|
-| Intake Motor | 5        | TalonFX    |
+| Intake Motor | 9        | TalonFX    |
 
 ### WallBed
 
 | Motor Use | CAN ID | Motor Type |
 | --------------- | --------------- | --------------- |
-| WallBed Motor | 6 | TalonFX |
+| WallBed Motor Main | 6 | TalonFX |
+| WallBed Motor Main | 7 | TalonFX |

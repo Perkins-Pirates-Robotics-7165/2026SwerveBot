@@ -1,13 +1,13 @@
 package frc.robot.subsystems;
-
-import com.ctre.phoenix6.hardware.TalonFX;
+import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
-    private final TalonFX intakeMotor = new TalonFX(IntakeConstants.intakeMotorID);
+    private final SparkFlex intakeMotor = new SparkFlex(IntakeConstants.intakeMotorID, MotorType.kBrushless);
 
     // Initializer, use to set configurations and set attributes
     public IntakeSubsystem() {}

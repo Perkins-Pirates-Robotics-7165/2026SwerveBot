@@ -1,6 +1,10 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.MotorOutputConfigs;
+import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -9,13 +13,21 @@ import frc.robot.states.WallBedState;
 
 public class WallBedSubsystem extends SubsystemBase {
 
-    private final TalonFX wallBedMotor = new TalonFX(WallBedConstants.wallBedMotorID);
+    private final TalonFX wallBedMainMotor = new TalonFX(WallBedConstants.wallBedMainMotorID);
+    private final TalonFX wallBedFollowerMotor = new TalonFX(WallBedConstants.wallBedFollowerMotorID);
 
     private final DigitalInput wallBedLimitSwitch = new DigitalInput(WallBedConstants.wallBedLimitSwitchPort);
 
 
     // Initializer, use to set configurations and set attributes
-    public WallBedSubsystem() {}
+    public WallBedSubsystem() {
+
+        MotorOutputConfigs wallBedMainMotorConfig = new MotorOutputConfigs();
+        wallBedMainMotorConfig.Inverted = InvertedValue.CounterClockwise_Positive;
+
+        wallBedMainMotor.getConfigurator().apply(wallBedMainMotorConfig);
+        wallBedFollowerMotor.setControl(new Follower(WallBedConstants.wallBedMainMotorID, MotorAlignmentValue.Opposed));
+    }
 
     /*
      * Move the wallbed motor
@@ -23,7 +35,7 @@ public class WallBedSubsystem extends SubsystemBase {
      * @param speed - Wall Bed motor drive speed [-1.0, 1.0]
      */
     public void moveWallBedMotor(double speed) {
-        wallBedMotor.set(speed);
+        wallBedMainMotor.set(speed);
     }
 
     /*
