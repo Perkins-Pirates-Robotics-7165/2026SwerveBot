@@ -19,7 +19,6 @@ import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.Bump;
 import frc.robot.commands.Intake;
 import frc.robot.commands.MoveWallBed;
-import frc.robot.commands.RevShoot;
 import frc.robot.commands.Shoot;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
