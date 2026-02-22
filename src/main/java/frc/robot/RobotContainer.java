@@ -111,7 +111,9 @@ public class RobotContainer {
 
 
         /* Drive */
+        
         primary.leftBumper().whileTrue(drivetrain.applyRequest(() -> brake));
+
 
         /* Shoot */
 
