@@ -17,6 +17,7 @@ import frc.robot.Constants.ComputerConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.Constants.WallBedConstants;
 import frc.robot.commands.Bump;
 import frc.robot.commands.Intake;
 import frc.robot.commands.MoveWallBed;
@@ -108,25 +109,16 @@ public class RobotContainer {
 
         /* Primary Controller */
 
+        /* Shoot */
 
-        // Set wheel brake - A
-        // primary.a().whileTrue(drivetrain.applyRequest(() -> brake));
-
-        // // Shoot - Right trigger & Left Bumper
-        // primary.rightTrigger(0.1).whileTrue(new RevShoot(shooterSubsystem, -ShooterConstants.shooterSpeed, () -> primary.leftBumper().getAsBoolean(), ShooterConstants.bumpSpeed));
-
-        // // Shoot Rev - Left trigger
-        // primary.leftTrigger(0.1).whileTrue(new RevShoot(shooterSubsystem, ShooterConstants.shooterSpeed, () -> true, ShooterConstants.bumpSpeed));
-
-
-
-
-
-        // Shoot - Right trigger & Left Bumper
+        // Shoot - Right trigger
         primary.rightTrigger(0.1).whileTrue(new Shoot(shooterSubsystem, -ShooterConstants.shooterSpeed));
 
-        // Shoot Rev - Left trigger
+        // Shoot Rev
         primary.leftTrigger(0.1).whileTrue(new Shoot(shooterSubsystem, ShooterConstants.shooterSpeed));
+
+
+        /* Intake */
 
         // Intake Motor Rev - A
         primary.a().whileTrue(new Intake(intakeSubsystem, IntakeConstants.intakeSpeed));
@@ -134,11 +126,17 @@ public class RobotContainer {
         // Intake Motor - X
         primary.x().whileTrue(new Intake(intakeSubsystem, -IntakeConstants.intakeSpeed));
 
-        // Move Wall Bed Forward - B
-        primary.b().whileTrue(new MoveWallBed(wallBedSubsystem, 0.1));
+        
+        /* Wall Bed */
 
-        // Move Wall Bed Forward - Y
-        primary.y().whileTrue(new MoveWallBed(wallBedSubsystem, -0.1));
+        // Move Wall Bed Forward - B
+        primary.b().whileTrue(new MoveWallBed(wallBedSubsystem, WallBedConstants.wallBedSpeed));
+
+        // Move Wall Bed Rev - Y
+        primary.y().whileTrue(new MoveWallBed(wallBedSubsystem, -WallBedConstants.wallBedSpeed));
+
+
+        /* Bump */
 
         // Bump - POV UP
         primary.povUp().whileTrue(new Bump(bumpSubsystem, BumpConstants.bumpSpeed));
@@ -148,6 +146,8 @@ public class RobotContainer {
 
         
 
+
+        /* Telemtry */
 
         // Log Telemetry
         drivetrain.registerTelemetry(logger::telemeterize);

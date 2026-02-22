@@ -53,6 +53,9 @@ public class Constants {
         // Motor ids
         public static final int wallBedMainMotorID = 6;
         public static final int wallBedFollowerMotorID = 7;
+
+        // Motor base speeds
+        public static final double wallBedSpeed = 0.1;
     }
 
     // Constants for the limelight constants
