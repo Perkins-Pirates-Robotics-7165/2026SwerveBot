@@ -33,6 +33,9 @@ public class RobotContainer {
 
     /* Drivetrain */
 
+    // Drivetrain Subsystem
+    private final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+
     // Max speed multipliers for drivetrain
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
@@ -45,9 +48,6 @@ public class RobotContainer {
 
     // Drivetarin logger
     private final Telemetry logger = new Telemetry(MaxSpeed);
-
-    // Drivetrain Subsystem
-    private final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
     
 
@@ -66,10 +66,22 @@ public class RobotContainer {
     // Primary controller
     private final CommandXboxController primary = new CommandXboxController(ComputerConstants.primaryPort);
 
+
+
+    /*
+     * First ran command
+     * 
+     * Used for ordering what happens in the robot
+     */
     public RobotContainer() {
         configureBindings();
     }
 
+    /*
+     * Set the controller commands
+     * 
+     * Ran only once
+     */
     private void configureBindings() {
 
         /* Drivetrain Stuff */
@@ -140,6 +152,9 @@ public class RobotContainer {
         drivetrain.registerTelemetry(logger::telemeterize);
     }
 
+    /*
+     * Returns what command will be ran in autonomus, passing it to Robot.java
+     */
     public Command getAutonomousCommand() {
         return null;
     }

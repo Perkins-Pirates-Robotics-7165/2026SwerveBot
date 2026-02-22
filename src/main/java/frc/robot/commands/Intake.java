@@ -12,7 +12,7 @@ public class Intake extends Command {
      * Intake balls with the intake subsystem
      * 
      * @param intakeSubsystem - The intake subsystem to control intake
-     * @param speed - Swivel motor speed [-1.0, 1.0]. 
+     * @param speed - Intake motor speed [-1.0, 1.0]. 
      */
     public Intake(IntakeSubsystem intakeSubsystem, double speed) {
 

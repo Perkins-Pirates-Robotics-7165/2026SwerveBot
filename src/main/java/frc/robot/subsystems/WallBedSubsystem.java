@@ -6,26 +6,26 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.WallBedConstants;
-import frc.robot.states.WallBedState;
 
 public class WallBedSubsystem extends SubsystemBase {
 
+    // The 2 motors on either side of the robot, controlling the intake's up and down
     private final TalonFX wallBedMainMotor = new TalonFX(WallBedConstants.wallBedMainMotorID);
     private final TalonFX wallBedFollowerMotor = new TalonFX(WallBedConstants.wallBedFollowerMotorID);
-
-    private final DigitalInput wallBedLimitSwitch = new DigitalInput(WallBedConstants.wallBedLimitSwitchPort);
-
 
     // Initializer, use to set configurations and set attributes
     public WallBedSubsystem() {
 
+        // Make an inverted configurator for the main motor
         MotorOutputConfigs wallBedMainMotorConfig = new MotorOutputConfigs();
         wallBedMainMotorConfig.Inverted = InvertedValue.CounterClockwise_Positive;
 
+        // Invert the main motor
         wallBedMainMotor.getConfigurator().apply(wallBedMainMotorConfig);
+
+        // Set the follower motor for the main motor, with a reversed direction
         wallBedFollowerMotor.setControl(new Follower(WallBedConstants.wallBedMainMotorID, MotorAlignmentValue.Opposed));
     }
 
@@ -36,24 +36,6 @@ public class WallBedSubsystem extends SubsystemBase {
      */
     public void moveWallBedMotor(double speed) {
         wallBedMainMotor.set(speed);
-    }
-
-    /*
-     * Set the wallbed state to a position
-     * 
-     * @param wallBedState - WallBedState enum, moves the wall bed to a position
-     */
-    public void setWallbedState(WallBedState wallBedState) {
-        // TODO: Finish
-    }
-
-    /*
-     * Returns the position that the limit switch is in for the wall bed
-     * 
-     * @return boolean - True: Pressed, False: Not Pressed
-     */
-    public boolean getWallBedLimitSwitchState() {
-        return wallBedLimitSwitch.get();
     }
 
     // Period function on field, called every 20ms

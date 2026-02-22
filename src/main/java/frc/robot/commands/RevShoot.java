@@ -18,6 +18,7 @@ public class RevShoot extends Command {
      * Rev the main shooter, and start the bump motor with a boolean supplier.
      * 
      * @param shooterSubsystem - The subsystem for shooting
+     * @param bumpSubsystem - The subsystem for bumping
      * @param speed - Shooter motor speed [-1.0, 1.0]. 
      * @param bump - Supplier for whether or not to start the bump motor
      * @param bumpSpeed - Bump motor speed [-1.0, 1.0].
@@ -50,10 +51,13 @@ public class RevShoot extends Command {
         // Rev the shooter motor
         shooterSubsystem.shoot(speed);
 
-        // When ready, start the bump motor to shoot the balls
+        // When the boolean suppier returns true, start the bump motor to shoot the balls
         if (bump.get()) {
             bumpSubsystem.bump(bumpSpeed);
-        } else {
+        } 
+        
+        // If the supplier returns false, turn off the bump motor
+        else {
             bumpSubsystem.bump(0.0);
         }
         

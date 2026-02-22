@@ -7,6 +7,7 @@ import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
+    // The motor on the intake, used to throw balls into the bin
     private final SparkFlex intakeMotor = new SparkFlex(IntakeConstants.intakeMotorID, MotorType.kBrushless);
 
     // Initializer, use to set configurations and set attributes

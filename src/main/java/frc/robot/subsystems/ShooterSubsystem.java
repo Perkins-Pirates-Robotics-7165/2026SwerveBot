@@ -11,7 +11,6 @@ public class ShooterSubsystem extends SubsystemBase {
     // The motor that launches the balls out to the feild
     private final SparkFlex shooterMotor = new SparkFlex(ShooterConstants.shooterMotorID, MotorType.kBrushless);
 
-
     // Initializer, use to set configurations and set attributes
     public ShooterSubsystem() {}
 
