@@ -123,8 +123,8 @@ public class RobotContainer {
         // Intake Motor Rev - A
         primary.a().whileTrue(new Intake(intakeSubsystem, IntakeConstants.intakeSpeed));
 
-        // Intake Motor - X
-        primary.x().whileTrue(new Intake(intakeSubsystem, -IntakeConstants.intakeSpeed));
+        // Intake Motor - Y
+        primary.y().whileTrue(new Intake(intakeSubsystem, -IntakeConstants.intakeSpeed));
 
         
         /* Wall Bed */
@@ -132,8 +132,8 @@ public class RobotContainer {
         // Move Wall Bed Forward - B
         primary.b().whileTrue(new MoveWallBed(wallBedSubsystem, WallBedConstants.wallBedSpeed));
 
-        // Move Wall Bed Rev - Y
-        primary.y().whileTrue(new MoveWallBed(wallBedSubsystem, -WallBedConstants.wallBedSpeed));
+        // Move Wall Bed Rev - X
+        primary.x().whileTrue(new MoveWallBed(wallBedSubsystem, -WallBedConstants.wallBedSpeed));
 
 
         /* Bump */
