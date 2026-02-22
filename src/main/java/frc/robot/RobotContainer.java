@@ -21,6 +21,7 @@ import frc.robot.commands.Intake;
 import frc.robot.commands.MoveWallBed;
 import frc.robot.commands.Shoot;
 import frc.robot.generated.TunerConstants;
+import frc.robot.subsystems.BumpSubsystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -46,16 +47,17 @@ public class RobotContainer {
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
     // Drivetrain Subsystem
-    public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+    private final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
     
 
     /* Subsystems */
 
     // Shooter subsystem
-    public final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-    public final WallBedSubsystem wallBedSubsystem = new WallBedSubsystem();
-    public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+    private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+    private final WallBedSubsystem wallBedSubsystem = new WallBedSubsystem();
+    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+    private final BumpSubsystem bumpSubsystem = new BumpSubsystem();
 
 
 
@@ -126,10 +128,10 @@ public class RobotContainer {
         primary.y().whileTrue(new MoveWallBed(wallBedSubsystem, -0.1));
 
         // Bump - POV UP
-        primary.povUp().whileTrue(new Bump(shooterSubsystem, ShooterConstants.bumpSpeed));
+        primary.povUp().whileTrue(new Bump(bumpSubsystem, ShooterConstants.bumpSpeed));
 
         // Bump Rev - POV DOWN
-        primary.povDown().whileTrue(new Bump(shooterSubsystem, -ShooterConstants.bumpSpeed));
+        primary.povDown().whileTrue(new Bump(bumpSubsystem, -ShooterConstants.bumpSpeed));
 
         
 

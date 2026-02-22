@@ -3,11 +3,13 @@ package frc.robot.commands;
 import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.BumpSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class RevShoot extends Command {
 
     private final ShooterSubsystem shooterSubsystem;
+    private final BumpSubsystem bumpSubsystem;
     private final double speed;
     private Supplier<Boolean> bump;
     private final double bumpSpeed;
@@ -20,10 +22,11 @@ public class RevShoot extends Command {
      * @param bump - Supplier for whether or not to start the bump motor
      * @param bumpSpeed - Bump motor speed [-1.0, 1.0].
      */
-    public RevShoot(ShooterSubsystem shooterSubsystem, double speed, Supplier<Boolean> bump, double bumpSpeed) {
+    public RevShoot(ShooterSubsystem shooterSubsystem, BumpSubsystem bumpSubsystem, double speed, Supplier<Boolean> bump, double bumpSpeed) {
 
-        // Set the subsystem
+        // Set the subsystems
         this.shooterSubsystem = shooterSubsystem;
+        this.bumpSubsystem = bumpSubsystem;
 
         // Save the speed
         this.speed = speed;
@@ -33,7 +36,7 @@ public class RevShoot extends Command {
         this.bumpSpeed = bumpSpeed;
 
         // Adds the requirement of subsystem(s) so two commands can't use it at once
-        addRequirements(shooterSubsystem);
+        addRequirements(shooterSubsystem, bumpSubsystem);
     }
 
     // Runs once when initialized
@@ -49,7 +52,9 @@ public class RevShoot extends Command {
 
         // When ready, start the bump motor to shoot the balls
         if (bump.get()) {
-            shooterSubsystem.bump(bumpSpeed);
+            bumpSubsystem.bump(bumpSpeed);
+        } else {
+            bumpSubsystem.bump(0.0);
         }
         
     }
@@ -58,7 +63,7 @@ public class RevShoot extends Command {
     @Override
     public void end(boolean interrupted) {
         shooterSubsystem.shoot(0.0);
-        shooterSubsystem.bump(0.0);
+        bumpSubsystem.bump(0.0);
     }
 
     @Override
