@@ -12,6 +12,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
+import frc.robot.Constants.BumpConstants;
 import frc.robot.Constants.ComputerConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.IntakeConstants;
@@ -140,10 +141,10 @@ public class RobotContainer {
         primary.y().whileTrue(new MoveWallBed(wallBedSubsystem, -0.1));
 
         // Bump - POV UP
-        primary.povUp().whileTrue(new Bump(bumpSubsystem, ShooterConstants.bumpSpeed));
+        primary.povUp().whileTrue(new Bump(bumpSubsystem, BumpConstants.bumpSpeed));
 
         // Bump Rev - POV DOWN
-        primary.povDown().whileTrue(new Bump(bumpSubsystem, -ShooterConstants.bumpSpeed));
+        primary.povDown().whileTrue(new Bump(bumpSubsystem, -BumpConstants.bumpSpeed));
 
         
 

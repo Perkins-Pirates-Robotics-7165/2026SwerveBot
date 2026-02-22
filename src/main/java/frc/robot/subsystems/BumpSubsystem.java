@@ -4,12 +4,12 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ShooterConstants;
+import frc.robot.Constants.BumpConstants;
 
 public class BumpSubsystem extends SubsystemBase {
 
     // The motor right below the shooter motor, used to bump the balls up to it
-    private final SparkFlex bumpMotor = new SparkFlex(ShooterConstants.bumpMotorID, MotorType.kBrushless);
+    private final SparkFlex bumpMotor = new SparkFlex(BumpConstants.bumpMotorID, MotorType.kBrushless);
 
 
     // Initializer, use to set configurations and set attributes

@@ -22,10 +22,18 @@ public class Constants {
 
         // Motor ids
         public static final int shooterMotorID = 1;
-        public static final int bumpMotorID = 2;
 
         // Motor base speeds
         public static final double shooterSpeed = 0.2;
+    }
+
+    // Constants for the bump subsystem
+    public static class BumpConstants {
+
+        // Motor ids
+        public static final int bumpMotorID = 2;
+
+        // Motor base speeds
         public static final double bumpSpeed = 0.35;
     }
 
