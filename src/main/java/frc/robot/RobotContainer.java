@@ -118,6 +118,15 @@ public class RobotContainer {
         primary.leftTrigger(0.1).whileTrue(new Shoot(shooterSubsystem, ShooterConstants.shooterSpeed));
 
 
+        /* Bump */
+
+        // Bump - B
+        primary.b().whileTrue(new Bump(bumpSubsystem, BumpConstants.bumpSpeed));
+
+        // Bump Rev - X
+        primary.x().whileTrue(new Bump(bumpSubsystem, -BumpConstants.bumpSpeed));
+
+
         /* Intake */
 
         // Intake Motor Rev - A
@@ -129,20 +138,14 @@ public class RobotContainer {
         
         /* Wall Bed */
 
-        // Move Wall Bed Forward - B
-        primary.b().whileTrue(new MoveWallBed(wallBedSubsystem, WallBedConstants.wallBedSpeed));
+        // Move Wall Bed Up - POV UP
+        primary.povUp().whileTrue(new MoveWallBed(wallBedSubsystem, WallBedConstants.wallBedSpeed));
 
-        // Move Wall Bed Rev - X
-        primary.x().whileTrue(new MoveWallBed(wallBedSubsystem, -WallBedConstants.wallBedSpeed));
+        // Move Wall Bed Down - POV DOWN
+        primary.povDown().whileTrue(new MoveWallBed(wallBedSubsystem, -WallBedConstants.wallBedSpeed));
 
 
-        /* Bump */
-
-        // Bump - POV UP
-        primary.povUp().whileTrue(new Bump(bumpSubsystem, BumpConstants.bumpSpeed));
-
-        // Bump Rev - POV DOWN
-        primary.povDown().whileTrue(new Bump(bumpSubsystem, -BumpConstants.bumpSpeed));
+        
 
         
 
