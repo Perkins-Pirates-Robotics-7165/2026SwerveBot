@@ -109,6 +109,10 @@ public class RobotContainer {
 
         /* Primary Controller */
 
+
+        /* Drive */
+        primary.leftBumper().whileTrue(drivetrain.applyRequest(() -> brake));
+
         /* Shoot */
 
         // Shoot - Right trigger
