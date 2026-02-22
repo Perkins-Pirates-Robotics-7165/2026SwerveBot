@@ -111,7 +111,7 @@ public class RobotContainer {
 
 
         /* Drive */
-        
+
         primary.leftBumper().whileTrue(drivetrain.applyRequest(() -> brake));
 
 
@@ -135,10 +135,10 @@ public class RobotContainer {
 
         /* Intake */
 
-        // Intake Motor Rev - A
+        // Intake Motor - A
         primary.a().whileTrue(new Intake(intakeSubsystem, IntakeConstants.intakeSpeed));
 
-        // Intake Motor - Y
+        // Intake Motor Rev - Y
         primary.y().whileTrue(new Intake(intakeSubsystem, -IntakeConstants.intakeSpeed));
 
         
