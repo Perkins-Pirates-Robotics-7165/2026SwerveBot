@@ -17,16 +17,19 @@ import frc.robot.Constants.ComputerConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.Constants.SuckConstants;
 import frc.robot.Constants.WallBedConstants;
 import frc.robot.commands.Bump;
 import frc.robot.commands.Intake;
 import frc.robot.commands.MoveWallBed;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.Suck;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.BumpSubsystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.SuckSubsystem;
 import frc.robot.subsystems.WallBedSubsystem;
 
 public class RobotContainer {
@@ -60,6 +63,7 @@ public class RobotContainer {
     private final WallBedSubsystem wallBedSubsystem = new WallBedSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
     private final BumpSubsystem bumpSubsystem = new BumpSubsystem();
+    private final SuckSubsystem suckSubsystem = new SuckSubsystem();;
 
 
 
@@ -136,10 +140,12 @@ public class RobotContainer {
         /* Intake */
 
         // Intake Motor - A
-        primary.a().whileTrue(new Intake(intakeSubsystem, IntakeConstants.intakeSpeed));
+        // TODO: Fix the reversing here
+        primary.a().whileTrue(new Intake(intakeSubsystem, -IntakeConstants.intakeSpeed));
 
-        // Intake Motor Rev - Y
-        primary.y().whileTrue(new Intake(intakeSubsystem, -IntakeConstants.intakeSpeed));
+        // TODO: Add back
+        // // Intake Motor Rev - Y
+        // primary.y().whileTrue(new Intake(intakeSubsystem, -IntakeConstants.intakeSpeed));
 
         
         /* Wall Bed */
@@ -151,6 +157,8 @@ public class RobotContainer {
         primary.povDown().whileTrue(new MoveWallBed(wallBedSubsystem, -WallBedConstants.wallBedSpeed));
 
 
+        /* Suck */
+        primary.y().whileTrue(new Suck(suckSubsystem, -SuckConstants.suckSpeed));
         
 
         

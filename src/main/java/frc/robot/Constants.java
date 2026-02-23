@@ -24,7 +24,7 @@ public class Constants {
         public static final int shooterMotorID = 1;
 
         // Motor base speeds
-        public static final double shooterSpeed = 0.2;
+        public static final double shooterSpeed = 0.3;
     }
 
     // Constants for the bump subsystem
@@ -34,7 +34,17 @@ public class Constants {
         public static final int bumpMotorID = 2;
 
         // Motor base speeds
-        public static final double bumpSpeed = 0.35;
+        public static final double bumpSpeed = 0.7;
+    }
+
+    // Constants for the suck thing on the robot
+    public static class SuckConstants {
+    
+        // Motor ids
+        public static final int suckMotorID = 3;
+
+        // Motor base speeds
+        public static final double suckSpeed = 0.8;    
     }
 
     // Constants for the intake subsystem
