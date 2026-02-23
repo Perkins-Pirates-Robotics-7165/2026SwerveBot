@@ -1,29 +1,29 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.WallBedSubsystem;
 
-public class Shoot extends Command {
+public class MoveWallBed extends Command {
 
-    private final ShooterSubsystem shooterSubsystem;
+    private final WallBedSubsystem wallBedSubsystem;
     private final double speed;
 
     /**
-     * Shoots balls with the shooter subsystem
+     * Move the wall bed system
      * 
-     * @param shooterSubsystem - The subsystem for shooting
-     * @param speed - Shooter motor speed [-1.0, 1.0]. 
+     * @param wallBedSubsystem - The wall bed subsystem to control intake
+     * @param speed - Wall bed movement speed [-1.0, 1.0]. 
      */
-    public Shoot(ShooterSubsystem shooterSubsystem, double speed) {
+    public MoveWallBed(WallBedSubsystem wallBedSubsystem, double speed) {
 
         // Set the subsystem
-        this.shooterSubsystem = shooterSubsystem;
+        this.wallBedSubsystem = wallBedSubsystem;
 
         // Save the speed
         this.speed = speed;
 
         // Adds the requirement of subsystem(s) so two commands can't use it at once
-        addRequirements(shooterSubsystem);
+        addRequirements(wallBedSubsystem);
     }
 
     // Runs once when initialized
@@ -33,14 +33,14 @@ public class Shoot extends Command {
     // Runs while the command is 'sceduled' (aka. while the button is pressed on with a .whileTrue)
     @Override
     public void execute() {
-        // Shoot the balls with the set speed
-        shooterSubsystem.shoot(speed);
+        // Start the wall bed with the givin speed
+        wallBedSubsystem.moveWallBedMotor(speed);
     }
 
     // When the command is finished
     @Override
     public void end(boolean interrupted) {
-        shooterSubsystem.shoot(0.0);
+        wallBedSubsystem.moveWallBedMotor(0.0);
     }
 
     @Override

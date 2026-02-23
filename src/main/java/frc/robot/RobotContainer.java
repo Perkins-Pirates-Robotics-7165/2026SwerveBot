@@ -12,18 +12,31 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
+import frc.robot.Constants.BumpConstants;
 import frc.robot.Constants.ComputerConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.IntakeConstants;
+import frc.robot.Constants.ShooterConstants;
+import frc.robot.Constants.WallBedConstants;
+import frc.robot.commands.Bump;
+import frc.robot.commands.Intake;
+import frc.robot.commands.MoveWallBed;
 import frc.robot.commands.Shoot;
 import frc.robot.generated.TunerConstants;
+import frc.robot.subsystems.BumpSubsystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.WallBedSubsystem;
 
 public class RobotContainer {
 
 
 
     /* Drivetrain */
+
+    // Drivetrain Subsystem
+    private final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
     // Max speed multipliers for drivetrain
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -38,27 +51,39 @@ public class RobotContainer {
     // Drivetarin logger
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
-    // Drivetrain Subsystem
-    public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
-
     
 
     /* Subsystems */
 
     // Shooter subsystem
-    public final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+    private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+    private final WallBedSubsystem wallBedSubsystem = new WallBedSubsystem();
+    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+    private final BumpSubsystem bumpSubsystem = new BumpSubsystem();
 
 
 
     /* Controllers */
 
-    // primary controller
+    // Primary controller
     private final CommandXboxController primary = new CommandXboxController(ComputerConstants.primaryPort);
 
+
+
+    /*
+     * First ran command
+     * 
+     * Used for ordering what happens in the robot
+     */
     public RobotContainer() {
         configureBindings();
     }
 
+    /*
+     * Set the controller commands
+     * 
+     * Ran only once
+     */
     private void configureBindings() {
 
         /* Drivetrain Stuff */
@@ -85,19 +110,66 @@ public class RobotContainer {
         /* Primary Controller */
 
 
-        // Set Brake - A
-        primary.a().whileTrue(drivetrain.applyRequest(() -> brake));
+        /* Drive */
 
+<<<<<<< HEAD
         // Shoot - Left trigger, speed controlled
         primary.leftTrigger().whileTrue(new Shoot(shooterSubsystem, 0.7));
+=======
+        primary.leftBumper().whileTrue(drivetrain.applyRequest(() -> brake));
+>>>>>>> prePartCode
 
 
+        /* Shoot */
 
+        // Shoot - Right trigger
+        primary.rightTrigger(0.1).whileTrue(new Shoot(shooterSubsystem, -ShooterConstants.shooterSpeed));
+
+        // Shoot Rev
+        primary.leftTrigger(0.1).whileTrue(new Shoot(shooterSubsystem, ShooterConstants.shooterSpeed));
+
+
+        /* Bump */
+
+        // Bump - B
+        primary.b().whileTrue(new Bump(bumpSubsystem, BumpConstants.bumpSpeed));
+
+        // Bump Rev - X
+        primary.x().whileTrue(new Bump(bumpSubsystem, -BumpConstants.bumpSpeed));
+
+
+        /* Intake */
+
+        // Intake Motor - A
+        primary.a().whileTrue(new Intake(intakeSubsystem, IntakeConstants.intakeSpeed));
+
+        // Intake Motor Rev - Y
+        primary.y().whileTrue(new Intake(intakeSubsystem, -IntakeConstants.intakeSpeed));
+
+        
+        /* Wall Bed */
+
+        // Move Wall Bed Up - POV UP
+        primary.povUp().whileTrue(new MoveWallBed(wallBedSubsystem, WallBedConstants.wallBedSpeed));
+
+        // Move Wall Bed Down - POV DOWN
+        primary.povDown().whileTrue(new MoveWallBed(wallBedSubsystem, -WallBedConstants.wallBedSpeed));
+
+
+        
+
+        
+
+
+        /* Telemtry */
 
         // Log Telemetry
         drivetrain.registerTelemetry(logger::telemeterize);
     }
 
+    /*
+     * Returns what command will be ran in autonomus, passing it to Robot.java
+     */
     public Command getAutonomousCommand() {
         return null;
     }

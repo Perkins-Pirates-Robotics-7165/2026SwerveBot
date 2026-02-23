@@ -1,26 +1,25 @@
 package frc.robot.subsystems;
-
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ShooterConstants;
+import frc.robot.Constants.IntakeConstants;
 
-public class ShooterSubsystem extends SubsystemBase {
+public class IntakeSubsystem extends SubsystemBase {
 
-    // The motor that launches the balls out to the feild
-    private final SparkFlex shooterMotor = new SparkFlex(ShooterConstants.shooterMotorID, MotorType.kBrushless);
+    // The motor on the intake, used to throw balls into the bin
+    private final SparkFlex intakeMotor = new SparkFlex(IntakeConstants.intakeMotorID, MotorType.kBrushless);
 
     // Initializer, use to set configurations and set attributes
-    public ShooterSubsystem() {}
+    public IntakeSubsystem() {}
 
     /*
-     * Start the shooter
+     * Start the intake
      * 
-     * @param speed - Shooter Motor drive percentage [-1.0, 1.0]
+     * @param speed - Intake motor drive percentage [-1.0, 1.0]
      */
-    public void shoot(double speed) {
-        shooterMotor.set(speed);
+    public void intake(double speed) {
+        intakeMotor.set(speed);
     }
 
     // Period function on field, called every 20ms
