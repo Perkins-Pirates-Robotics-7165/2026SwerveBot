@@ -35,6 +35,16 @@ This is just a planning markdown file to list subsystems / commands / whatever e
     - Swivel Motor
   - Methods:
     - moveSwivel(speed) -->
+- Bump Subsystem
+    - Motors:
+        - Bump Motor
+    - Methods:
+        - bump(speed)
+- Suck Subsystem
+    - Motors:
+        - Suck Motor
+    - Methods:
+        - suck(speed)
 - Intake Subsystem
   - Motors:
     - Intake Motor
@@ -43,16 +53,8 @@ This is just a planning markdown file to list subsystems / commands / whatever e
 - WallBed Subsystem
   - Motors:
     - Wallbed Motor
-  - Parts:
-    - Limit Switch
   - Methods:
-
-| Name | Params | Return Value |
-| --------------- | --------------- | --------------- |
-| setWallbedState | WallBedState.State | void |
-| moveWallBedMotor | speed | void |
-| getWallBedLimitSwitchState | void | boolean |
-
+    - moveWallBed(speed)
 - Limelight Subsystem
   - Parts:
     - Limelight
@@ -77,9 +79,18 @@ This is just a planning markdown file to list subsystems / commands / whatever e
 - Shoot
   - Subsystem Requirements:
     - Shooter Subsystem
+- Bump
+    - Subsystem Requirements:
+        - Bump Subsystem
+- Suck
+    - Subsystem Requirements:
+        - Suck Subsystem
 - Intake
   - Subsystem Requirements:
     - Intake Subsystem
+- MoveWallBed
+    - Subsystem Requirements:
+        - Wall Bed Subsystem
 
 ## Motor IDs
 
@@ -100,18 +111,30 @@ This is just a planning markdown file to list subsystems / commands / whatever e
 | BRight   | 41       | Kraken Drive |
 | BRight   | 42       |  CanCoder |
 
-### Shooter
+### Shoot
 
 | Motor Use      | CAN ID | Motor Type |
 |---------------|----------|------------|
-| Shooter Motor | 0        | TalonFX    |
-| Shooter Bump motor | 5        | TalonFX    |
+| Shooter Motor | 1        | Neo Vortex    |
+
+### Bump
+
+| Motor Use      | CAN ID | Motor Type |
+|---------------|----------|------------|
+| Bump Motor | 2        | Neo Vortex    |
+
+### Suck
+
+| Motor Use      | CAN ID | Motor Type |
+|---------------|----------|------------|
+| Suck Motor | 3        | Neo Vortex    |
+
 
 ### Intake
 
 | Motor Use     | CAN ID | Motor Type |
 |--------------|----------|------------|
-| Intake Motor | 9        | TalonFX    |
+| Intake Motor | 5        | Neo Vortex    |
 
 ### WallBed
 

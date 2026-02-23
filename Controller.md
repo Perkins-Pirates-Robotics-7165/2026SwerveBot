@@ -24,7 +24,7 @@ It would be nice to have a graphic, but I don't really know how to do that (sorr
 | Button | Action | Run Type | Command |
 | --------------- | --------------- | --------------- | --------------- |
 | Left Stick | Drive | Default Command | SwerveRequest.FeildCentric |
-| Right Stick | Turn | Default Command | SwerveReuqest.FeildCentric |
+| Right Stick | Turn | Default Command | SwerveRequest.FeildCentric |
 
 ### P Sticks (Pressed)
 
@@ -40,7 +40,7 @@ It would be nice to have a graphic, but I don't really know how to do that (sorr
 | A | Intake | While True | Intake |
 | B | Bump | While True | Bump |
 | X | Reverse Bump | While True | Bump |
-| Y | Reverse Intake | While True | Intake |
+| Y | Suck | While True | Suck |
 
 ### P POV Buttons
 

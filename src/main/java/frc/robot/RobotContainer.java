@@ -136,6 +136,10 @@ public class RobotContainer {
         // Bump Rev - X
         primary.x().whileTrue(new Bump(bumpSubsystem, -BumpConstants.bumpSpeed));
 
+        
+        /* Suck */
+        primary.y().whileTrue(new Suck(suckSubsystem, -SuckConstants.suckSpeed));
+
 
         /* Intake */
 
@@ -157,8 +161,7 @@ public class RobotContainer {
         primary.povDown().whileTrue(new MoveWallBed(wallBedSubsystem, -WallBedConstants.wallBedSpeed));
 
 
-        /* Suck */
-        primary.y().whileTrue(new Suck(suckSubsystem, -SuckConstants.suckSpeed));
+        
         
 
         
