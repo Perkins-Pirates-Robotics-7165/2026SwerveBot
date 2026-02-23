@@ -112,12 +112,7 @@ public class RobotContainer {
 
         /* Drive */
 
-<<<<<<< HEAD
-        // Shoot - Left trigger, speed controlled
-        primary.leftTrigger().whileTrue(new Shoot(shooterSubsystem, 0.7));
-=======
         primary.leftBumper().whileTrue(drivetrain.applyRequest(() -> brake));
->>>>>>> prePartCode
 
 
         /* Shoot */
