@@ -1,6 +1,6 @@
 # Robot
 
-This is just a planning markdown file to list subsystems / commands / whatever else I want to put down.
+An overview of commands, subsystems, and IDS for the robot.
 
 ## Table of Contents
 
@@ -36,15 +36,15 @@ This is just a planning markdown file to list subsystems / commands / whatever e
   - Methods:
     - moveSwivel(speed) -->
 - Bump Subsystem
-    - Motors:
-        - Bump Motor
-    - Methods:
-        - bump(speed)
+  - Motors:
+    - Bump Motor
+  - Methods:
+    - bump(speed)
 - Suck Subsystem
-    - Motors:
-        - Suck Motor
-    - Methods:
-        - suck(speed)
+  - Motors:
+    - Suck Motor
+  - Methods:
+    - suck(speed)
 - Intake Subsystem
   - Motors:
     - Intake Motor
@@ -80,17 +80,17 @@ This is just a planning markdown file to list subsystems / commands / whatever e
   - Subsystem Requirements:
     - Shooter Subsystem
 - Bump
-    - Subsystem Requirements:
-        - Bump Subsystem
+  - Subsystem Requirements:
+    - Bump Subsystem
 - Suck
-    - Subsystem Requirements:
-        - Suck Subsystem
+  - Subsystem Requirements:
+    - Suck Subsystem
 - Intake
   - Subsystem Requirements:
     - Intake Subsystem
 - MoveWallBed
-    - Subsystem Requirements:
-        - Wall Bed Subsystem
+  - Subsystem Requirements:
+    - Wall Bed Subsystem
 
 ## Motor IDs
 
@@ -129,7 +129,6 @@ This is just a planning markdown file to list subsystems / commands / whatever e
 |---------------|----------|------------|
 | Suck Motor | 3        | Neo Vortex    |
 
-
 ### Intake
 
 | Motor Use     | CAN ID | Motor Type |
@@ -142,3 +141,4 @@ This is just a planning markdown file to list subsystems / commands / whatever e
 | --------------- | --------------- | --------------- |
 | WallBed Motor Main | 6 | TalonFX |
 | WallBed Motor Main | 7 | TalonFX |
+

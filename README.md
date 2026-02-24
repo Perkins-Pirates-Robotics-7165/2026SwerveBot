@@ -7,6 +7,7 @@ Our Swerve drive robot for the 2026 frc season, "Rebuilt."
 ## Features
 
 The current features of the our robot:
+
 - Over-Bumper Ball intake
   - Can be raised/lowered by two side arms
 - Central Ball Storage Bin
@@ -36,6 +37,7 @@ The current features of the our robot:
 ## A Thanks is in Order
 
 A specific thank you out to the mentors of FRC team 7165:
+
 - Dave Brodke
 - Jacob Gardin
 - John Neigel
