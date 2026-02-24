@@ -4,6 +4,8 @@ Our Swerve drive robot for the 2026 frc season, "Rebuilt."
 
 ## Perkins Pirate Robotics
 
+Perkins Pirate Robotics is a school sponsored team, sponsored by Perkins High School Robotics. Our team number with [FRC](https://www.firstinspires.org/programs/frc/) (FIRST Robotics Competition) is 7165.
+
 ## Features
 
 The current features of the our robot:
@@ -33,6 +35,18 @@ The current features of the our robot:
   - Can Intake 3-4 Balls at Once
 
 ## Program Topology
+
+The main direction of the code:
+
+- Main.java
+  - Robot.java
+    - RobotContainer.java
+      - Controllers
+      - Subsystems
+      - Commands
+        - Subsystems (from RobotContainer)
+
+For a more in-depth topology, see [TOPOLOGY.md](TOPOLOGY.md) (not made yet).
 
 ## A Thanks is in Order
 
