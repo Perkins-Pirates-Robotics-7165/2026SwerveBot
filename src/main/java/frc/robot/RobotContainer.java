@@ -22,6 +22,7 @@ import frc.robot.Constants.WallBedConstants;
 import frc.robot.commands.Bump;
 import frc.robot.commands.Intake;
 import frc.robot.commands.MoveWallBed;
+import frc.robot.commands.RevShoot;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.Suck;
 import frc.robot.generated.TunerConstants;
@@ -124,11 +125,11 @@ public class RobotContainer {
 
         /* Shoot */
 
-        // Shoot - Right trigger
-        secondary.rightTrigger(0.1).whileTrue(new Shoot(shooterSubsystem, -ShooterConstants.shooterSpeed));
+        // Shoot - Right trigger + Left Bumper
+        secondary.rightTrigger(0.1).whileTrue(new RevShoot(shooterSubsystem, suckSubsystem, -ShooterConstants.shooterSpeed, () -> secondary.leftBumper().getAsBoolean(), SuckConstants.suckSpeed));
 
         // Shoot Rev
-        secondary.leftTrigger(0.1).whileTrue(new Shoot(shooterSubsystem, ShooterConstants.shooterSpeed));
+        secondary.a().whileTrue(new Shoot(shooterSubsystem, ShooterConstants.shooterSpeed));
 
 
         /* Bump */
@@ -141,14 +142,14 @@ public class RobotContainer {
 
         
         /* Suck */
-        secondary.y().whileTrue(new Suck(suckSubsystem, -SuckConstants.suckSpeed));
+        // secondary.y().whileTrue(new Suck(suckSubsystem, -SuckConstants.suckSpeed));
 
 
         /* Intake */
 
         // Intake Motor - A
         // TODO: Fix the reversing here
-        secondary.a().whileTrue(new Intake(intakeSubsystem, -IntakeConstants.intakeSpeed));
+        secondary.leftTrigger(0.1).whileTrue(new Intake(intakeSubsystem, -IntakeConstants.intakeSpeed));
 
         // TODO: Add back
         // // Intake Motor Rev - Y
