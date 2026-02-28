@@ -72,6 +72,9 @@ public class RobotContainer {
     // Primary controller
     private final CommandXboxController primary = new CommandXboxController(ComputerConstants.primaryPort);
 
+    // Secondary controller
+    private final CommandXboxController secondary = new CommandXboxController(ComputerConstants.secondaryPort);
+
 
 
     /*
@@ -122,30 +125,30 @@ public class RobotContainer {
         /* Shoot */
 
         // Shoot - Right trigger
-        primary.rightTrigger(0.1).whileTrue(new Shoot(shooterSubsystem, -ShooterConstants.shooterSpeed));
+        secondary.rightTrigger(0.1).whileTrue(new Shoot(shooterSubsystem, -ShooterConstants.shooterSpeed));
 
         // Shoot Rev
-        primary.leftTrigger(0.1).whileTrue(new Shoot(shooterSubsystem, ShooterConstants.shooterSpeed));
+        secondary.leftTrigger(0.1).whileTrue(new Shoot(shooterSubsystem, ShooterConstants.shooterSpeed));
 
 
         /* Bump */
 
         // Bump - B
-        primary.b().whileTrue(new Bump(bumpSubsystem, BumpConstants.bumpSpeed));
+        secondary.b().whileTrue(new Bump(bumpSubsystem, BumpConstants.bumpSpeed));
 
         // Bump Rev - X
-        primary.x().whileTrue(new Bump(bumpSubsystem, -BumpConstants.bumpSpeed));
+        secondary.x().whileTrue(new Bump(bumpSubsystem, -BumpConstants.bumpSpeed));
 
         
         /* Suck */
-        primary.y().whileTrue(new Suck(suckSubsystem, -SuckConstants.suckSpeed));
+        secondary.y().whileTrue(new Suck(suckSubsystem, -SuckConstants.suckSpeed));
 
 
         /* Intake */
 
         // Intake Motor - A
         // TODO: Fix the reversing here
-        primary.a().whileTrue(new Intake(intakeSubsystem, -IntakeConstants.intakeSpeed));
+        secondary.a().whileTrue(new Intake(intakeSubsystem, -IntakeConstants.intakeSpeed));
 
         // TODO: Add back
         // // Intake Motor Rev - Y
@@ -155,10 +158,10 @@ public class RobotContainer {
         /* Wall Bed */
 
         // Move Wall Bed Up - POV UP
-        primary.povUp().whileTrue(new MoveWallBed(wallBedSubsystem, WallBedConstants.wallBedSpeed));
+        secondary.povUp().whileTrue(new MoveWallBed(wallBedSubsystem, WallBedConstants.wallBedSpeed));
 
         // Move Wall Bed Down - POV DOWN
-        primary.povDown().whileTrue(new MoveWallBed(wallBedSubsystem, -WallBedConstants.wallBedSpeed));
+        secondary.povDown().whileTrue(new MoveWallBed(wallBedSubsystem, -WallBedConstants.wallBedSpeed));
 
 
         

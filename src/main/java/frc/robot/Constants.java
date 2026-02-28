@@ -7,6 +7,7 @@ public class Constants {
 
         // Controller port numbers
         public static final int primaryPort = 0;
+        public static final int secondaryPort = 1;
     }
 
     // Extra control constants for the drivetrain
