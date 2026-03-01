@@ -65,12 +65,11 @@ public class RobotContainer {
     /* Subsystems */
 
     // Shooter subsystem
-    private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-    private final WallBedSubsystem wallBedSubsystem = new WallBedSubsystem();
-    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+    private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();    
     private final BumpSubsystem bumpSubsystem = new BumpSubsystem();
-    private final SuckSubsystem suckSubsystem = new SuckSubsystem();;
-
+    private final SuckSubsystem suckSubsystem = new SuckSubsystem();
+    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+    private final WallBedSubsystem wallBedSubsystem = new WallBedSubsystem();
 
 
     /* Controllers */
