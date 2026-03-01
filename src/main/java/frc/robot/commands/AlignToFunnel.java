@@ -71,7 +71,7 @@ public class AlignToFunnel extends Command {
         // Cloned xDrive so drive.withRotationalRate is happy with a final(ed) value
         final double clonedRotationDrive = rotationalDrive;
 
-        // Swivel the shooter with the motor's speed
+        // Rotate with the speed as needed
         drivetrain.applyRequest(() ->
             drive.withVelocityX(0.0) // Drive forward with negative Y (forward)
                 .withVelocityY(0.0) // Drive left with negative X (left)
