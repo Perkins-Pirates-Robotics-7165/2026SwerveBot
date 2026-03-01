@@ -3,9 +3,7 @@ package frc.robot.commands;
 import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.BumpConstants;
 import frc.robot.subsystems.BumpSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SuckSubsystem;
 
@@ -20,6 +18,8 @@ public class RevShoot extends Command {
     private final Supplier<Boolean> startSuck;
     private final double suckSpeed;
 
+    private final double bumpSpeed;
+
     /**
      * Start revving the shooter motor, then when ready start the suck motor
      * 
@@ -32,7 +32,8 @@ public class RevShoot extends Command {
         BumpSubsystem bumpSubsystem,
         double shooterSpeed,
         Supplier<Boolean> startSuck,
-        double suckSpeed
+        double suckSpeed,
+        double bumpSpeed
     ) {
 
         // Set the subsystems
@@ -46,6 +47,9 @@ public class RevShoot extends Command {
         // Save the suck speed & supplier
         this.startSuck = startSuck;
         this.suckSpeed = suckSpeed;
+
+        // Bump speed
+        this.bumpSpeed = bumpSpeed;
 
         // Adds the requirement of subsystem(s) so two commands can't use it at once
         addRequirements(shooterSubsystem, bumpSubsystem);
@@ -62,7 +66,7 @@ public class RevShoot extends Command {
         shooterSubsystem.shoot(shooterSpeed);
 
         // Start the bump
-        bumpSubsystem.bump(BumpConstants.bumpSpeed);
+        bumpSubsystem.bump(bumpSpeed);
 
         // If the startSuck supplier is true, than run it
         if (startSuck.get()) {

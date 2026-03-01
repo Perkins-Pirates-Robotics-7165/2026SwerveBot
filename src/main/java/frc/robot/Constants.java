@@ -16,7 +16,7 @@ public class Constants {
         // Speed multipliers
         public static final double driveSpeedMultiplier = 1.0;
         public static final double rotationSpeedMultiplier = 1.0;
-        public static final double strafeSpeed = 0.5;
+        public static final double strafeSpeed = 0.3;
     }
 
     // Constants for the shooter subsystem
@@ -26,7 +26,8 @@ public class Constants {
         public static final int shooterMotorID = 1;
 
         // Motor base speeds
-        public static final double shooterSpeed = 0.55;
+        public static final double shooterForwardSpeed = 0.55;
+        public static final double shooterReverseSpeed = -0.4;
     }
 
     // Constants for the bump subsystem
@@ -36,7 +37,8 @@ public class Constants {
         public static final int bumpMotorID = 2;
 
         // Motor base speeds
-        public static final double bumpSpeed = 1.0;
+        public static final double bumpForwardSpeed = 1.0;
+        public static final double bumpReverseSpeed = -1.0;
     }
 
     // Constants for the suck thing on the robot
@@ -46,7 +48,8 @@ public class Constants {
         public static final int suckMotorID = 3;
 
         // Motor base speeds
-        public static final double suckSpeed = 0.8;    
+        public static final double suckForwardSpeed = 0.8;    
+        public static final double suckReverseSpeed = -0.8;
     }
 
     // Constants for the intake subsystem
@@ -56,7 +59,8 @@ public class Constants {
         public static final int intakeMotorID = 5;
 
         // Motor base speeds
-        public static final double intakeSpeed = 0.5;
+        public static final double intakeForwardSpeed = 0.5;
+        public static final double intakeReverseSpeed = -0.5;
     }
 
     // Constants for the wall bed subsystem
@@ -67,7 +71,8 @@ public class Constants {
         public static final int wallBedFollowerMotorID = 7;
 
         // Motor base speeds
-        public static final double wallBedSpeed = 0.1;
+        public static final double wallBedRaiseSpeed = 0.1;
+        public static final double wallBedLowerSpeed = -0.1;
     }
 
     // Constants for the limelight constants

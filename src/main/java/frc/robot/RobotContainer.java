@@ -27,8 +27,6 @@ import frc.robot.commands.Bump;
 import frc.robot.commands.Intake;
 import frc.robot.commands.MoveWallBed;
 import frc.robot.commands.RevShoot;
-import frc.robot.commands.Shoot;
-import frc.robot.commands.Suck;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.BumpSubsystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -161,19 +159,39 @@ public class RobotContainer {
         /* Shoot */
 
         // Shoot - Right trigger + Left Bumper
-        secondary.rightTrigger(0.1).whileTrue(new RevShoot(shooterSubsystem, suckSubsystem, bumpSubsystem, -ShooterConstants.shooterSpeed, () -> secondary.leftBumper().getAsBoolean(), -SuckConstants.suckSpeed));
+        secondary.rightTrigger(0.1).whileTrue(
+            new RevShoot(
+                shooterSubsystem, 
+                suckSubsystem, 
+                bumpSubsystem, 
+                ShooterConstants.shooterForwardSpeed, 
+                () -> secondary.leftBumper().getAsBoolean(), 
+                SuckConstants.suckForwardSpeed,
+                BumpConstants.bumpReverseSpeed
+            )
+        );
 
         // Shoot Rev
-        secondary.a().whileTrue(new RevShoot(shooterSubsystem, suckSubsystem, bumpSubsystem, 0.4, () -> true, SuckConstants.suckSpeed));
-
+        secondary.a().whileTrue(
+            new RevShoot(
+                shooterSubsystem, 
+                suckSubsystem, 
+                bumpSubsystem, 
+                ShooterConstants.shooterReverseSpeed, 
+                () -> true, 
+                SuckConstants.suckReverseSpeed,
+                BumpConstants.bumpReverseSpeed
+            )
+        );
+                
 
         /* Bump */
 
         // Bump - B
-        secondary.b().whileTrue(new Bump(bumpSubsystem, BumpConstants.bumpSpeed));
+        secondary.b().whileTrue(new Bump(bumpSubsystem, BumpConstants.bumpForwardSpeed));
 
         // Bump Rev - X
-        secondary.x().whileTrue(new Bump(bumpSubsystem, -BumpConstants.bumpSpeed));
+        secondary.x().whileTrue(new Bump(bumpSubsystem, BumpConstants.bumpReverseSpeed));
 
         
         /* Suck */
@@ -183,21 +201,19 @@ public class RobotContainer {
         /* Intake */
 
         // Intake Motor - A
-        // TODO: Fix the reversing here
-        secondary.leftTrigger(0.1).whileTrue(new Intake(intakeSubsystem, -IntakeConstants.intakeSpeed));
+        secondary.leftTrigger(0.1).whileTrue(new Intake(intakeSubsystem, IntakeConstants.intakeForwardSpeed));
 
-        // TODO: Add back
         // // Intake Motor Rev - Y
-        primary.y().whileTrue(new Intake(intakeSubsystem, IntakeConstants.intakeSpeed));
+        primary.y().whileTrue(new Intake(intakeSubsystem, IntakeConstants.intakeReverseSpeed));
 
         
         /* Wall Bed */
 
         // Move Wall Bed Up - POV UP
-        secondary.povUp().whileTrue(new MoveWallBed(wallBedSubsystem, WallBedConstants.wallBedSpeed));
+        secondary.povUp().whileTrue(new MoveWallBed(wallBedSubsystem, WallBedConstants.wallBedRaiseSpeed));
 
         // Move Wall Bed Down - POV DOWN
-        secondary.povDown().whileTrue(new MoveWallBed(wallBedSubsystem, -WallBedConstants.wallBedSpeed));
+        secondary.povDown().whileTrue(new MoveWallBed(wallBedSubsystem, WallBedConstants.wallBedLowerSpeed));
 
 
         
