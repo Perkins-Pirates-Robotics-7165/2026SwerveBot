@@ -23,8 +23,8 @@ It would be nice to have a graphic, but I don't really know how to do that (sorr
 
 | Buttons | Action | Run Type | Command |
 | --------------- | --------------- | --------------- | --------------- |
-| Left Stick | **```Unassigned```** | **```Unassigned```** | **```Unassigned```** |
-| Right Stick | **```Unassigned```** | **```Unassigned```** | **```Unassigned```** |
+| Left Stick | Drive (Feild Centric) | Default Command | SwerveRequest.FieldCentric |
+| Right Stick | Rotate Bot | Default Command | SwerveRequest.FieldCentric |
 
 ### P Sticks (Pressed)
 
@@ -39,17 +39,17 @@ It would be nice to have a graphic, but I don't really know how to do that (sorr
 | --------------- | --------------- | --------------- | --------------- |
 | A | **```Unassigned```** | **```Unassigned```** | **```Unassigned```** |
 | B | **```Unassigned```** | **```Unassigned```** | **```Unassigned```** |
-| X | **```Unassigned```** | **```Unassigned```** | **```Unassigned```** |
+| X | Set Wheel Brake | While True | SwerveRequest.SwerveDriveBrake |
 | Y | **```Unassigned```** | **```Unassigned```** | **```Unassigned```** |
 
 ### P POV Buttons
 
 | Buttons | Action | Run Type | Command |
 | --------------- | --------------- | --------------- | --------------- |
-| POV Up | **```Unassigned```** | **```Unassigned```** | **```Unassigned```** |
-| POV Right | **```Unassigned```** | **```Unassigned```** | **```Unassigned```** |
-| POV Down | **```Unassigned```** | **```Unassigned```** | **```Unassigned```** |
-| POV Left | **```Unassigned```** | **```Unassigned```** | **```Unassigned```** |
+| POV Up | Robot Centric Forward | While True | SwerveRequest.RobotCentric |
+| POV Right | Robot Centric Right | While True | SwerveRequest.RobotCentric |
+| POV Down | Robot Centric Backword | While True | SwerveRequest.RobotCentric |
+| POV Left | Robot Centric Left | While True | SwerveRequest.RobotCentric |
 
 ## Secondary Controller
 

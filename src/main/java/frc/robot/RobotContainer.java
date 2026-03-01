@@ -101,17 +101,6 @@ public class RobotContainer {
 
         /* Drivetrain Stuff */
 
-        // Note that X is defined as forward according to WPILib convention,
-        // and Y is defined as to the left according to WPILib convention.
-        drivetrain.setDefaultCommand(
-            // Drivetrain will execute this command periodically
-            drivetrain.applyRequest(() ->
-                drive.withVelocityX(-primary.getLeftY() * MaxSpeed * DriveConstants.driveSpeedMultiplier) // Drive forward with negative Y (forward)
-                    .withVelocityY(-primary.getLeftX() * MaxSpeed * DriveConstants.driveSpeedMultiplier) // Drive left with negative X (left)
-                    .withRotationalRate(-primary.getRightX() * MaxAngularRate * DriveConstants.rotationSpeedMultiplier) // Drive counterclockwise with negative X (left)
-            )
-        );
-
         // Idle while the robot is disabled. This ensures the configured
         // neutral mode is applied to the drive motors while disabled.
         final var idle = new SwerveRequest.Idle();
@@ -125,99 +114,118 @@ public class RobotContainer {
 
         /* Drive */
 
-        primary.leftBumper().whileTrue(drivetrain.applyRequest(() -> brake));
+        // Drive Feild Centric + Rotate
+        drivetrain.setDefaultCommand(
+            drivetrain.applyRequest(() ->
+                drive.withVelocityX(-primary.getLeftY() * MaxSpeed * DriveConstants.driveSpeedMultiplier) // Drive forward with negative Y (forward)
+                    .withVelocityY(-primary.getLeftX() * MaxSpeed * DriveConstants.driveSpeedMultiplier) // Drive left with negative X (left)
+                    .withRotationalRate(-primary.getRightX() * MaxAngularRate * DriveConstants.rotationSpeedMultiplier) // Drive counterclockwise with negative X (left)
+            )
+        );
+
+        // Drive Robot Centric
 
         // UP FORWARD
         primary.povUp().whileTrue(drivetrain.applyRequest(() ->
             strafe.withVelocityX(Constants.DriveConstants.strafeSpeed * MaxSpeed) // Drive forward with negative Y (forward)
-                .withVelocityY(0 * MaxSpeed) // Drive left with negative X (left)
-                .withRotationalRate(0 * MaxAngularRate) // Drive counterclockwise with negative X (left)
+                .withVelocityY(0) // Drive left with negative X (left)
+                .withRotationalRate(0) // Drive counterclockwise with negative X (left)
         ));
 
         // DOWN BACK
         primary.povDown().whileTrue(drivetrain.applyRequest(() ->
             strafe.withVelocityX(-Constants.DriveConstants.strafeSpeed * MaxSpeed) // Drive forward with negative Y (forward)
-                .withVelocityY(0 * MaxSpeed) // Drive left with negative X (left)
-                .withRotationalRate(0 * MaxAngularRate) // Drive counterclockwise with negative X (left)
+                .withVelocityY(0) // Drive left with negative X (left)
+                .withRotationalRate(0) // Drive counterclockwise with negative X (left)
         ));
 
         // LEFT LEFT
         primary.povLeft().whileTrue(drivetrain.applyRequest(() ->
-            strafe.withVelocityX(0 * MaxSpeed) // Drive forward with negative Y (forward)
+            strafe.withVelocityX(0) // Drive forward with negative Y (forward)
                 .withVelocityY(Constants.DriveConstants.strafeSpeed * MaxSpeed) // Drive left with negative X (left)
-                .withRotationalRate(0 * MaxAngularRate) // Drive counterclockwise with negative X (left)
+                .withRotationalRate(0) // Drive counterclockwise with negative X (left)
         ));
 
         // RIGHT RIGHT
         primary.povRight().whileTrue(drivetrain.applyRequest(() ->
-            strafe.withVelocityX(0 * MaxSpeed) // Drive forward with negative Y (forward)
+            strafe.withVelocityX(0) // Drive forward with negative Y (forward)
                 .withVelocityY(-Constants.DriveConstants.strafeSpeed * MaxSpeed) // Drive left with negative X (left)
-                .withRotationalRate(0 * MaxAngularRate) // Drive counterclockwise with negative X (left)
+                .withRotationalRate(0) // Drive counterclockwise with negative X (left)
         ));
 
 
-        /* Shoot */
+        // Set wheel brake
+        primary.leftBumper().whileTrue(drivetrain.applyRequest(() -> brake));
 
-        // Shoot - Right trigger + Left Bumper
-        secondary.rightTrigger(0.1).whileTrue(
-            new RevShoot(
-                shooterSubsystem, 
-                suckSubsystem, 
-                bumpSubsystem, 
-                ShooterConstants.shooterForwardSpeed, 
-                () -> secondary.leftBumper().getAsBoolean(), 
-                SuckConstants.suckForwardSpeed,
-                BumpConstants.bumpReverseSpeed
-            )
-        );
 
-        // Shoot Rev
-        secondary.a().whileTrue(
-            new RevShoot(
-                shooterSubsystem, 
-                suckSubsystem, 
-                bumpSubsystem, 
-                ShooterConstants.shooterReverseSpeed, 
-                () -> true, 
-                SuckConstants.suckReverseSpeed,
-                BumpConstants.bumpReverseSpeed
-            )
-        );
+
+        // /* Secondary */
+
+
+        // /* Shoot */
+
+        // // Shoot - Right trigger + Left Bumper
+        // secondary.rightTrigger(0.1).whileTrue(
+        //     new RevShoot(
+        //         shooterSubsystem, 
+        //         suckSubsystem, 
+        //         bumpSubsystem, 
+        //         ShooterConstants.shooterForwardSpeed, 
+        //         () -> secondary.leftBumper().getAsBoolean(), 
+        //         SuckConstants.suckForwardSpeed,
+        //         BumpConstants.bumpReverseSpeed
+        //     )
+        // );
+
+        // // Shoot Rev
+        // secondary.a().whileTrue(
+        //     new RevShoot(
+        //         shooterSubsystem, 
+        //         suckSubsystem, 
+        //         bumpSubsystem, 
+        //         ShooterConstants.shooterReverseSpeed, 
+        //         () -> true, 
+        //         SuckConstants.suckReverseSpeed,
+        //         BumpConstants.bumpReverseSpeed
+        //     )
+        // );
                 
 
-        /* Bump */
+        // /* Bump */
 
-        // Bump - B
-        secondary.b().whileTrue(new Bump(bumpSubsystem, BumpConstants.bumpForwardSpeed));
+        // // Bump - B
+        // secondary.b().whileTrue(new Bump(bumpSubsystem, BumpConstants.bumpForwardSpeed));
 
-        // Bump Rev - X
-        secondary.x().whileTrue(new Bump(bumpSubsystem, BumpConstants.bumpReverseSpeed));
-
-        
-        /* Suck */
-        // secondary.y().whileTrue(new Suck(suckSubsystem, -SuckConstants.suckSpeed));
-
-
-        /* Intake */
-
-        // Intake Motor - A
-        secondary.leftTrigger(0.1).whileTrue(new Intake(intakeSubsystem, IntakeConstants.intakeForwardSpeed));
-
-        // // Intake Motor Rev - Y
-        primary.y().whileTrue(new Intake(intakeSubsystem, IntakeConstants.intakeReverseSpeed));
+        // // Bump Rev - X
+        // secondary.x().whileTrue(new Bump(bumpSubsystem, BumpConstants.bumpReverseSpeed));
 
         
-        /* Wall Bed */
+        // /* Suck */
+        // // secondary.y().whileTrue(new Suck(suckSubsystem, -SuckConstants.suckSpeed));
 
-        // Move Wall Bed Up - POV UP
-        secondary.povUp().whileTrue(new MoveWallBed(wallBedSubsystem, WallBedConstants.wallBedRaiseSpeed));
 
-        // Move Wall Bed Down - POV DOWN
-        secondary.povDown().whileTrue(new MoveWallBed(wallBedSubsystem, WallBedConstants.wallBedLowerSpeed));
+        // /* Intake */
+
+        // // Intake Motor - A
+        // secondary.leftTrigger(0.1).whileTrue(new Intake(intakeSubsystem, IntakeConstants.intakeForwardSpeed));
+
+        // // // Intake Motor Rev - Y
+        // primary.y().whileTrue(new Intake(intakeSubsystem, IntakeConstants.intakeReverseSpeed));
+
+        
+        // /* Wall Bed */
+
+        // // Move Wall Bed Up - POV UP
+        // secondary.povUp().whileTrue(new MoveWallBed(wallBedSubsystem, WallBedConstants.wallBedRaiseSpeed));
+
+        // // Move Wall Bed Down - POV DOWN
+        // secondary.povDown().whileTrue(new MoveWallBed(wallBedSubsystem, WallBedConstants.wallBedLowerSpeed));
 
 
         
-        
+        /* Smartdashboard */
+
+        // Reset feild centric button
         Trigger resetFieldCentric = new Trigger(() -> SmartDashboard.getBoolean("Reset Field Centric", false));
         resetFieldCentric.onTrue(
             Commands.sequence(
