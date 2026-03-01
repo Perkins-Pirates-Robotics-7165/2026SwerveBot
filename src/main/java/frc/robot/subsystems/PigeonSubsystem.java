@@ -16,14 +16,27 @@ public class PigeonSubsystem extends SubsystemBase {
 
     /* Full Rotation Structures */
 
-    // TODO: Find out more about the returned values:
-    // Rotation 2d
+    /*
+     * Get the Rotation 2d, which is mostly just a wrapper for the yaw.
+     * 
+     * Rotation2d.getSin() -> How much left is the robot facing (represented on the unit circle)
+     * Rotation2d.getCos() -> How much forward is the robot facing (represented on the unit circle)
+     * Rotation2d.getTan() -> Can return the slope, but not recommended to use due to deviding by 0
+     * 
+     */
     public static Rotation2d getRotation2d() {
         return pigeon.getRotation2d();
     }
 
-    // TODO: Find out more about the returned values
-    // Rotation 3d
+    
+    /*
+     * Get the Rotation 3d
+     * 
+     * Rotation3d.getX() -> Get robot roll / left + right tilt
+     * Rotation3d.getY() -> Get robot pitch / forward + backward tilt
+     * Rotation3d.getZ() -> Get robot yaw / left + right deviation
+     * 
+     */
     public static Rotation3d getRotation3d() {
         return pigeon.getRotation3d();
     }
@@ -31,7 +44,7 @@ public class PigeonSubsystem extends SubsystemBase {
 
     /* Get Pitch, Yaw, and Roll */
 
-    // Get forward / back tilt (Pitch)
+    // Get forward / backward tilt (Pitch)
     public static double getForwardBackTilt() {
         return pigeon.getPitch().getValueAsDouble();
     }
