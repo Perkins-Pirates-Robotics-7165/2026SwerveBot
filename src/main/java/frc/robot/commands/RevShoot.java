@@ -15,11 +15,12 @@ public class RevShoot extends Command {
 
     private final double shooterSpeed;
 
+    private final double bumpSpeed;
+
     private final Supplier<Boolean> startSuck;
     private final double suckSpeed;
 
-    private final double bumpSpeed;
-
+    
     /**
      * Start revving the shooter motor, then when ready start the suck motor
      * 
@@ -31,9 +32,9 @@ public class RevShoot extends Command {
         SuckSubsystem suckSubsystem,
         BumpSubsystem bumpSubsystem,
         double shooterSpeed,
+        double bumpSpeed,
         Supplier<Boolean> startSuck,
-        double suckSpeed,
-        double bumpSpeed
+        double suckSpeed
     ) {
 
         // Set the subsystems
@@ -44,13 +45,13 @@ public class RevShoot extends Command {
         // Save the shooter speed
         this.shooterSpeed = shooterSpeed;
 
-        // Save the suck speed & supplier
-        this.startSuck = startSuck;
-        this.suckSpeed = suckSpeed;
-
         // Bump speed
         this.bumpSpeed = bumpSpeed;
 
+        // Save the suck speed & supplier
+        this.startSuck = startSuck;
+        this.suckSpeed = suckSpeed;
+        
         // Adds the requirement of subsystem(s) so two commands can't use it at once
         addRequirements(shooterSubsystem, bumpSubsystem);
     }
@@ -80,8 +81,8 @@ public class RevShoot extends Command {
     @Override
     public void end(boolean interrupted) {
         shooterSubsystem.shoot(0.0);
-        suckSubsystem.suck(0.0);
         bumpSubsystem.bump(0.0);
+        suckSubsystem.suck(0.0);
     }
 
     @Override
