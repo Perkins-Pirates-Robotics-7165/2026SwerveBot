@@ -57,6 +57,11 @@ public class AlignToFunnel extends Command {
         // Get the offset from the limelight on the Tx axis
         double leftRightOffset = limelightSubsystem.getTx();
 
+        // TODO: create a smartHasTarget and use it in a spot like this
+        if (!limelightSubsystem.hasTarget()) {
+            leftRightOffset = 0.0;
+        }
+
         // Apply some PID configs to the leftRightOffset to get the rotational drive amount
         double rotationalDrive = leftRightOffset / AlignToFunnelConstants.leftRightOffsetP;
 
