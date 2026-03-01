@@ -76,9 +76,14 @@ public class Constants {
         public static final int wallBedMainMotorID = 6;
         public static final int wallBedFollowerMotorID = 7;
 
+        // Limit switch ports
+        public static final int wallBedLeftLimitSwitchPort = 0;
+        public static final int wallBedRightLimitSwitchPort = 1;
+
         // Motor base speeds
         public static final double wallBedRaiseSpeed = 0.1;
         public static final double wallBedLowerSpeed = -0.1;
+
     }
 
     // Constants for the limelight subsystem
