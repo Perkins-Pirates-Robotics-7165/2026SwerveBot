@@ -11,7 +11,7 @@ import frc.robot.Constants.SuckConstants;
 
 public class SuckSubsystem extends SubsystemBase {
 
-    // The motor sucking the balls to the main shooter box
+    // The motor seperating the bin from the shooter
     private final SparkFlex suckMotor = new SparkFlex(SuckConstants.suckMotorID, MotorType.kBrushless);
 
 

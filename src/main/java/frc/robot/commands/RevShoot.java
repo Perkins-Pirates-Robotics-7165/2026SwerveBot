@@ -9,28 +9,35 @@ import frc.robot.subsystems.SuckSubsystem;
 
 public class RevShoot extends Command {
 
+    // Subsystems
     private final ShooterSubsystem shooterSubsystem;
-    private final SuckSubsystem suckSubsystem;
     private final BumpSubsystem bumpSubsystem;
+    private final SuckSubsystem suckSubsystem;
 
+    // Shooter & Bump speeds for the rev
     private final double shooterSpeed;
-
     private final double bumpSpeed;
 
+    // Suck speed & supplier to start the suck or not
     private final Supplier<Boolean> startSuck;
     private final double suckSpeed;
 
     
     /**
-     * Start revving the shooter motor, then when ready start the suck motor
+     * Start revving the shooter & bump motor, then when ready start the suck motor
      * 
      * @param shooterSubsystem - The subsystem for shooting
-     * @param speed - Shooter motor speed [-1.0, 1.0]. 
+     * @param bumpSubsystem - The subsystem for bumping the balls
+     * @param suckSubsystem - The subsystem for sucking balls
+     * @param shooterSpeed - Shooter motor speed [-1.0, 1.0].
+     * @param bumpSpeed - Bump motor speed [-1.0, 1.0].  
+     * @param startSuck - Boolean suplier used for when to start the suck motor (true -> start)
+     * @param suckSpeed - Suck motor speed [-1.0, 1.0].  
      */
     public RevShoot(
         ShooterSubsystem shooterSubsystem, 
-        SuckSubsystem suckSubsystem,
         BumpSubsystem bumpSubsystem,
+        SuckSubsystem suckSubsystem,
         double shooterSpeed,
         double bumpSpeed,
         Supplier<Boolean> startSuck,
@@ -63,13 +70,11 @@ public class RevShoot extends Command {
     // Runs while the command is 'sceduled' (aka. while the button is pressed on with a .whileTrue)
     @Override
     public void execute() {
-        // Start reving the shooter
+        // Start reving the shooter & bump
         shooterSubsystem.shoot(shooterSpeed);
-
-        // Start the bump
         bumpSubsystem.bump(bumpSpeed);
 
-        // If the startSuck supplier is true, than run it
+        // If the startSuck supplier is true, run the suck motor, turn it off if supplier is false
         if (startSuck.get()) {
             suckSubsystem.suck(suckSpeed);
         } else {

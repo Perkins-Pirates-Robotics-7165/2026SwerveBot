@@ -26,7 +26,7 @@ import frc.robot.Constants.WallBedConstants;
 import frc.robot.commands.Intake;
 import frc.robot.commands.MoveWallBed;
 import frc.robot.commands.RevShoot;
-import frc.robot.commands.ShootReverse;
+import frc.robot.commands.ShooterFullRun;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.BumpSubsystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -37,8 +37,6 @@ import frc.robot.subsystems.WallBedSubsystem;
 
 public class RobotContainer {
 
-
-
     /* Drivetrain */
 
     // Drivetrain Subsystem
@@ -47,6 +45,7 @@ public class RobotContainer {
     // Max speed multipliers for drivetrain (generated)
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond);
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond);
+
 
     // Drive moving methods
 
@@ -88,6 +87,8 @@ public class RobotContainer {
 
 
 
+    /* Methods */
+
     /*
      * First ran command
      * 
@@ -103,7 +104,7 @@ public class RobotContainer {
     }
 
     /*
-     * Set the controller commands
+     * Start defining commands for things like buttons, smartdashboard, etc.
      * 
      * Ran only once
      */
@@ -128,38 +129,38 @@ public class RobotContainer {
             drivetrain.applyRequest(() ->
                 drive.withVelocityX(-primary.getLeftY() * MaxSpeed * DriveConstants.driveSpeedMultiplier) // Drive forward with negative Y (forward)
                     .withVelocityY(-primary.getLeftX() * MaxSpeed * DriveConstants.driveSpeedMultiplier) // Drive left with negative X (left)
-                    .withRotationalRate(-primary.getRightX() * MaxAngularRate * DriveConstants.rotationSpeedMultiplier) // Drive counterclockwise with negative X (left)
+                    .withRotationalRate(-primary.getRightX() * MaxAngularRate * DriveConstants.rotationSpeedMultiplier) // Drive clockwie with negative X (left)
             )
         );
 
         // Drive Robot Centric
 
-        // UP FORWARD
+        // Forward - POV UP
         primary.povUp().whileTrue(drivetrain.applyRequest(() ->
             strafe.withVelocityX(Constants.DriveConstants.strafeSpeed * MaxSpeed) // Drive forward with negative Y (forward)
                 .withVelocityY(0) // Drive left with negative X (left)
         ));
 
-        // DOWN BACK
-        primary.povDown().whileTrue(drivetrain.applyRequest(() ->
-            strafe.withVelocityX(-Constants.DriveConstants.strafeSpeed * MaxSpeed) // Drive forward with negative Y (forward)
-                .withVelocityY(0) // Drive left with negative X (left)
-        ));
-
-        // LEFT LEFT
-        primary.povLeft().whileTrue(drivetrain.applyRequest(() ->
-            strafe.withVelocityX(0) // Drive forward with negative Y (forward)
-                .withVelocityY(Constants.DriveConstants.strafeSpeed * MaxSpeed) // Drive left with negative X (left)
-        ));
-
-        // RIGHT RIGHT
+        // Right - POV RIGHT
         primary.povRight().whileTrue(drivetrain.applyRequest(() ->
             strafe.withVelocityX(0) // Drive forward with negative Y (forward)
                 .withVelocityY(-Constants.DriveConstants.strafeSpeed * MaxSpeed) // Drive left with negative X (left)
         ));
 
+        // Backward - POV DOWN
+        primary.povDown().whileTrue(drivetrain.applyRequest(() ->
+            strafe.withVelocityX(-Constants.DriveConstants.strafeSpeed * MaxSpeed) // Drive forward with negative Y (forward)
+                .withVelocityY(0) // Drive left with negative X (left)
+        ));
 
-        // Set wheel brake
+        // Left - POV LEFT
+        primary.povLeft().whileTrue(drivetrain.applyRequest(() ->
+            strafe.withVelocityX(0) // Drive forward with negative Y (forward)
+                .withVelocityY(Constants.DriveConstants.strafeSpeed * MaxSpeed) // Drive left with negative X (left)
+        ));
+
+
+        // Set Wheel Brake - A
         primary.leftBumper().whileTrue(drivetrain.applyRequest(() -> brake));
 
 
@@ -173,8 +174,8 @@ public class RobotContainer {
         secondary.rightTrigger(ShooterConstants.triggerThreshold).whileTrue(
             new RevShoot(
                 shooterSubsystem, 
-                suckSubsystem, 
                 bumpSubsystem, 
+                suckSubsystem, 
                 ShooterConstants.shooterForwardSpeed,
                 BumpConstants.bumpReverseSpeed,
                 () -> secondary.leftBumper().getAsBoolean(), 
@@ -182,12 +183,12 @@ public class RobotContainer {
             )
         );
 
-        // Shoot Rev
+        // Shoot Reverse - A
         secondary.a().whileTrue(
-            new ShootReverse(
+            new ShooterFullRun(
                 shooterSubsystem, 
-                suckSubsystem, 
                 bumpSubsystem, 
+                suckSubsystem, 
                 ShooterConstants.shooterReverseSpeed,
                 BumpConstants.bumpReverseSpeed,
                 SuckConstants.suckReverseSpeed
@@ -210,10 +211,10 @@ public class RobotContainer {
         
         /* Wall Bed */
 
-        // Move Wall Bed Up - POV UP
+        // Raise Wall Bed - POV UP
         secondary.povUp().whileTrue(new MoveWallBed(wallBedSubsystem, WallBedConstants.wallBedRaiseSpeed));
 
-        // Move Wall Bed Down - POV DOWN
+        // Lower Wall Bed - POV DOWN
         secondary.povDown().whileTrue(new MoveWallBed(wallBedSubsystem, WallBedConstants.wallBedLowerSpeed));
 
 

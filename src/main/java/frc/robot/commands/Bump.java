@@ -9,9 +9,9 @@ public class Bump extends Command {
     private final double speed;
 
     /**
-     * Bump balls to the shooter with the shooter subsystem
+     * Bump up balls so the shooter wheels can catch them
      * 
-     * @param bumpSubsystem - The subsystem for bumping the balls to the shooter
+     * @param bumpSubsystem - The subsystem that controls the bump motors
      * @param speed - Bump motor speed [-1.0, 1.0]. 
      */
     public Bump(BumpSubsystem bumpSubsystem, double speed) {

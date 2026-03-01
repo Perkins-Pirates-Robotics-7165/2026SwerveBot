@@ -6,21 +6,21 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class Intake extends Command {
 
     private final IntakeSubsystem intakeSubsystem;
-    private final double speed;
+    private final double intakeSpeed;
 
     /**
      * Intake balls with the intake subsystem
      * 
-     * @param intakeSubsystem - The intake subsystem to control intake
-     * @param speed - Intake motor speed [-1.0, 1.0]. 
+     * @param intakeSubsystem - The subsystem to control the intake
+     * @param intakeSpeed - Intake motor speed [-1.0, 1.0]. 
      */
-    public Intake(IntakeSubsystem intakeSubsystem, double speed) {
+    public Intake(IntakeSubsystem intakeSubsystem, double intakeSpeed) {
 
         // Set the subsystem
         this.intakeSubsystem = intakeSubsystem;
 
-        // Save the speed
-        this.speed = speed;
+        // Save the intake speed
+        this.intakeSpeed = intakeSpeed;
 
         // Adds the requirement of subsystem(s) so two commands can't use it at once
         addRequirements(intakeSubsystem);
@@ -34,7 +34,7 @@ public class Intake extends Command {
     @Override
     public void execute() {
         // Start the intake with the givin speed
-        intakeSubsystem.intake(speed);
+        intakeSubsystem.intake(intakeSpeed);
     }
 
     // When the command is finished

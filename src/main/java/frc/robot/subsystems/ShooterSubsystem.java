@@ -11,7 +11,7 @@ import frc.robot.Constants.ShooterConstants;
 
 public class ShooterSubsystem extends SubsystemBase {
 
-    // The motor that launches the balls out to the feild
+    // Top shooter motor
     private final SparkFlex shooterMotor = new SparkFlex(ShooterConstants.shooterMotorID, MotorType.kBrushless);
 
     // Initializer, use to set configurations and set attributes

@@ -11,7 +11,7 @@ import frc.robot.Constants.WallBedConstants;
 
 public class WallBedSubsystem extends SubsystemBase {
 
-    // The 2 motors on either side of the robot, controlling the intake's up and down
+    // The 2 motors on either side of the robot, controlling entire intake frame (wall bed)
     private final TalonFX wallBedMainMotor = new TalonFX(WallBedConstants.wallBedMainMotorID);
     private final TalonFX wallBedFollowerMotor = new TalonFX(WallBedConstants.wallBedFollowerMotorID);
 
@@ -30,7 +30,7 @@ public class WallBedSubsystem extends SubsystemBase {
     }
 
     /*
-     * Move the wallbed motor
+     * Move the wall bed
      * 
      * @param speed - Wall Bed motor drive speed [-1.0, 1.0]
      */

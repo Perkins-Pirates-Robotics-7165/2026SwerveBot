@@ -5,27 +5,33 @@ import frc.robot.subsystems.BumpSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SuckSubsystem;
 
-public class ShootReverse extends Command {
+public class ShooterFullRun extends Command {
 
+    // Subsystems
     private final ShooterSubsystem shooterSubsystem;
-    private final SuckSubsystem suckSubsystem;
     private final BumpSubsystem bumpSubsystem;
+    private final SuckSubsystem suckSubsystem;
 
+    // Speeds
     private final double shooterSpeed;
     private final double bumpSpeed;
     private final double suckSpeed;
 
     
     /**
-     * Start revving the shooter motor, then when ready start the suck motor
+     * Full run all motors of the shooter (shooter, bump, and suck)
      * 
      * @param shooterSubsystem - The subsystem for shooting
-     * @param speed - Shooter motor speed [-1.0, 1.0]. 
+     * @param bumpSubsystem - The subsystem for bumping the balls
+     * @param suckSubsystem - The subsystem for sucking balls
+     * @param shooterSpeed - Shooter motor speed [-1.0, 1.0].
+     * @param bumpSpeed - Bump motor speed [-1.0, 1.0].
+     * @param suckSpeed - Suck motor speed [-1.0, 1.0].
      */
-    public ShootReverse(
+    public ShooterFullRun(
         ShooterSubsystem shooterSubsystem, 
-        SuckSubsystem suckSubsystem,
         BumpSubsystem bumpSubsystem,
+        SuckSubsystem suckSubsystem,
         double shooterSpeed,
         double bumpSpeed,
         double suckSpeed
@@ -33,16 +39,12 @@ public class ShootReverse extends Command {
 
         // Set the subsystems
         this.shooterSubsystem = shooterSubsystem;
-        this.suckSubsystem = suckSubsystem;
         this.bumpSubsystem = bumpSubsystem;
+        this.suckSubsystem = suckSubsystem;
 
-        // Save the shooter speed
+        // Save the speeds
         this.shooterSpeed = shooterSpeed;
-
-        // Bump speed
         this.bumpSpeed = bumpSpeed;
-
-        // Suck speed
         this.suckSpeed = suckSpeed;
         
         // Adds the requirement of subsystem(s) so two commands can't use it at once
@@ -57,19 +59,17 @@ public class ShootReverse extends Command {
     @Override
     public void execute() {
 
-        // Start reving the shooter
+        // Start all 3 motors
         shooterSubsystem.shoot(shooterSpeed);
-
-        // Start the bump
         bumpSubsystem.bump(bumpSpeed);
-
-        // Start to suck
         suckSubsystem.suck(suckSpeed);
     }
 
     // When the command is finished
     @Override
     public void end(boolean interrupted) {
+
+        // Stop all three motors
         shooterSubsystem.shoot(0.0);
         bumpSubsystem.bump(0.0);
         suckSubsystem.suck(0.0);

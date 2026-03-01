@@ -6,21 +6,21 @@ import frc.robot.subsystems.WallBedSubsystem;
 public class MoveWallBed extends Command {
 
     private final WallBedSubsystem wallBedSubsystem;
-    private final double speed;
+    private final double wallBedSpeed;
 
     /**
-     * Move the wall bed system
+     * Move the intake frame (wall bed)
      * 
-     * @param wallBedSubsystem - The wall bed subsystem to control intake
-     * @param speed - Wall bed movement speed [-1.0, 1.0]. 
+     * @param wallBedSubsystem - The subsystem to control the wall bed
+     * @param wallBedSpeed - Wall bed motor speed [-1.0, 1.0]. 
      */
-    public MoveWallBed(WallBedSubsystem wallBedSubsystem, double speed) {
+    public MoveWallBed(WallBedSubsystem wallBedSubsystem, double wallBedSpeed) {
 
         // Set the subsystem
         this.wallBedSubsystem = wallBedSubsystem;
 
-        // Save the speed
-        this.speed = speed;
+        // Save the wall bed speed
+        this.wallBedSpeed = wallBedSpeed;
 
         // Adds the requirement of subsystem(s) so two commands can't use it at once
         addRequirements(wallBedSubsystem);
@@ -34,7 +34,7 @@ public class MoveWallBed extends Command {
     @Override
     public void execute() {
         // Start the wall bed with the givin speed
-        wallBedSubsystem.moveWallBedMotor(speed);
+        wallBedSubsystem.moveWallBedMotor(wallBedSpeed);
     }
 
     // When the command is finished

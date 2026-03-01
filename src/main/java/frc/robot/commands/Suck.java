@@ -6,21 +6,21 @@ import frc.robot.subsystems.SuckSubsystem;
 public class Suck extends Command {
 
     private final SuckSubsystem suckSubsystem;
-    private final double speed;
+    private final double suckSpeed;
 
     /**
-     * Suck balls to the shooter box with the shooter subsystem
+     * Suck balls from the bin into the shooter 
      * 
-     * @param suckSubsystem - The subsystem for suck the balls to the main shooter box
-     * @param speed - Suck motor speed [-1.0, 1.0]. 
+     * @param suckSubsystem - The subsystem used to control the suck motor
+     * @param suckSpeed - Suck motor speed [-1.0, 1.0]. 
      */
-    public Suck(SuckSubsystem suckSubsystem, double speed) {
+    public Suck(SuckSubsystem suckSubsystem, double suckSpeed) {
 
         // Set the subsystem
         this.suckSubsystem = suckSubsystem;
 
-        // Save the speed
-        this.speed = speed;
+        // Save the suck speed
+        this.suckSpeed = suckSpeed;
 
         // Adds the requirement of subsystem(s) so two commands can't use it at once
         addRequirements(suckSubsystem);
@@ -34,7 +34,7 @@ public class Suck extends Command {
     @Override
     public void execute() {
         // Suck the balls with the set speed
-        suckSubsystem.suck(speed);
+        suckSubsystem.suck(suckSpeed);
     }
 
     // When the command is finished
