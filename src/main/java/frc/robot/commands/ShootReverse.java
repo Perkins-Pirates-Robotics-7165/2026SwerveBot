@@ -1,23 +1,18 @@
 package frc.robot.commands;
 
-import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.BumpSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SuckSubsystem;
 
-public class RevShoot extends Command {
+public class ShootReverse extends Command {
 
     private final ShooterSubsystem shooterSubsystem;
     private final SuckSubsystem suckSubsystem;
     private final BumpSubsystem bumpSubsystem;
 
     private final double shooterSpeed;
-
     private final double bumpSpeed;
-
-    private final Supplier<Boolean> startSuck;
     private final double suckSpeed;
 
     
@@ -27,13 +22,12 @@ public class RevShoot extends Command {
      * @param shooterSubsystem - The subsystem for shooting
      * @param speed - Shooter motor speed [-1.0, 1.0]. 
      */
-    public RevShoot(
+    public ShootReverse(
         ShooterSubsystem shooterSubsystem, 
         SuckSubsystem suckSubsystem,
         BumpSubsystem bumpSubsystem,
         double shooterSpeed,
         double bumpSpeed,
-        Supplier<Boolean> startSuck,
         double suckSpeed
     ) {
 
@@ -48,8 +42,7 @@ public class RevShoot extends Command {
         // Bump speed
         this.bumpSpeed = bumpSpeed;
 
-        // Save the suck speed & supplier
-        this.startSuck = startSuck;
+        // Suck speed
         this.suckSpeed = suckSpeed;
         
         // Adds the requirement of subsystem(s) so two commands can't use it at once
@@ -63,18 +56,15 @@ public class RevShoot extends Command {
     // Runs while the command is 'sceduled' (aka. while the button is pressed on with a .whileTrue)
     @Override
     public void execute() {
+
         // Start reving the shooter
         shooterSubsystem.shoot(shooterSpeed);
 
         // Start the bump
         bumpSubsystem.bump(bumpSpeed);
 
-        // If the startSuck supplier is true, than run it
-        if (startSuck.get()) {
-            suckSubsystem.suck(suckSpeed);
-        } else {
-            suckSubsystem.suck(0.0);
-        }
+        // Start to suck
+        suckSubsystem.suck(suckSpeed);
     }
 
     // When the command is finished

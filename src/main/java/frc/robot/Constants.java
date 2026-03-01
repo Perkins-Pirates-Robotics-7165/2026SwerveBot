@@ -28,6 +28,9 @@ public class Constants {
         // Motor base speeds
         public static final double shooterForwardSpeed = 0.55;
         public static final double shooterReverseSpeed = -0.4;
+
+        // Rev Shoot trigger threshold
+        public static final double triggerThreshold = 0.1;
     }
 
     // Constants for the bump subsystem
@@ -61,6 +64,9 @@ public class Constants {
         // Motor base speeds
         public static final double intakeForwardSpeed = 0.5;
         public static final double intakeReverseSpeed = -0.5;
+
+        // Intake trigger threshold
+        public static final double triggerThreshold = 0.1;
     }
 
     // Constants for the wall bed subsystem

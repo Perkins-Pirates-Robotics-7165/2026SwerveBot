@@ -57,14 +57,14 @@ It would be nice to have a graphic, but I don't really know how to do that (sorr
 
 | Buttons | Action | Run Type | Command |
 | --------------- | --------------- | --------------- | --------------- |
-| Left Trigger | **```Unassigned```** | **```Unassigned```** | **```Unassigned```** |
-| Right Trigger | **```Unassigned```** | **```Unassigned```** | **```Unassigned```** |
+| Left Trigger | Rev Shoot | While True | RevShoot |
+| Right Trigger | Intake | While True | Intake |
 
 ### S Bumpers
 
 | Buttons | Action | Run Type | Command |
 | --------------- | --------------- | --------------- | --------------- |
-| Left Bumper | **```Unassigned```** | **```Unassigned```** | **```Unassigned```** |
+| Left Bumper | Rev Shoot | While True | RevShoot |
 | Right Bumper | **```Unassigned```** | **```Unassigned```** | **```Unassigned```** |
 
 ### S Sticks (Free)
@@ -85,8 +85,8 @@ It would be nice to have a graphic, but I don't really know how to do that (sorr
 
 | Buttons | Action | Run Type | Command |
 | --------------- | --------------- | --------------- | --------------- |
-| A | **```Unassigned```** | **```Unassigned```** | **```Unassigned```** |
-| B | **```Unassigned```** | **```Unassigned```** | **```Unassigned```** |
+| A | Shoot Reverse | While True | ShootReverse |
+| B | Intake Reverse | While True | Intake |
 | X | **```Unassigned```** | **```Unassigned```** | **```Unassigned```** |
 | Y | **```Unassigned```** | **```Unassigned```** | **```Unassigned```** |
 
@@ -94,7 +94,7 @@ It would be nice to have a graphic, but I don't really know how to do that (sorr
 
 | Buttons | Action | Run Type | Command |
 | --------------- | --------------- | --------------- | --------------- |
-| POV Up | **```Unassigned```** | **```Unassigned```** | **```Unassigned```** |
+| POV Up | Raise Wall Bed | While True | MoveWallBed |
 | POV Right | **```Unassigned```** | **```Unassigned```** | **```Unassigned```** |
-| POV Down | **```Unassigned```** | **```Unassigned```** | **```Unassigned```** |
+| POV Down | Lower Wall Bed | While True | MoveWallBed |
 | POV Left | **```Unassigned```** | **```Unassigned```** | **```Unassigned```** |

@@ -23,10 +23,10 @@ import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.Constants.SuckConstants;
 import frc.robot.Constants.WallBedConstants;
-import frc.robot.commands.Bump;
 import frc.robot.commands.Intake;
 import frc.robot.commands.MoveWallBed;
 import frc.robot.commands.RevShoot;
+import frc.robot.commands.ShootReverse;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.BumpSubsystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -44,18 +44,24 @@ public class RobotContainer {
     // Drivetrain Subsystem
     private final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
-    // Max speed multipliers for drivetrain
-    private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
-    private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+    // Max speed multipliers for drivetrain (generated)
+    private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond);
+    private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond);
 
-    // Drive / wheel moving methods
+    // Drive moving methods
+
+    // Wheel brake (puts the wheels into a star position, making it difficult to move the bot)
+    private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
+
+    // Feild centric drive
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
             .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
+            
+    // Robot centric drive - rotational rate set to 0 on init
     private final SwerveRequest.RobotCentric strafe = new SwerveRequest.RobotCentric()
             .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
-    private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
 
     // Drivetarin logger
     private final Telemetry logger = new Telemetry(MaxSpeed);
@@ -88,6 +94,11 @@ public class RobotContainer {
      * Used for ordering what happens in the robot
      */
     public RobotContainer() {
+
+        // Set the rotational rate to 0 for strafe (since it will always be 0)
+        strafe.RotationalRate = 0.0;
+
+        // Set all commands to configure
         configureBindings();
     }
 
@@ -100,8 +111,7 @@ public class RobotContainer {
 
         /* Drivetrain Stuff */
 
-        // Idle while the robot is disabled. This ensures the configured
-        // neutral mode is applied to the drive motors while disabled.
+        // Setting the idle mode to run even while disabled
         final var idle = new SwerveRequest.Idle();
         RobotModeTriggers.disabled().whileTrue(
             drivetrain.applyRequest(() -> idle).ignoringDisable(true)
@@ -128,28 +138,24 @@ public class RobotContainer {
         primary.povUp().whileTrue(drivetrain.applyRequest(() ->
             strafe.withVelocityX(Constants.DriveConstants.strafeSpeed * MaxSpeed) // Drive forward with negative Y (forward)
                 .withVelocityY(0) // Drive left with negative X (left)
-                .withRotationalRate(0) // Drive counterclockwise with negative X (left)
         ));
 
         // DOWN BACK
         primary.povDown().whileTrue(drivetrain.applyRequest(() ->
             strafe.withVelocityX(-Constants.DriveConstants.strafeSpeed * MaxSpeed) // Drive forward with negative Y (forward)
                 .withVelocityY(0) // Drive left with negative X (left)
-                .withRotationalRate(0) // Drive counterclockwise with negative X (left)
         ));
 
         // LEFT LEFT
         primary.povLeft().whileTrue(drivetrain.applyRequest(() ->
             strafe.withVelocityX(0) // Drive forward with negative Y (forward)
                 .withVelocityY(Constants.DriveConstants.strafeSpeed * MaxSpeed) // Drive left with negative X (left)
-                .withRotationalRate(0) // Drive counterclockwise with negative X (left)
         ));
 
         // RIGHT RIGHT
         primary.povRight().whileTrue(drivetrain.applyRequest(() ->
             strafe.withVelocityX(0) // Drive forward with negative Y (forward)
                 .withVelocityY(-Constants.DriveConstants.strafeSpeed * MaxSpeed) // Drive left with negative X (left)
-                .withRotationalRate(0) // Drive counterclockwise with negative X (left)
         ));
 
 
@@ -158,67 +164,57 @@ public class RobotContainer {
 
 
 
-        // /* Secondary */
+        /* Secondary */
 
 
-        // /* Shoot */
+        /* Shoot */
 
-        // // Shoot - Right trigger + Left Bumper
-        // secondary.rightTrigger(0.1).whileTrue(
-        //     new RevShoot(
-        //         shooterSubsystem, 
-        //         suckSubsystem, 
-        //         bumpSubsystem, 
-        //         ShooterConstants.shooterForwardSpeed, 
-        //         () -> secondary.leftBumper().getAsBoolean(), 
-        //         SuckConstants.suckForwardSpeed,
-        //         BumpConstants.bumpReverseSpeed
-        //     )
-        // );
+        // Shoot - Right trigger + Left Bumper
+        secondary.rightTrigger(ShooterConstants.triggerThreshold).whileTrue(
+            new RevShoot(
+                shooterSubsystem, 
+                suckSubsystem, 
+                bumpSubsystem, 
+                ShooterConstants.shooterForwardSpeed,
+                BumpConstants.bumpReverseSpeed,
+                () -> secondary.leftBumper().getAsBoolean(), 
+                SuckConstants.suckForwardSpeed
+            )
+        );
 
-        // // Shoot Rev
-        // secondary.a().whileTrue(
-        //     new RevShoot(
-        //         shooterSubsystem, 
-        //         suckSubsystem, 
-        //         bumpSubsystem, 
-        //         ShooterConstants.shooterReverseSpeed, 
-        //         () -> true, 
-        //         SuckConstants.suckReverseSpeed,
-        //         BumpConstants.bumpReverseSpeed
-        //     )
-        // );
+        // Shoot Rev
+        secondary.a().whileTrue(
+            new ShootReverse(
+                shooterSubsystem, 
+                suckSubsystem, 
+                bumpSubsystem, 
+                ShooterConstants.shooterReverseSpeed,
+                BumpConstants.bumpReverseSpeed,
+                SuckConstants.suckReverseSpeed
+            )
+        );
                 
 
-        // /* Bump */
+        /* Bump */
+        
+        /* Suck */
 
-        // // Bump - B
-        // secondary.b().whileTrue(new Bump(bumpSubsystem, BumpConstants.bumpForwardSpeed));
+        /* Intake */
 
-        // // Bump Rev - X
-        // secondary.x().whileTrue(new Bump(bumpSubsystem, BumpConstants.bumpReverseSpeed));
+        // Intake - Left Trigger
+        secondary.leftTrigger(IntakeConstants.triggerThreshold).whileTrue(new Intake(intakeSubsystem, IntakeConstants.intakeForwardSpeed));
+
+        // Intake Motor Reverse - B
+        secondary.b().whileTrue(new Intake(intakeSubsystem, IntakeConstants.intakeReverseSpeed));
 
         
-        // /* Suck */
-        // // secondary.y().whileTrue(new Suck(suckSubsystem, -SuckConstants.suckSpeed));
+        /* Wall Bed */
 
+        // Move Wall Bed Up - POV UP
+        secondary.povUp().whileTrue(new MoveWallBed(wallBedSubsystem, WallBedConstants.wallBedRaiseSpeed));
 
-        // /* Intake */
-
-        // // Intake Motor - A
-        // secondary.leftTrigger(0.1).whileTrue(new Intake(intakeSubsystem, IntakeConstants.intakeForwardSpeed));
-
-        // // // Intake Motor Rev - Y
-        // primary.y().whileTrue(new Intake(intakeSubsystem, IntakeConstants.intakeReverseSpeed));
-
-        
-        // /* Wall Bed */
-
-        // // Move Wall Bed Up - POV UP
-        // secondary.povUp().whileTrue(new MoveWallBed(wallBedSubsystem, WallBedConstants.wallBedRaiseSpeed));
-
-        // // Move Wall Bed Down - POV DOWN
-        // secondary.povDown().whileTrue(new MoveWallBed(wallBedSubsystem, WallBedConstants.wallBedLowerSpeed));
+        // Move Wall Bed Down - POV DOWN
+        secondary.povDown().whileTrue(new MoveWallBed(wallBedSubsystem, WallBedConstants.wallBedLowerSpeed));
 
 
         
