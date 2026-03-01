@@ -115,6 +115,13 @@ public class Constants {
             public static final double targetDistanceSpeedMax = 0.5;
 
         }
+    }
+    
+    // Constants for the pigeon subsystem
+    public static class PigeonConstants {
+
+        // Pigeon device id
+        public static final int pigeonID = 0;
 
     }
 
