@@ -88,4 +88,22 @@ public class Constants {
         public static final String limelightName = "";
     }
 
+    // Constants for the programatic controlled commands (limelight & PID)
+    public static class ProgramaticCommandConstants {
+
+        /* ------------------------ AlignToFunnel ------------------------ */
+        public static class AlignToFunnelConstants {
+
+            // PID values
+
+            public static final double leftRightOffsetP = 20.0;
+
+            // Speed clamps
+            public static final double rotationalSpeedMin = -0.6;
+            public static final double rotationalSpeedMax = 0.6;
+
+        }
+
+    }
+
 }

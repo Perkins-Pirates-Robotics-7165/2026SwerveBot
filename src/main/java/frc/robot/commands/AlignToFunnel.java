@@ -1,53 +1,96 @@
-// package frc.robot.commands;
+package frc.robot.commands;
 
-// import edu.wpi.first.wpilibj2.command.Command;
-// import frc.robot.subsystems.CommandSwerveDrivetrain;
-// import frc.robot.subsystems.LimelightSubsystem;
+import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
+import com.ctre.phoenix6.swerve.SwerveRequest;
 
-// public class AlignToFunnel extends Command {
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.ProgramaticCommandConstants.AlignToFunnelConstants;
+import frc.robot.Utilities.MathUtilities;
+import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.LimelightSubsystem;
 
-//     private final LimelightSubsystem limelightSubsystem;
-//     private final CommandSwerveDrivetrain drivetrain;
+public class AlignToFunnel extends Command {
 
-//     /**
-//      * Swivel the shooter with the swivel subsystem
-//      * 
-//      * @param drivetrain - Utility subsystem for the limelight
-//      * @param drivetrain - The subsystem for the drivetrain
-//      */
-//     public AlignToFunnel(LimelightSubsystem limelightSubsystem, CommandSwerveDrivetrain drivetrain) {
+    // Subsystems
+    private final CommandSwerveDrivetrain drivetrain;
+    private final LimelightSubsystem limelightSubsystem;
 
-//         // Set the subsystems
-//         this.drivetrain = drivetrain;
-//         this.limelightSubsystem = limelightSubsystem;
+    // Robot centric drive method
+    private final SwerveRequest.RobotCentric drive;
 
-//         // Adds the requirement of subsystem(s) so two commands can't use it at once
-//         addRequirements(limelightSubsystem);
-//         addRequirements(drivetrain);
-//     }
+    // Speed values
+    private final double MaxAngularRate;
 
-//     // Runs once when initialized
-//     @Override
-//     public void initialize() {}
+    /**
+     * Align the shooter to the funnel on the distance amount & the centering
+     * 
+     * @param drivetrain - Drivetrain subsystem
+     * @param limelightSubsystem - Utility subsystem for the limelight
+     */
+    public AlignToFunnel(CommandSwerveDrivetrain drivetrain, double MaxSpeed, double MaxAngularRate, LimelightSubsystem limelightSubsystem) {
 
-//     // Runs while the command is 'sceduled' (aka. while the button is pressed on with a .whileTrue)
-//     @Override
-//     public void execute() {
+        // Set the subsystems
+        this.drivetrain = drivetrain;
+        this.limelightSubsystem = limelightSubsystem;
 
-//         double xDrive = limelightSubsystem.getTx() / 20.0;
+        // Set the drive method
+        this.drive = new SwerveRequest.RobotCentric()
+            .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
+            .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
 
-//         xDrive = Math.min(Math.max(xDrive, SwivelConstants.alignSwivelToFunnel_xDriveMin), SwivelConstants.alignSwivelToFunnel_xDriveMax);
+        // Set the max speeds for the drivetrain
+        this.MaxAngularRate = MaxAngularRate;
 
-//         // Swivel the shooter with the motor's speed
-//         drivetrain.applyRequest(xDrive);
-//     }
+        // Adds the requirement of subsystem(s) so two commands can't use it at once
+        addRequirements(drivetrain);
+    }
 
-//     // When the command is finished
-//     @Override
-//     public void end(boolean interrupted) {}
+    // Runs once when initialized
+    @Override
+    public void initialize() {}
 
-//     @Override
-//     public boolean isFinished() {
-//         return false;
-//     }
-// }
+    // Runs while the command is 'sceduled' (aka. while the button is pressed on with a .whileTrue)
+    @Override
+    public void execute() {
+
+        // Get the offset from the limelight on the Tx axis
+        double leftRightOffset = limelightSubsystem.getTx();
+
+        // Apply some PID configs to the leftRightOffset to get the rotational drive amount
+        double rotationalDrive = leftRightOffset / AlignToFunnelConstants.leftRightOffsetP;
+
+        // Clamp the rotational drive for safety purposes
+        rotationalDrive = MathUtilities.clamp(leftRightOffset, AlignToFunnelConstants.rotationalSpeedMin, AlignToFunnelConstants.rotationalSpeedMax);
+
+        // Cloned xDrive so drive.withRotationalRate is happy with a final(ed) value
+        final double clonedRotationDrive = rotationalDrive;
+
+        // Swivel the shooter with the motor's speed
+        drivetrain.applyRequest(() ->
+            drive.withVelocityX(0.0) // Drive forward with negative Y (forward)
+                .withVelocityY(0.0) // Drive left with negative X (left)
+                .withRotationalRate(clonedRotationDrive * MaxAngularRate) // Rotate clockwie with negative X (left)
+                .withCenterOfRotation(new Translation2d(0.0, 0.0)) // Change the center of rotation as needed
+        );
+    }
+
+    // When the command is finished
+    @Override
+    public void end(boolean interrupted) {
+        
+        // Specify the drivetrain to stop
+        drivetrain.applyRequest(() ->
+            drive.withVelocityX(0.0)
+                .withVelocityY(0.0)
+                .withRotationalRate(0.0)
+                .withCenterOfRotation(new Translation2d(0.0, 0.0))
+        );
+
+    }
+
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
+}
