@@ -9,9 +9,13 @@ import static edu.wpi.first.units.Units.*;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.BumpConstants;
 import frc.robot.Constants.ComputerConstants;
 import frc.robot.Constants.DriveConstants;
@@ -48,6 +52,9 @@ public class RobotContainer {
 
     // Drive / wheel moving methods
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
+            .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
+            .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
+    private final SwerveRequest.RobotCentric strafe = new SwerveRequest.RobotCentric()
             .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
     private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
@@ -122,14 +129,42 @@ public class RobotContainer {
 
         primary.leftBumper().whileTrue(drivetrain.applyRequest(() -> brake));
 
+        // UP FORWARD
+        primary.povUp().whileTrue(drivetrain.applyRequest(() ->
+            strafe.withVelocityX(Constants.DriveConstants.strafeSpeed * MaxSpeed) // Drive forward with negative Y (forward)
+                .withVelocityY(0 * MaxSpeed) // Drive left with negative X (left)
+                .withRotationalRate(0 * MaxAngularRate) // Drive counterclockwise with negative X (left)
+        ));
+
+        // DOWN BACK
+        primary.povDown().whileTrue(drivetrain.applyRequest(() ->
+            strafe.withVelocityX(-Constants.DriveConstants.strafeSpeed * MaxSpeed) // Drive forward with negative Y (forward)
+                .withVelocityY(0 * MaxSpeed) // Drive left with negative X (left)
+                .withRotationalRate(0 * MaxAngularRate) // Drive counterclockwise with negative X (left)
+        ));
+
+        // LEFT LEFT
+        primary.povLeft().whileTrue(drivetrain.applyRequest(() ->
+            strafe.withVelocityX(0 * MaxSpeed) // Drive forward with negative Y (forward)
+                .withVelocityY(Constants.DriveConstants.strafeSpeed * MaxSpeed) // Drive left with negative X (left)
+                .withRotationalRate(0 * MaxAngularRate) // Drive counterclockwise with negative X (left)
+        ));
+
+        // RIGHT RIGHT
+        primary.povRight().whileTrue(drivetrain.applyRequest(() ->
+            strafe.withVelocityX(0 * MaxSpeed) // Drive forward with negative Y (forward)
+                .withVelocityY(-Constants.DriveConstants.strafeSpeed * MaxSpeed) // Drive left with negative X (left)
+                .withRotationalRate(0 * MaxAngularRate) // Drive counterclockwise with negative X (left)
+        ));
+
 
         /* Shoot */
 
         // Shoot - Right trigger + Left Bumper
-        secondary.rightTrigger(0.1).whileTrue(new RevShoot(shooterSubsystem, suckSubsystem, -ShooterConstants.shooterSpeed, () -> secondary.leftBumper().getAsBoolean(), SuckConstants.suckSpeed));
+        secondary.rightTrigger(0.1).whileTrue(new RevShoot(shooterSubsystem, suckSubsystem, bumpSubsystem, -ShooterConstants.shooterSpeed, () -> secondary.leftBumper().getAsBoolean(), -SuckConstants.suckSpeed));
 
         // Shoot Rev
-        secondary.a().whileTrue(new Shoot(shooterSubsystem, ShooterConstants.shooterSpeed));
+        secondary.a().whileTrue(new RevShoot(shooterSubsystem, suckSubsystem, bumpSubsystem, 0.4, () -> true, SuckConstants.suckSpeed));
 
 
         /* Bump */
@@ -153,7 +188,7 @@ public class RobotContainer {
 
         // TODO: Add back
         // // Intake Motor Rev - Y
-        // primary.y().whileTrue(new Intake(intakeSubsystem, -IntakeConstants.intakeSpeed));
+        primary.y().whileTrue(new Intake(intakeSubsystem, IntakeConstants.intakeSpeed));
 
         
         /* Wall Bed */
@@ -167,7 +202,13 @@ public class RobotContainer {
 
         
         
-
+        Trigger resetFieldCentric = new Trigger(() -> SmartDashboard.getBoolean("Reset Field Centric", false));
+        resetFieldCentric.onTrue(
+            Commands.sequence(
+                drivetrain.runOnce(() -> drivetrain.seedFieldCentric()),
+                new InstantCommand(() -> SmartDashboard.putBoolean("Reset Field Centric", false))
+            )
+        );
         
 
 

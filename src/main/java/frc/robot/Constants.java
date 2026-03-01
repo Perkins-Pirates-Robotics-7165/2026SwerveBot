@@ -16,6 +16,7 @@ public class Constants {
         // Speed multipliers
         public static final double driveSpeedMultiplier = 1.0;
         public static final double rotationSpeedMultiplier = 1.0;
+        public static final double strafeSpeed = 0.5;
     }
 
     // Constants for the shooter subsystem
@@ -25,7 +26,7 @@ public class Constants {
         public static final int shooterMotorID = 1;
 
         // Motor base speeds
-        public static final double shooterSpeed = 0.3;
+        public static final double shooterSpeed = 0.55;
     }
 
     // Constants for the bump subsystem
@@ -35,7 +36,7 @@ public class Constants {
         public static final int bumpMotorID = 2;
 
         // Motor base speeds
-        public static final double bumpSpeed = 0.7;
+        public static final double bumpSpeed = 1.0;
     }
 
     // Constants for the suck thing on the robot
@@ -55,7 +56,7 @@ public class Constants {
         public static final int intakeMotorID = 5;
 
         // Motor base speeds
-        public static final double intakeSpeed = 0.3;
+        public static final double intakeSpeed = 0.5;
     }
 
     // Constants for the wall bed subsystem

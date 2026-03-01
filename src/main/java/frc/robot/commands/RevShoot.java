@@ -3,6 +3,9 @@ package frc.robot.commands;
 import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.BumpConstants;
+import frc.robot.subsystems.BumpSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SuckSubsystem;
 
@@ -10,6 +13,7 @@ public class RevShoot extends Command {
 
     private final ShooterSubsystem shooterSubsystem;
     private final SuckSubsystem suckSubsystem;
+    private final BumpSubsystem bumpSubsystem;
 
     private final double shooterSpeed;
 
@@ -25,6 +29,7 @@ public class RevShoot extends Command {
     public RevShoot(
         ShooterSubsystem shooterSubsystem, 
         SuckSubsystem suckSubsystem,
+        BumpSubsystem bumpSubsystem,
         double shooterSpeed,
         Supplier<Boolean> startSuck,
         double suckSpeed
@@ -33,6 +38,7 @@ public class RevShoot extends Command {
         // Set the subsystems
         this.shooterSubsystem = shooterSubsystem;
         this.suckSubsystem = suckSubsystem;
+        this.bumpSubsystem = bumpSubsystem;
 
         // Save the shooter speed
         this.shooterSpeed = shooterSpeed;
@@ -42,7 +48,7 @@ public class RevShoot extends Command {
         this.suckSpeed = suckSpeed;
 
         // Adds the requirement of subsystem(s) so two commands can't use it at once
-        addRequirements(shooterSubsystem);
+        addRequirements(shooterSubsystem, bumpSubsystem);
     }
 
     // Runs once when initialized
@@ -54,6 +60,9 @@ public class RevShoot extends Command {
     public void execute() {
         // Start reving the shooter
         shooterSubsystem.shoot(shooterSpeed);
+
+        // Start the bump
+        bumpSubsystem.bump(BumpConstants.bumpSpeed);
 
         // If the startSuck supplier is true, than run it
         if (startSuck.get()) {
@@ -68,6 +77,7 @@ public class RevShoot extends Command {
     public void end(boolean interrupted) {
         shooterSubsystem.shoot(0.0);
         suckSubsystem.suck(0.0);
+        bumpSubsystem.bump(0.0);
     }
 
     @Override
