@@ -104,6 +104,18 @@ public class Constants {
 
         }
 
+        /* ------------------------ ApproachFunnel ------------------------ */
+        public static class ApproachFunnelConstants {
+
+            // PID values
+            public static final double targetDistanceOffsetP = 1.0;
+
+            // Speed Clamps
+            public static final double targetDistanceSpeedMin = -0.5;
+            public static final double targetDistanceSpeedMax = 0.5;
+
+        }
+
     }
 
 }
