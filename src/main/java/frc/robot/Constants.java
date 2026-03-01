@@ -81,7 +81,7 @@ public class Constants {
         public static final double wallBedLowerSpeed = -0.1;
     }
 
-    // Constants for the limelight constants
+    // Constants for the limelight subsystem
     public static class LimelightConstants {
 
         // Limelight server name
@@ -116,7 +116,7 @@ public class Constants {
 
         }
     }
-    
+
     // Constants for the pigeon subsystem
     public static class PigeonConstants {
 
