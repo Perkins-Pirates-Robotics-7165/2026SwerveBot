@@ -98,6 +98,16 @@ public class Constants {
         // Smart Has Target telemetry constants
         public static final int savedAprilTagSightFrames = 30;
         public static final int maxCountedFrames = 240;
+
+        // Bounds for what each frame count is counted as
+        public static final int shortFrameCountTopBound = 30;
+        public static final int mediumFrameCountTopBound = 100;
+        public static final int longFrameCountTopBound = 240;
+
+        // Deviation of values for frameLength mode where we will take the shorter one
+        public static final int takeShorterDeviationTopBound = 6;
+
+        
     }
 
     // Constants for the programatic controlled commands (limelight & PID)

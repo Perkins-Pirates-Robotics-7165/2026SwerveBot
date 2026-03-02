@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.Collections;
+import java.util.Map;
 import java.util.Queue;
 
 import edu.wpi.first.networktables.NetworkTable;
@@ -7,8 +9,11 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.LimelightUtilities;
 import frc.robot.Constants.LimelightConstants;
-import frc.robot.states.LimelightSmartHasTargetState;
+import frc.robot.states.LimelightSmartHasTargetFrameLength;
+import frc.robot.states.LimelightSmartHasTargetFramePattern;
+import frc.robot.states.LimelightSmartHasTargetSafety;
 
 public class LimelightSubsystem extends SubsystemBase {
 
@@ -160,15 +165,85 @@ public class LimelightSubsystem extends SubsystemBase {
      * 
      * @returns LimelightSmartHasTargetState - The state that the current april tag sight is in
      */
-    public LimelightSmartHasTargetState smartHasTarget() {
+    public LimelightSmartHasTargetSafety smartHasTarget() {
         
-        // Find the frameLength of framesQueue
+        /* Find the frameLength of framesQueue */
+
+        // Use mode function to get table of frame lengths
+        Map<LimelightSmartHasTargetFrameLength, Integer> modeMapFramesQueue = LimelightUtilities.mode(framesQueue);
+
+        // Get the final frame length
+        LimelightSmartHasTargetFrameLength frameLength = this.findFrameLengthOfFramesQueue(modeMapFramesQueue);
+
+        /* Find the framePattern of framesQueue */
+        LimelightSmartHasTargetFramePattern framePattern = this.findFramePatternOfFramesQueue(modeMapFramesQueue, frameLength);
+
+        return framePattern.getSafety(frameLength);
+
+    }
+
+    private LimelightSmartHasTargetFrameLength findFrameLengthOfFramesQueue(Map<LimelightSmartHasTargetFrameLength, Integer> modeMapFramesQueue) {
+        
+        Map.Entry<LimelightSmartHasTargetFrameLength, Integer> trueMode = Collections.max(modeMapFramesQueue.entrySet(), Map.Entry.comparingByValue());
+
+        // If the highest is short, return that
+        if (trueMode.getKey() == LimelightSmartHasTargetFrameLength.SHORT) {
+            return trueMode.getKey();
+        } 
+
+        // Take the highest and the one below it (if the highest is short, return that)
+        LimelightSmartHasTargetFrameLength belowTrueMode = trueMode.getKey().getBelowFrameLength();
 
 
-        // Find the framePattern of framesQueue
+        // If the one below it is between 0 and a deviation, go with that
+        LimelightSmartHasTargetFrameLength newCurrentFrameLengthWithDeviation = ((trueMode.getValue() - modeMapFramesQueue.get(belowTrueMode)) > LimelightConstants.takeShorterDeviationTopBound) ? trueMode.getKey() : belowTrueMode;
+        
+        // Make sure that we're not already at the bottom. This will only run if the frame length is LONG
+        if (belowTrueMode != LimelightSmartHasTargetFrameLength.SHORT) {
+            // Compare the bottom (short) with the newCurrentFrameLengthWithDeviation
+            newCurrentFrameLengthWithDeviation = ((modeMapFramesQueue.get(newCurrentFrameLengthWithDeviation) - modeMapFramesQueue.get(LimelightSmartHasTargetFrameLength.SHORT)) > LimelightConstants.takeShorterDeviationTopBound) ? newCurrentFrameLengthWithDeviation : LimelightSmartHasTargetFrameLength.SHORT;
+        }
 
-        return null;
+        // Return newCurrentFrameLengthWithDeviation
+        return newCurrentFrameLengthWithDeviation;
+    }
 
+    private LimelightSmartHasTargetFramePattern findFramePatternOfFramesQueue(Map<LimelightSmartHasTargetFrameLength, Integer> modeMapFramesQueue, LimelightSmartHasTargetFrameLength frameLength) {
+        // Use mean function against framesQueue
+        int meanOfFramesQueue = LimelightUtilities.mean(framesQueue);
+
+        // If that value is within the found frame length, return consistent that
+        if (LimelightSmartHasTargetFrameLength.fromInteger(meanOfFramesQueue) == frameLength) {
+            return LimelightSmartHasTargetFramePattern.getConsistantFromLength(frameLength);
+        }
+
+        // If it not
+    
+        // Clone framesQueue
+        Queue<Integer> clonedFramesQueue = framesQueue;
+
+        // Take the shortest frame length's appearence count, remove that amount from the cloned framesQueue
+        int minimumValue = Collections.min(modeMapFramesQueue.entrySet(), Map.Entry.comparingByValue()).getValue();
+
+        for (int i = 0; i < minimumValue; i++) {
+
+            if (clonedFramesQueue.size() <= 1) break;
+
+            clonedFramesQueue.remove();
+        }
+
+        // Do the mean function again
+        int meanOfModifiedFramesQueue = LimelightUtilities.mean(framesQueue);
+
+        // If that value is within the found frame length from before, return consistent that
+        LimelightSmartHasTargetFrameLength meanOfModifiedFrameQueueFrameLength = LimelightSmartHasTargetFrameLength.fromInteger(meanOfModifiedFramesQueue);
+
+        if (meanOfModifiedFrameQueueFrameLength == frameLength) {
+            return LimelightSmartHasTargetFramePattern.getConsistantFromLength(frameLength);
+        }
+
+        // If not, call the pattern interupted with that
+        return LimelightSmartHasTargetFramePattern.getInterruptedFromLength(meanOfModifiedFrameQueueFrameLength);
     }
 
     /*
