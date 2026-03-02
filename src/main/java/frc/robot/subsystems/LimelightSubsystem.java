@@ -1,13 +1,19 @@
 package frc.robot.subsystems;
 
+import java.util.Queue;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LimelightConstants;
+import frc.robot.states.LimelightSmartHasTargetState;
 
 public class LimelightSubsystem extends SubsystemBase {
+
+
+    /* Network Tables */
 
     // Main Network table for limelight
     private final NetworkTable limelightTable;
@@ -20,10 +26,19 @@ public class LimelightSubsystem extends SubsystemBase {
 
     // Bot position entry
     private final NetworkTableEntry botposeEntry;
-    
+
+
+    /* Telemetry Data */
+
+    // Telemetry data for smartHasTarget();
+
+    // Frames that a limelight target has been seen
+    private int currentAprilTagFramesInSight = 0;
+    private Queue<Integer> framesQueue;
+
     public LimelightSubsystem() {
         
-        // Settup the network table
+        // Setup the network table
         limelightTable = NetworkTableInstance.getDefault().getTable(LimelightConstants.limelightName);
 
         // Set the offset values
@@ -36,6 +51,19 @@ public class LimelightSubsystem extends SubsystemBase {
 
         // Set the bot position entry
         botposeEntry = limelightTable.getEntry("botpose_targetspace");
+    }
+
+    /*
+     * Periodic functions run about every 20ms
+     * 
+     * Used for things like telemetry or logging
+     */
+    @Override
+    public void periodic() {
+
+        // Start taking telemetry data for LimelightSubsystem.smartHasTarget()
+        this.smartHasTargetTelemetry();
+
     }
 
     // Returns the offset of the camera from the april tag on the x axes
@@ -96,6 +124,51 @@ public class LimelightSubsystem extends SubsystemBase {
      */
     public double[] getBotPose() {
         return botposeEntry.getDoubleArray(new double[6]);
+    }
+
+    // Telemetry logging for the smartHasTarget
+    public void smartHasTargetTelemetry() {
+
+        // Check to see if the limelight has sight of an april tag
+        // Also check to make sure the april tag count is less than the long counter
+        if (this.hasTarget() && this.currentAprilTagFramesInSight < LimelightConstants.maxCountedFrames) {
+
+            // If there is sight, add one to the frame counter
+            this.currentAprilTagFramesInSight += 1;
+        } 
+        
+        // If there is no sight of the april tag
+        else {
+            
+            // Check to make sure that we aren't adding more than wanted to framesQueue
+            if (this.framesQueue.size() >= LimelightConstants.savedAprilTagSightFrames) {
+                
+                // If there is a greater (or equal) number of frames saved to the number wanted to save, pop one off
+                this.framesQueue.remove();
+            }
+
+            // Add the current frame time to the queue
+            this.framesQueue.add(this.currentAprilTagFramesInSight);
+
+            // Reset the current frame time 
+            this.currentAprilTagFramesInSight = 0;
+        }
+    }
+
+    /*
+     * A little bit smarter hasTarget(), used for deciding how much sight the limelight actually has.
+     * 
+     * @returns LimelightSmartHasTargetState - The state that the current april tag sight is in
+     */
+    public LimelightSmartHasTargetState smartHasTarget() {
+        
+        // Find the frameLength of framesQueue
+
+
+        // Find the framePattern of framesQueue
+
+        return null;
+
     }
 
     /*

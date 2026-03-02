@@ -91,6 +91,13 @@ public class Constants {
 
         // Limelight server name
         public static final String limelightName = "";
+
+        // Limelight configs
+        public static final int limelightFrameRate = 30;
+
+        // Smart Has Target telemetry constants
+        public static final int savedAprilTagSightFrames = 30;
+        public static final int maxCountedFrames = 240;
     }
 
     // Constants for the programatic controlled commands (limelight & PID)
