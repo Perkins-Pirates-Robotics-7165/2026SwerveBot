@@ -167,19 +167,30 @@ public class LimelightSubsystem extends SubsystemBase {
      */
     public LimelightSmartHasTargetSafety smartHasTarget() {
         
+        try {
         /* Find the frameLength of framesQueue */
+            if (framesQueue.size() < LimelightConstants.minFrameQueueSize) {
+                return LimelightSmartHasTargetSafety.NO_TARGET;
+            }
 
-        // Use mode function to get table of frame lengths
-        Map<LimelightSmartHasTargetFrameLength, Integer> modeMapFramesQueue = LimelightUtilities.mode(framesQueue);
+            // Use mode function to get table of frame lengths
+            Map<LimelightSmartHasTargetFrameLength, Integer> modeMapFramesQueue = LimelightUtilities.mode(framesQueue);
 
-        // Get the final frame length
-        LimelightSmartHasTargetFrameLength frameLength = this.findFrameLengthOfFramesQueue(modeMapFramesQueue);
+            // Get the final frame length
+            LimelightSmartHasTargetFrameLength frameLength = this.findFrameLengthOfFramesQueue(modeMapFramesQueue);
+            SmartDashboard.putString("Frame Length", frameLength.toString());
 
-        /* Find the framePattern of framesQueue */
-        LimelightSmartHasTargetFramePattern framePattern = this.findFramePatternOfFramesQueue(modeMapFramesQueue, frameLength);
+            /* Find the framePattern of framesQueue */
+            LimelightSmartHasTargetFramePattern framePattern = this.findFramePatternOfFramesQueue(modeMapFramesQueue, frameLength);
+            SmartDashboard.putString("Frame Pattern", framePattern.toString());
 
-        return framePattern.getSafety(frameLength);
+            return framePattern.getSafety(frameLength);
+        } catch(Error e) {
+            System.err.println(e);
 
+            return LimelightSmartHasTargetSafety.NO_TARGET;
+        }
+        
     }
 
     private LimelightSmartHasTargetFrameLength findFrameLengthOfFramesQueue(Map<LimelightSmartHasTargetFrameLength, Integer> modeMapFramesQueue) {

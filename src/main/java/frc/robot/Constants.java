@@ -107,6 +107,8 @@ public class Constants {
         // Deviation of values for frameLength mode where we will take the shorter one
         public static final int takeShorterDeviationTopBound = 6;
 
+        // Min size that framesQueue has to be to do any work with it
+        public static final int minFrameQueueSize = 15;
         
     }
 
