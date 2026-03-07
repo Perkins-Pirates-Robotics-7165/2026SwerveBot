@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Queue;
@@ -39,7 +40,7 @@ public class LimelightSubsystem extends SubsystemBase {
 
     // Frames that a limelight target has been seen
     private int currentAprilTagFramesInSight = 0;
-    private Queue<Integer> framesQueue;
+    private Queue<Integer> framesQueue = new ArrayDeque<Integer>();
 
     public LimelightSubsystem() {
         
