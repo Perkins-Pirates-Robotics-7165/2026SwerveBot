@@ -51,8 +51,8 @@ public class Constants {
         public static final int suckMotorID = 3;
 
         // Motor base speeds
-        public static final double suckForwardSpeed = 0.8;    
-        public static final double suckReverseSpeed = -0.8;
+        public static final double suckForwardSpeed = 1.0;    
+        public static final double suckReverseSpeed = -1.0;
     }
 
     // Constants for the intake subsystem
@@ -62,7 +62,7 @@ public class Constants {
         public static final int intakeMotorID = 5;
 
         // Motor base speeds
-        public static final double intakeForwardSpeed = 0.5;
+        public static final double intakeForwardSpeed = 0.7;
         public static final double intakeReverseSpeed = -0.5;
 
         // Intake trigger threshold
@@ -81,7 +81,7 @@ public class Constants {
         public static final int wallBedRightLimitSwitchPort = 1;
 
         // Motor base speeds
-        public static final double wallBedRaiseSpeed = 0.1;
+        public static final double wallBedRaiseSpeed = 0.3;
         public static final double wallBedLowerSpeed = -0.1;
 
     }
