@@ -1,5 +1,11 @@
 package frc.robot;
 
+import static edu.wpi.first.units.Units.MetersPerSecond;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
+import static edu.wpi.first.units.Units.RotationsPerSecond;
+
+import frc.robot.generated.TunerConstants;
+
 public class Constants {
 
     // Mostly controller constants
@@ -17,6 +23,10 @@ public class Constants {
         public static final double driveSpeedMultiplier = 1.0;
         public static final double rotationSpeedMultiplier = 1.0;
         public static final double strafeSpeed = 0.3;
+
+        // Max speeds
+        public static final double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond);
+        public static final double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond);
     }
 
     // Constants for the shooter subsystem
