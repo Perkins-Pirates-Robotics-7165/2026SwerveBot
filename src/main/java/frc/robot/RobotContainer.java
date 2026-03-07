@@ -35,6 +35,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SuckSubsystem;
+import frc.robot.subsystems.TurnerSubsystem;
 import frc.robot.subsystems.WallBedSubsystem;
 
 public class RobotContainer {
@@ -78,6 +79,8 @@ public class RobotContainer {
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
     private final WallBedSubsystem wallBedSubsystem = new WallBedSubsystem();
     private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
+    private final TurnerSubsystem turnerSubsystem = new TurnerSubsystem();
+
 
 
     /* Controllers */

@@ -112,6 +112,16 @@ public class Constants {
         
     }
 
+    public static class TurnerConstants {
+
+        // Motor ID
+        public static final int turnMotorID = 9;
+
+        // Base speed
+        public static final double turnMotorSpeed = 1.0;
+
+    }
+
     // Constants for the programatic controlled commands (limelight & PID)
     public static class ProgramaticCommandConstants {
 
