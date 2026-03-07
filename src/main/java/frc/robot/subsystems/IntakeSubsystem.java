@@ -16,14 +16,14 @@ public class IntakeSubsystem extends SubsystemBase {
     // Initializer, use to set configurations and set attributes
     public IntakeSubsystem() {
 
-        // Define the flex config
-        SparkFlexConfig sparkFlexConfig = new SparkFlexConfig();
+        // // Define the flex config
+        // SparkFlexConfig sparkFlexConfig = new SparkFlexConfig();
 
-        // Set the config to inverted
-        sparkFlexConfig.encoder.inverted(true);
+        // // Set the config to inverted
+        // sparkFlexConfig.encoder.inverted(true);
 
-        // Set the configurator to our motor
-        intakeMotor.configure(sparkFlexConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        // // Set the configurator to our motor
+        // intakeMotor.configure(sparkFlexConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     }
 

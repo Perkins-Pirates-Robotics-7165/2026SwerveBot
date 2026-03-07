@@ -58,18 +58,18 @@ public class LimelightSubsystem extends SubsystemBase {
         botposeEntry = limelightTable.getEntry("botpose_targetspace");
     }
 
-    /*
-     * Periodic functions run about every 20ms
-     * 
-     * Used for things like telemetry or logging
-     */
-    @Override
-    public void periodic() {
+    // /*
+    //  * Periodic functions run about every 20ms
+    //  * 
+    //  * Used for things like telemetry or logging
+    //  */
+    // @Override
+    // public void periodic() {
 
-        // Start taking telemetry data for LimelightSubsystem.smartHasTarget()
-        this.smartHasTargetTelemetry();
+    //     // Start taking telemetry data for LimelightSubsystem.smartHasTarget()
+    //     this.smartHasTargetTelemetry();
 
-    }
+    // }
 
     // Returns the offset of the camera from the april tag on the x axes
     public double getTx() {
@@ -167,7 +167,7 @@ public class LimelightSubsystem extends SubsystemBase {
      */
     public LimelightSmartHasTargetSafety smartHasTarget() {
         
-        try {
+        
         /* Find the frameLength of framesQueue */
             if (framesQueue.size() < LimelightConstants.minFrameQueueSize) {
                 return LimelightSmartHasTargetSafety.NO_TARGET;
@@ -185,11 +185,7 @@ public class LimelightSubsystem extends SubsystemBase {
             SmartDashboard.putString("Frame Pattern", framePattern.toString());
 
             return framePattern.getSafety(frameLength);
-        } catch(Error e) {
-            System.err.println(e);
 
-            return LimelightSmartHasTargetSafety.NO_TARGET;
-        }
         
     }
 

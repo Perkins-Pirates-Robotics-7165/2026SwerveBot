@@ -32,6 +32,7 @@ import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.BumpSubsystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SuckSubsystem;
 import frc.robot.subsystems.WallBedSubsystem;
@@ -76,6 +77,7 @@ public class RobotContainer {
     private final SuckSubsystem suckSubsystem = new SuckSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
     private final WallBedSubsystem wallBedSubsystem = new WallBedSubsystem();
+    private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
 
 
     /* Controllers */
@@ -102,6 +104,11 @@ public class RobotContainer {
 
         // Set all commands to configure
         configureBindings();
+    }
+
+    public void periodic() {
+        limelightSubsystem.smartHasTargetTelemetry();
+        // limelightSubsystem.smartHasTarget();
     }
 
     /*
