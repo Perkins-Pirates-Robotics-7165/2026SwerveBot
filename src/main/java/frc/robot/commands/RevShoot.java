@@ -60,7 +60,7 @@ public class RevShoot extends Command {
         this.suckSpeed = suckSpeed;
         
         // Adds the requirement of subsystem(s) so two commands can't use it at once
-        addRequirements(shooterSubsystem, bumpSubsystem, suckSubsystem);
+        addRequirements(shooterSubsystem, suckSubsystem);
     }
 
     // Runs once when initialized
