@@ -23,6 +23,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.Constants.SuckConstants;
+import frc.robot.Constants.TurnerConstants;
 import frc.robot.Constants.WallBedConstants;
 import frc.robot.commands.Intake;
 import frc.robot.commands.MoveWallBed;
@@ -34,6 +35,7 @@ import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SuckSubsystem;
+import frc.robot.subsystems.TurnerSubsystem;
 import frc.robot.subsystems.WallBedSubsystem;
 
 public class RobotContainer {
@@ -76,6 +78,7 @@ public class RobotContainer {
     private final SuckSubsystem suckSubsystem = new SuckSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
     private final WallBedSubsystem wallBedSubsystem = new WallBedSubsystem();
+    private final TurnerSubsystem turnerSubsystem = new TurnerSubsystem();
 
 
     /* Controllers */
@@ -99,6 +102,8 @@ public class RobotContainer {
 
         // Set the rotational rate to 0 for strafe (since it will always be 0)
         strafe.RotationalRate = 0.0;
+
+        turnerSubsystem.turn(TurnerConstants.turnMotorSpeed);
 
         // Set all commands to configure
         configureBindings();
