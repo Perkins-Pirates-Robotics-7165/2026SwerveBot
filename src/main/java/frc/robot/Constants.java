@@ -40,8 +40,8 @@ public class Constants {
         public static final int bumpMotorID = 2;
 
         // Motor base speeds
-        public static final double bumpForwardSpeed = 1.0;
-        public static final double bumpReverseSpeed = -1.0;
+        public static final double bumpForwardSpeed = -1.0;
+        public static final double bumpReverseSpeed = 1.0;
     }
 
     // Constants for the suck thing on the robot
@@ -96,19 +96,19 @@ public class Constants {
         public static final int limelightFrameRate = 30;
 
         // Smart Has Target telemetry constants
-        public static final int savedAprilTagSightFrames = 50;
+        public static final int savedAprilTagSightFrames = 10;
         public static final int maxCountedFrames = 20;
 
         // Bounds for what each frame count is counted as
         public static final int shortFrameCountTopBound = 3;
         public static final int mediumFrameCountTopBound = 8;
-        public static final int longFrameCountTopBound = 10;
+        public static final int longFrameCountTopBound = 15;
 
         // Deviation of values for frameLength mode where we will take the shorter one
-        public static final int takeShorterDeviationTopBound = 4;
+        public static final int takeShorterDeviationTopBound = 1;
 
         // Min size that framesQueue has to be to do any work with it
-        public static final int minFrameQueueSize = 15;
+        public static final int minFrameQueueSize = 5;
         
     }
 

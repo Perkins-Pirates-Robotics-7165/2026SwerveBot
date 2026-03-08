@@ -65,19 +65,6 @@ public class LimelightSubsystem extends SubsystemBase {
         this.smartHasTarget();
     }
 
-    // /*
-    //  * Periodic functions run about every 20ms
-    //  * 
-    //  * Used for things like telemetry or logging
-    //  */
-    // @Override
-    // public void periodic() {
-
-    //     // Start taking telemetry data for LimelightSubsystem.smartHasTarget()
-    //     this.smartHasTargetTelemetry();
-
-    // }
-
     // Returns the offset of the camera from the april tag on the x axes
     public double getTx() {
         return txEntry.getDouble(0.0);
@@ -155,6 +142,10 @@ public class LimelightSubsystem extends SubsystemBase {
         
         // If there is no sight of the april tag
         else {
+
+            if (this.currentAprilTagFramesInSight <= 0) {
+                return;
+            }
             
             // Check to make sure that we aren't adding more than wanted to framesQueue
             if (this.framesQueue.size() >= LimelightConstants.savedAprilTagSightFrames) {
@@ -168,6 +159,7 @@ public class LimelightSubsystem extends SubsystemBase {
 
             // Reset the current frame time 
             this.currentAprilTagFramesInSight = 0;
+
         }
 
         SmartDashboard.putNumber("Current April Tag Sight Frames", currentAprilTagFramesInSight);
