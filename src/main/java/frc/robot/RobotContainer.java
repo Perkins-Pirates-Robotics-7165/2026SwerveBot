@@ -23,6 +23,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.Constants.SuckConstants;
+import frc.robot.Constants.TurnerConstants;
 import frc.robot.Constants.WallBedConstants;
 import frc.robot.commands.Intake;
 import frc.robot.commands.MoveWallBed;
@@ -104,6 +105,8 @@ public class RobotContainer {
 
         // Set the rotational rate to 0 for strafe (since it will always be 0)
         strafe.RotationalRate = 0.0;
+
+        turnerSubsystem.turn(TurnerConstants.turnMotorSpeed);
 
         // Set all commands to configure
         configureBindings();
