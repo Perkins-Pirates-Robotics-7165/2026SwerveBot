@@ -5,6 +5,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ProgramaticCommandConstants.AlignToFunnelConstants;
 import frc.robot.Utilities.MathUtilities;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -19,16 +20,13 @@ public class AlignToFunnel extends Command {
     // Robot centric drive method
     private final SwerveRequest.RobotCentric drive;
 
-    // Speed values
-    private final double MaxAngularRate;
-
     /**
      * Align the shooter to the funnel on the distance amount & the centering
      * 
      * @param drivetrain - Drivetrain subsystem
      * @param limelightSubsystem - Utility subsystem for the limelight
      */
-    public AlignToFunnel(CommandSwerveDrivetrain drivetrain, double MaxSpeed, double MaxAngularRate, LimelightSubsystem limelightSubsystem) {
+    public AlignToFunnel(CommandSwerveDrivetrain drivetrain, LimelightSubsystem limelightSubsystem) {
 
         // Set the subsystems
         this.drivetrain = drivetrain;
@@ -36,11 +34,8 @@ public class AlignToFunnel extends Command {
 
         // Set the drive method
         this.drive = new SwerveRequest.RobotCentric()
-            .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
+            .withDeadband(DriveConstants.MaxSpeed * 0.1).withRotationalDeadband(DriveConstants.MaxAngularRate * 0.1) // Add a 10% deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
-
-        // Set the max speeds for the drivetrain
-        this.MaxAngularRate = MaxAngularRate;
 
         // Adds the requirement of subsystem(s) so two commands can't use it at once
         addRequirements(drivetrain);
@@ -75,7 +70,7 @@ public class AlignToFunnel extends Command {
         drivetrain.applyRequest(() ->
             drive.withVelocityX(0.0) // Drive forward with negative Y (forward)
                 .withVelocityY(0.0) // Drive left with negative X (left)
-                .withRotationalRate(clonedRotationDrive * MaxAngularRate) // Rotate clockwie with negative X (left)
+                .withRotationalRate(clonedRotationDrive * DriveConstants.MaxAngularRate) // Rotate clockwie with negative X (left)
                 .withCenterOfRotation(new Translation2d(0.0, 0.0)) // Change the center of rotation as needed
         );
     }

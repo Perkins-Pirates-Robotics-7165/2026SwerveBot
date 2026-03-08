@@ -5,6 +5,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ProgramaticCommandConstants.ApproachFunnelConstants;
 import frc.robot.Utilities.MathUtilities;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -19,9 +20,6 @@ public class ApproachFunnel extends Command {
     // Robot centric drive method
     private final SwerveRequest.RobotCentric drive;
 
-    // Speed values
-    private final double MaxSpeed;
-
     // Target limelight controlled distance from april tag / funnel
     private final double targetDistance;
 
@@ -31,7 +29,7 @@ public class ApproachFunnel extends Command {
      * @param drivetrain - Drivetrain subsystem
      * @param limelightSubsystem - Utility subsystem for the limelight
      */
-    public ApproachFunnel(CommandSwerveDrivetrain drivetrain, double MaxSpeed, double MaxAngularRate, LimelightSubsystem limelightSubsystem, double targetDistance) {
+    public ApproachFunnel(CommandSwerveDrivetrain drivetrain, LimelightSubsystem limelightSubsystem, double targetDistance) {
 
         // Set the subsystems
         this.drivetrain = drivetrain;
@@ -39,11 +37,8 @@ public class ApproachFunnel extends Command {
 
         // Set the drive method
         this.drive = new SwerveRequest.RobotCentric()
-            .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
+            .withDeadband(DriveConstants.MaxSpeed * 0.1).withRotationalDeadband(DriveConstants.MaxAngularRate * 0.1) // Add a 10% deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
-
-        // Set the max speeds for the drivetrain
-        this.MaxSpeed = MaxSpeed;
 
         // Save the target distance from the limelight / funnel
         this.targetDistance = targetDistance;
@@ -80,7 +75,7 @@ public class ApproachFunnel extends Command {
         // TODO: Check to see if "newDistanceOffsetDrive * MaxSpeed" needs flipped
         // Move closer as needed with the newDistanceOffsetDrive speed
         drivetrain.applyRequest(() ->
-            drive.withVelocityX(newDistanceOffsetDrive * MaxSpeed) // Drive forward with negative Y (forward)
+            drive.withVelocityX(newDistanceOffsetDrive * DriveConstants.MaxSpeed) // Drive forward with negative Y (forward)
                 .withVelocityY(0.0) // Drive left with negative X (left)
                 .withRotationalRate(0.0) // Rotate clockwie with negative X (left)
                 .withCenterOfRotation(new Translation2d(0.0, 0.0)) // Change the center of rotation as needed
