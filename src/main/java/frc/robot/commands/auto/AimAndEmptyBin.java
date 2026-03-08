@@ -3,6 +3,7 @@ package frc.robot.commands.auto;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Constants.BumpConstants;
+import frc.robot.Constants.ProgramaticCommandConstants.AimAndEmptyBinConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.Constants.SuckConstants;
 import frc.robot.commands.AlignToFunnel;
@@ -19,7 +20,7 @@ public class AimAndEmptyBin {
 
         Command mainCommand = Commands.sequence(
             new AlignToFunnel(drivetrain, limelightSubsystem),
-            new ApproachFunnel(drivetrain, limelightSubsystem, 0.4),
+            new ApproachFunnel(drivetrain, limelightSubsystem, AimAndEmptyBinConstants.targetDistance),
             new ShooterFullRun(shooterSubsystem, bumpSubsystem, suckSubsystem, ShooterConstants.shooterForwardSpeed, BumpConstants.bumpForwardSpeed, SuckConstants.suckForwardSpeed)
         );
 

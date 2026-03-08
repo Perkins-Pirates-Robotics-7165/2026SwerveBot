@@ -140,6 +140,14 @@ public class Constants {
             public static final double targetDistanceSpeedMax = 0.5;
 
         }
+
+        /* ------------------------ AimAndEmptyBin ------------------------ */
+        public static class AimAndEmptyBinConstants {
+
+            // Target distance from funnel (meters)
+            public static final double targetDistance = 0.8;
+
+        }
     }
 
     // Constants for the pigeon subsystem
