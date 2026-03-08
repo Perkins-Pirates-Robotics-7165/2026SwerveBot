@@ -1,10 +1,7 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.PersistMode;
-import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.config.SparkFlexConfig;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SuckConstants;
@@ -16,18 +13,7 @@ public class SuckSubsystem extends SubsystemBase {
 
 
     // Initializer, use to set configurations and set attributes
-    public SuckSubsystem() {
-
-        // // Define the flex config
-        // SparkFlexConfig sparkFlexConfig = new SparkFlexConfig();
-
-        // // Set the config to inverted
-        // sparkFlexConfig.encoder.inverted(true);
-
-        // // Set the configurator to our motor
-        // suckMotor.configure(sparkFlexConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-
-    }
+    public SuckSubsystem() {}
 
     /*
      * Start the suck motor

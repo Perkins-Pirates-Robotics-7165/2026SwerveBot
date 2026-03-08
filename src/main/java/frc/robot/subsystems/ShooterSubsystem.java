@@ -1,10 +1,7 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.PersistMode;
-import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.config.SparkFlexConfig;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
@@ -15,18 +12,7 @@ public class ShooterSubsystem extends SubsystemBase {
     private final SparkFlex shooterMotor = new SparkFlex(ShooterConstants.shooterMotorID, MotorType.kBrushless);
 
     // Initializer, use to set configurations and set attributes
-    public ShooterSubsystem() {
-
-        // // Define the flex config
-        // SparkFlexConfig sparkFlexConfig = new SparkFlexConfig();
-
-        // // Set the config to inverted
-        // sparkFlexConfig.encoder.inverted(true);
-
-        // // Set the configurator to our motor
-        // shooterMotor.configure(sparkFlexConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-
-    }
+    public ShooterSubsystem() {}
 
     /*
      * Start the shooter
