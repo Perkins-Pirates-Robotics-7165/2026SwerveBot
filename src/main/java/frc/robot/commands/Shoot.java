@@ -6,21 +6,21 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class Shoot extends Command {
 
     private final ShooterSubsystem shooterSubsystem;
-    private final double shooterSpeed;
+    private final int shooterRPM;
 
     /**
      * Shoots balls with the shooter subsystem
      * 
      * @param shooterSubsystem - The subsystem for controling the shooter motor
-     * @param shooterSpeed - Shooter motor speed [-1.0, 1.0]. 
+     * @param shooterRPM - Shooter motor rpm 
      */
-    public Shoot(ShooterSubsystem shooterSubsystem, double shooterSpeed) {
+    public Shoot(ShooterSubsystem shooterSubsystem, int shooterRPM) {
 
         // Set the subsystem
         this.shooterSubsystem = shooterSubsystem;
 
         // Save the shooter speed
-        this.shooterSpeed = shooterSpeed;
+        this.shooterRPM = shooterRPM;
 
         // Adds the requirement of subsystem(s) so two commands can't use it at once
         addRequirements(shooterSubsystem);
@@ -34,13 +34,13 @@ public class Shoot extends Command {
     @Override
     public void execute() {
         // Shoot the balls with the set speed
-        shooterSubsystem.shoot(shooterSpeed);
+        shooterSubsystem.shoot(shooterRPM);
     }
 
     // When the command is finished
     @Override
     public void end(boolean interrupted) {
-        shooterSubsystem.shoot(0.0);
+        shooterSubsystem.shoot(0);
     }
 
     @Override

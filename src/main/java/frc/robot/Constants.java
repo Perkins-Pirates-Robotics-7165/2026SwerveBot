@@ -26,8 +26,8 @@ public class Constants {
         public static final int shooterMotorID = 1;
 
         // Motor base speeds
-        public static final double shooterForwardSpeed = 0.55;
-        public static final double shooterReverseSpeed = -0.4;
+        public static final int shooterForwardSpeed = 3800;
+        public static final int shooterReverseSpeed = -4500;
 
         // Rev Shoot trigger threshold
         public static final double triggerThreshold = 0.1;
@@ -40,8 +40,8 @@ public class Constants {
         public static final int bumpMotorID = 2;
 
         // Motor base speeds
-        public static final double bumpForwardSpeed = 1.0;
-        public static final double bumpReverseSpeed = -1.0;
+        public static final double bumpForwardSpeed = -0.6;
+        public static final double bumpReverseSpeed = 1.0;
     }
 
     // Constants for the suck thing on the robot
@@ -51,7 +51,7 @@ public class Constants {
         public static final int suckMotorID = 3;
 
         // Motor base speeds
-        public static final double suckForwardSpeed = 1.0;    
+        public static final double suckForwardSpeed = 0.6;    
         public static final double suckReverseSpeed = -1.0;
     }
 
@@ -62,7 +62,7 @@ public class Constants {
         public static final int intakeMotorID = 5;
 
         // Motor base speeds
-        public static final double intakeForwardSpeed = 0.7;
+        public static final double intakeForwardSpeed = 0.9;
         public static final double intakeReverseSpeed = -0.5;
 
         // Intake trigger threshold
@@ -81,8 +81,8 @@ public class Constants {
         public static final int wallBedRightLimitSwitchPort = 1;
 
         // Motor base speeds
-        public static final double wallBedRaiseSpeed = 0.3;
-        public static final double wallBedLowerSpeed = -0.1;
+        public static final double wallBedRaiseSpeed = 0.2;
+        public static final double wallBedLowerSpeed = -0.2;
 
     }
 
