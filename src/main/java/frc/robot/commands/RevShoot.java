@@ -72,7 +72,7 @@ public class RevShoot extends Command {
     public void execute() {
         // Start reving the shooter & bump
         shooterSubsystem.shoot(shooterRPM);
-        // bumpSubsystem.bump(bumpSpeed);
+        bumpSubsystem.bump(bumpSpeed);
 
         // If the startSuck supplier is true, run the suck motor, turn it off if supplier is false
         if (startSuck.get()) {
@@ -85,8 +85,8 @@ public class RevShoot extends Command {
     // When the command is finished
     @Override
     public void end(boolean interrupted) {
-        shooterSubsystem.shoot(1000);
-        // bumpSubsystem.bump(0.0);
+        shooterSubsystem.shoot(500);
+        bumpSubsystem.bump(0.0);
         suckSubsystem.suck(0.0);
     }
 
