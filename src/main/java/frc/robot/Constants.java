@@ -40,8 +40,8 @@ public class Constants {
         public static final int bumpMotorID = 2;
 
         // Motor base speeds
-        public static final double bumpForwardSpeed = -1.0;
-        public static final double bumpReverseSpeed = 1.0;
+        public static final double bumpForwardSpeed = 1.0;
+        public static final double bumpReverseSpeed = -1.0;
     }
 
     // Constants for the suck thing on the robot
