@@ -59,6 +59,12 @@ public class LimelightSubsystem extends SubsystemBase {
         botposeEntry = limelightTable.getEntry("botpose_targetspace");
     }
 
+    @Override
+    public void periodic() {
+        this.smartHasTargetTelemetry();
+        this.smartHasTarget();
+    }
+
     // /*
     //  * Periodic functions run about every 20ms
     //  * 
@@ -97,7 +103,7 @@ public class LimelightSubsystem extends SubsystemBase {
 
     // Returns true if there is an april tag in focus, returns false if there is not an april tag in focus
     public boolean hasTarget() {
-        return tvEntry.getDouble(0.0) == 1.0;
+        return 1.0 == tvEntry.getDouble(0.0);
     }
 
     // Returns the distance to the april tag (in relation to the camera) in meters
@@ -135,12 +141,16 @@ public class LimelightSubsystem extends SubsystemBase {
     // Telemetry logging for the smartHasTarget
     public void smartHasTargetTelemetry() {
 
+        SmartDashboard.putBoolean("Has Target", this.hasTarget());
+        SmartDashboard.putNumber("tx", this.getTx());
+
         // Check to see if the limelight has sight of an april tag
         // Also check to make sure the april tag count is less than the long counter
         if (this.hasTarget() && this.currentAprilTagFramesInSight < LimelightConstants.maxCountedFrames) {
 
             // If there is sight, add one to the frame counter
             this.currentAprilTagFramesInSight += 1;
+            
         } 
         
         // If there is no sight of the april tag
@@ -159,6 +169,8 @@ public class LimelightSubsystem extends SubsystemBase {
             // Reset the current frame time 
             this.currentAprilTagFramesInSight = 0;
         }
+
+        SmartDashboard.putNumber("Current April Tag Sight Frames", currentAprilTagFramesInSight);
     }
 
     /*
@@ -193,6 +205,7 @@ public class LimelightSubsystem extends SubsystemBase {
     private LimelightSmartHasTargetFrameLength findFrameLengthOfFramesQueue(Map<LimelightSmartHasTargetFrameLength, Integer> modeMapFramesQueue) {
         
         Map.Entry<LimelightSmartHasTargetFrameLength, Integer> trueMode = Collections.max(modeMapFramesQueue.entrySet(), Map.Entry.comparingByValue());
+        SmartDashboard.putNumber("True Mean of Frames Queue", trueMode.getValue());
 
         // If the highest is short, return that
         if (trueMode.getKey() == LimelightSmartHasTargetFrameLength.SHORT) {
@@ -219,6 +232,7 @@ public class LimelightSubsystem extends SubsystemBase {
     private LimelightSmartHasTargetFramePattern findFramePatternOfFramesQueue(Map<LimelightSmartHasTargetFrameLength, Integer> modeMapFramesQueue, LimelightSmartHasTargetFrameLength frameLength) {
         // Use mean function against framesQueue
         int meanOfFramesQueue = LimelightUtilities.mean(framesQueue);
+        SmartDashboard.putNumber("Frames Queue first Mean", meanOfFramesQueue);
 
         // If that value is within the found frame length, return consistent that
         if (LimelightSmartHasTargetFrameLength.fromInteger(meanOfFramesQueue) == frameLength) {

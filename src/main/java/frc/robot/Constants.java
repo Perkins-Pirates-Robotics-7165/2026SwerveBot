@@ -90,22 +90,22 @@ public class Constants {
     public static class LimelightConstants {
 
         // Limelight server name
-        public static final String limelightName = "";
+        public static final String limelightName = "limelight";
 
         // Limelight configs
         public static final int limelightFrameRate = 30;
 
         // Smart Has Target telemetry constants
-        public static final int savedAprilTagSightFrames = 30;
-        public static final int maxCountedFrames = 240;
+        public static final int savedAprilTagSightFrames = 50;
+        public static final int maxCountedFrames = 20;
 
         // Bounds for what each frame count is counted as
-        public static final int shortFrameCountTopBound = 30;
-        public static final int mediumFrameCountTopBound = 100;
-        public static final int longFrameCountTopBound = 240;
+        public static final int shortFrameCountTopBound = 3;
+        public static final int mediumFrameCountTopBound = 8;
+        public static final int longFrameCountTopBound = 10;
 
         // Deviation of values for frameLength mode where we will take the shorter one
-        public static final int takeShorterDeviationTopBound = 6;
+        public static final int takeShorterDeviationTopBound = 4;
 
         // Min size that framesQueue has to be to do any work with it
         public static final int minFrameQueueSize = 15;

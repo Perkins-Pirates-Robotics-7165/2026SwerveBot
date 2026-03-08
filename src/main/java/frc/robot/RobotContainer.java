@@ -113,11 +113,6 @@ public class RobotContainer {
         configureBindings();
     }
 
-    public void periodic() {
-        limelightSubsystem.smartHasTargetTelemetry();
-        // limelightSubsystem.smartHasTarget();
-    }
-
     /*
      * Start defining commands for things like buttons, smartdashboard, etc.
      * 
