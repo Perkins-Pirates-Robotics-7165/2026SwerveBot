@@ -47,7 +47,7 @@ public class WallBedSubsystem extends SubsystemBase {
         } 
         
         // If one or two of the limit switches are pressed, only move if the speed is negitive (lowering the wall bed)
-        else if (true) {
+        else if (speed < 0.0 || speed > 0.0) {
             wallBedMainMotor.set(speed);
         }
 
