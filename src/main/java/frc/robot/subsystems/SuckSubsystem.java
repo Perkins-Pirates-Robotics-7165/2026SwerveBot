@@ -1,19 +1,26 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.PersistMode;
+import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkFlexConfig;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SuckConstants;
 
 public class SuckSubsystem extends SubsystemBase {
 
-    // The motor seperating the bin from the shooter
+    // The motor separating the bin from the shooter
     private final SparkFlex suckMotor = new SparkFlex(SuckConstants.suckMotorID, MotorType.kBrushless);
 
 
     // Initializer, use to set configurations and set attributes
-    public SuckSubsystem() {}
+    public SuckSubsystem() {
+        SparkFlexConfig config = new SparkFlexConfig();
+        config.smartCurrentLimit(65, 35);  // stall, free current limits
+        suckMotor.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+    }
 
     /*
      * Start the suck motor

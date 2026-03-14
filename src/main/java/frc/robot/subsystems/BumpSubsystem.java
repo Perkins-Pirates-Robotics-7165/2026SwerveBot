@@ -1,7 +1,10 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.PersistMode;
+import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkFlexConfig;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.BumpConstants;
@@ -13,7 +16,11 @@ public class BumpSubsystem extends SubsystemBase {
 
 
     // Initializer, use to set configurations and set attributes
-    public BumpSubsystem() {}
+    public BumpSubsystem() {
+        SparkFlexConfig config = new SparkFlexConfig();
+        config.smartCurrentLimit(30, 30);  // stall, free current limits
+        bumpMotor.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+    }
 
     /*
      * Start the bump motor

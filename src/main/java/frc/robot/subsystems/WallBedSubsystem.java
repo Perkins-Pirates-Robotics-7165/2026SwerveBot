@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -29,6 +30,13 @@ public class WallBedSubsystem extends SubsystemBase {
 
         // Invert the main motor
         wallBedMainMotor.getConfigurator().apply(wallBedMainMotorConfig);
+
+        // Apply current limits to both wall bed motors
+        CurrentLimitsConfigs currentLimits = new CurrentLimitsConfigs();
+        currentLimits.StatorCurrentLimit = 40;
+        currentLimits.StatorCurrentLimitEnable = true;
+        wallBedMainMotor.getConfigurator().apply(currentLimits);
+        wallBedFollowerMotor.getConfigurator().apply(currentLimits);
 
         // Set the follower motor for the main motor, with a reversed direction
         wallBedFollowerMotor.setControl(new Follower(WallBedConstants.wallBedMainMotorID, MotorAlignmentValue.Opposed));
