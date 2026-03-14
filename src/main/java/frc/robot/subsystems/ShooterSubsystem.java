@@ -16,7 +16,9 @@ public class ShooterSubsystem extends SubsystemBase {
 
     // Top shooter motor
     private final SparkFlex shooterMotor = new SparkFlex(ShooterConstants.shooterMotorID, MotorType.kBrushless);
+    private final SparkClosedLoopController closedLoopController = shooterMotor.getClosedLoopController();
     private int currentRPM = 500;
+    private int lastSetRPM = Integer.MIN_VALUE;
 
     // Initializer, use to set configurations and set attributes
     public ShooterSubsystem() {
@@ -38,8 +40,10 @@ public class ShooterSubsystem extends SubsystemBase {
     // Period function on field, called every 20ms
     @Override
     public void periodic() {
-        SparkClosedLoopController closedLoopController = shooterMotor.getClosedLoopController();
-        closedLoopController.setSetpoint(currentRPM, ControlType.kVelocity);
+        if (currentRPM != lastSetRPM) {
+            closedLoopController.setSetpoint(currentRPM, ControlType.kVelocity);
+            lastSetRPM = currentRPM;
+        }
 
         SmartDashboard.putNumber("Shooter RPM", shooterMotor.getEncoder().getVelocity());
     }
