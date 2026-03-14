@@ -1,5 +1,7 @@
 # TODO: Add Current Limits to All Motors
 
+> Fixed as part of branch hank-todo13
+
 **Severity:** Critical  
 **Files:** `src/main/java/frc/robot/subsystems/ShooterSubsystem.java`, `src/main/java/frc/robot/subsystems/BumpSubsystem.java`, `src/main/java/frc/robot/subsystems/SuckSubsystem.java`, `src/main/java/frc/robot/subsystems/IntakeSubsystem.java`, `src/main/java/frc/robot/subsystems/WallBedSubsystem.java`
 

@@ -1,5 +1,7 @@
 # TODO: Reduce Turner Motor Speed to Limit Battery Drain
 
+> Fixed as part of branch hank-todo13
+
 **Severity:** High  
 **Files:** `src/main/java/frc/robot/Constants.java`, `src/main/java/frc/robot/RobotContainer.java`  
 **Related:** TODO #05 (turner uncontrolled startup — fix the scheduler ownership issue there first)

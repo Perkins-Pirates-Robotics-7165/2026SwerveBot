@@ -1,5 +1,7 @@
 # TODO: Reduce Drive Speed Multipliers
 
+> Fixed as part of branch hank-todo13
+
 **Severity:** Low  
 **File:** `src/main/java/frc/robot/Constants.java`
 
