@@ -1,5 +1,7 @@
 # TODO: Replace new Translation2d(0, 0) Allocations in Lambdas
 
+> Fixed in PR #2
+
 **Severity:** Low (performance)  
 **Files:** `src/main/java/frc/robot/RobotContainer.java`, `src/main/java/frc/robot/commands/AlignToFunnel.java`, `src/main/java/frc/robot/commands/ApproachFunnel.java`
 
