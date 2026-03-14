@@ -18,7 +18,7 @@ public class SuckSubsystem extends SubsystemBase {
     // Initializer, use to set configurations and set attributes
     public SuckSubsystem() {
         SparkFlexConfig config = new SparkFlexConfig();
-        config.smartCurrentLimit(25, 25);  // 25A stall, 25A free current limits
+        config.smartCurrentLimit(35, 35);  // 25A stall, 25A free current limits
         suckMotor.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
     }
 
