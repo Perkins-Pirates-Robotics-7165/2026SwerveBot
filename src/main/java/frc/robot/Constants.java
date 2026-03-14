@@ -14,8 +14,8 @@ public class Constants {
     public static class DriveConstants {
 
         // Speed multipliers
-        public static final double driveSpeedMultiplier = 1.0;
-        public static final double rotationSpeedMultiplier = 1.0;
+        public static final double driveSpeedMultiplier = 0.55;
+        public static final double rotationSpeedMultiplier = 0.65;
         public static final double strafeSpeed = 0.3;
     }
 

@@ -202,7 +202,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
      */
     private void configureDriveCurrentLimits() {
         CurrentLimitsConfigs driveCurrentLimits = new CurrentLimitsConfigs()
-            .withStatorCurrentLimit(Amps.of(120))
+            .withStatorCurrentLimit(Amps.of(90))
             .withStatorCurrentLimitEnable(true);
         for (int i = 0; i < 4; i++) {
             getModule(i).getDriveMotor().getConfigurator().apply(driveCurrentLimits);
