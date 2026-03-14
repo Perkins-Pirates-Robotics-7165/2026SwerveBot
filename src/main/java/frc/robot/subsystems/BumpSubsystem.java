@@ -18,7 +18,7 @@ public class BumpSubsystem extends SubsystemBase {
     // Initializer, use to set configurations and set attributes
     public BumpSubsystem() {
         SparkFlexConfig config = new SparkFlexConfig();
-        config.smartCurrentLimit(20, 25);  // 20A stall, 25A free current limits
+        config.smartCurrentLimit(30, 30);  // stall, free current limits
         bumpMotor.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
     }
 
