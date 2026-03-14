@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 
 import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.Utils;
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.swerve.SwerveRequest;
@@ -129,6 +130,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
         SwerveModuleConstants<?, ?, ?>... modules
     ) {
         super(drivetrainConstants, modules);
+        configureDriveCurrentLimits();
         if (Utils.isSimulation()) {
             startSimThread();
         }
@@ -153,6 +155,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
         SwerveModuleConstants<?, ?, ?>... modules
     ) {
         super(drivetrainConstants, odometryUpdateFrequency, modules);
+        configureDriveCurrentLimits();
         if (Utils.isSimulation()) {
             startSimThread();
         }
@@ -185,6 +188,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
         SwerveModuleConstants<?, ?, ?>... modules
     ) {
         super(drivetrainConstants, odometryUpdateFrequency, odometryStandardDeviation, visionStandardDeviation, modules);
+        configureDriveCurrentLimits();
         if (Utils.isSimulation()) {
             startSimThread();
         }
@@ -196,6 +200,15 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
      * @param request Function returning the request to apply
      * @return Command to run
      */
+    private void configureDriveCurrentLimits() {
+        CurrentLimitsConfigs driveCurrentLimits = new CurrentLimitsConfigs()
+            .withStatorCurrentLimit(Amps.of(120))
+            .withStatorCurrentLimitEnable(true);
+        for (int i = 0; i < 4; i++) {
+            getModule(i).getDriveMotor().getConfigurator().apply(driveCurrentLimits);
+        }
+    }
+
     public Command applyRequest(Supplier<SwerveRequest> request) {
         return run(() -> this.setControl(request.get()));
     }
