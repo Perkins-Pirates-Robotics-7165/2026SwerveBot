@@ -1,5 +1,7 @@
 # TODO: Cache SparkClosedLoopController in ShooterSubsystem
 
+> Fixed in PR #1
+
 **Severity:** Medium (performance)  
 **File:** `src/main/java/frc/robot/subsystems/ShooterSubsystem.java`
 
