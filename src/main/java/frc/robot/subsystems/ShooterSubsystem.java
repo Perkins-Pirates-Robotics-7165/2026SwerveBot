@@ -24,7 +24,7 @@ public class ShooterSubsystem extends SubsystemBase {
     public ShooterSubsystem() {
         SparkFlexConfig config = new SparkFlexConfig();
         config.closedLoop.pid(0.001, 0, 0);
-        config.smartCurrentLimit(35);
+        config.smartCurrentLimit(45, 55);
 
         shooterMotor.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
     }
