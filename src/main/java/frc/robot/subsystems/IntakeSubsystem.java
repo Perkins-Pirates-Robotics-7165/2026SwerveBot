@@ -16,7 +16,7 @@ public class IntakeSubsystem extends SubsystemBase {
     // Initializer, use to set configurations and set attributes
     public IntakeSubsystem() {
         SparkFlexConfig config = new SparkFlexConfig();
-        config.smartCurrentLimit(65, 40);  // stall, free current limits
+        config.smartCurrentLimit(70, 50);  // stall, free current limits
         intakeMotor.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
     }
     
