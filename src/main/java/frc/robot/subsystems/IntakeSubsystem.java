@@ -1,6 +1,9 @@
 package frc.robot.subsystems;
+import com.revrobotics.PersistMode;
+import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkFlexConfig;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
@@ -11,7 +14,11 @@ public class IntakeSubsystem extends SubsystemBase {
     private final SparkFlex intakeMotor = new SparkFlex(IntakeConstants.intakeMotorID, MotorType.kBrushless);
 
     // Initializer, use to set configurations and set attributes
-    public IntakeSubsystem() {}
+    public IntakeSubsystem() {
+        SparkFlexConfig config = new SparkFlexConfig();
+        config.smartCurrentLimit(40);
+        intakeMotor.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+    }
     
     /*
      * Start the intake
