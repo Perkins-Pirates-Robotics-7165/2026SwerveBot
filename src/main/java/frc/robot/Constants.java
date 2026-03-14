@@ -92,7 +92,7 @@ public class Constants {
         public static final int turnMotorID = 9;
 
         // Base speed
-        public static final double turnMotorSpeed = 1.0;
+        public static final double turnMotorSpeed = .6;
 
     }
 
