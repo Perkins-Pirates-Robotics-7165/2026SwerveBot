@@ -63,7 +63,7 @@ public class Constants {
 
         // Motor base speeds
         public static final double intakeForwardSpeed = 0.9;
-        public static final double intakeReverseSpeed = -0.5;
+        public static final double intakeReverseSpeed = -0.7;
 
         // Intake trigger threshold
         public static final double triggerThreshold = 0.1;
