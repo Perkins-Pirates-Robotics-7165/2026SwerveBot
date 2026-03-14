@@ -137,7 +137,7 @@ public class RobotContainer {
                 drive.withVelocityX(-primary.getLeftY() * MaxSpeed * DriveConstants.driveSpeedMultiplier) // Drive forward with negative Y (forward)
                     .withVelocityY(-primary.getLeftX() * MaxSpeed * DriveConstants.driveSpeedMultiplier) // Drive left with negative X (left)
                     .withRotationalRate(-primary.getRightX() * MaxAngularRate * DriveConstants.rotationSpeedMultiplier) // Rotate clockwie with negative X (left)
-                    .withCenterOfRotation(new Translation2d(0.0, 0.0)) // Change the center of rotation as needed
+                    .withCenterOfRotation(Translation2d.kZero) // Change the center of rotation as needed
             )
         );
 

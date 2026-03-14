@@ -83,7 +83,7 @@ public class ApproachFunnel extends Command {
             drive.withVelocityX(newDistanceOffsetDrive * MaxSpeed) // Drive forward with negative Y (forward)
                 .withVelocityY(0.0) // Drive left with negative X (left)
                 .withRotationalRate(0.0) // Rotate clockwie with negative X (left)
-                .withCenterOfRotation(new Translation2d(0.0, 0.0)) // Change the center of rotation as needed
+                .withCenterOfRotation(Translation2d.kZero) // Change the center of rotation as needed
         );
     }
 
@@ -96,7 +96,7 @@ public class ApproachFunnel extends Command {
             drive.withVelocityX(0.0)
                 .withVelocityY(0.0)
                 .withRotationalRate(0.0)
-                .withCenterOfRotation(new Translation2d(0.0, 0.0))
+                .withCenterOfRotation(Translation2d.kZero)
         );
 
     }
