@@ -61,7 +61,7 @@ public class AlignToFunnel extends Command {
         double rotationalDrive = leftRightOffset / AlignToFunnelConstants.leftRightOffsetP;
 
         // Clamp the rotational drive for safety purposes
-        rotationalDrive = MathUtilities.clamp(leftRightOffset, AlignToFunnelConstants.rotationalSpeedMin, AlignToFunnelConstants.rotationalSpeedMax);
+        rotationalDrive = MathUtilities.clamp(rotationalDrive, AlignToFunnelConstants.rotationalSpeedMin, AlignToFunnelConstants.rotationalSpeedMax);
 
         // Cloned xDrive so drive.withRotationalRate is happy with a final(ed) value
         final double clonedRotationDrive = rotationalDrive;

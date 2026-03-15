@@ -67,7 +67,7 @@ public class ApproachFunnel extends Command {
         double distanceOffsetDrive = targetDistanceOffset / ApproachFunnelConstants.targetDistanceOffsetP;
 
         // Clamp the drive speed for safety reasons
-        distanceOffsetDrive = MathUtilities.clamp(targetDistanceOffset, ApproachFunnelConstants.targetDistanceSpeedMin, ApproachFunnelConstants.targetDistanceSpeedMax);
+        distanceOffsetDrive = MathUtilities.clamp(distanceOffsetDrive, ApproachFunnelConstants.targetDistanceSpeedMin, ApproachFunnelConstants.targetDistanceSpeedMax);
 
         // Save the offset drive into a new final variable ot appease the .withVelocity gods
         final double newDistanceOffsetDrive = distanceOffsetDrive;
