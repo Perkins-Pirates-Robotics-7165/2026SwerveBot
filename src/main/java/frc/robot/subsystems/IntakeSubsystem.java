@@ -12,8 +12,12 @@ public class IntakeSubsystem extends SubsystemBase {
     private final SparkFlex intakeMotor = new SparkFlex(IntakeConstants.intakeMotorID, MotorType.kBrushless);
 
     // Initializer, use to set configurations and set attributes
-    public IntakeSubsystem() {}
-
+    public IntakeSubsystem() {
+        SparkFlexConfig config = new SparkFlexConfig();
+        config.smartCurrentLimit(70, 50);  // stall, free current limits
+        intakeMotor.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+    }
+    
     /*
      * Start the intake
      * 

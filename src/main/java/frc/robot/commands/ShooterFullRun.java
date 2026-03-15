@@ -13,7 +13,7 @@ public class ShooterFullRun extends Command {
     private final SuckSubsystem suckSubsystem;
 
     // Speeds
-    private final double shooterSpeed;
+    private final int shooterRPM;
     private final double bumpSpeed;
     private final double suckSpeed;
 
@@ -24,7 +24,7 @@ public class ShooterFullRun extends Command {
      * @param shooterSubsystem - The subsystem for shooting
      * @param bumpSubsystem - The subsystem for bumping the balls
      * @param suckSubsystem - The subsystem for sucking balls
-     * @param shooterSpeed - Shooter motor speed [-1.0, 1.0].
+     * @param shooterRPM - Shooter motor rpm
      * @param bumpSpeed - Bump motor speed [-1.0, 1.0].
      * @param suckSpeed - Suck motor speed [-1.0, 1.0].
      */
@@ -32,7 +32,7 @@ public class ShooterFullRun extends Command {
         ShooterSubsystem shooterSubsystem, 
         BumpSubsystem bumpSubsystem,
         SuckSubsystem suckSubsystem,
-        double shooterSpeed,
+        int shooterRPM,
         double bumpSpeed,
         double suckSpeed
     ) {
@@ -43,7 +43,7 @@ public class ShooterFullRun extends Command {
         this.suckSubsystem = suckSubsystem;
 
         // Save the speeds
-        this.shooterSpeed = shooterSpeed;
+        this.shooterRPM = shooterRPM;
         this.bumpSpeed = bumpSpeed;
         this.suckSpeed = suckSpeed;
         
@@ -60,7 +60,7 @@ public class ShooterFullRun extends Command {
     public void execute() {
 
         // Start all 3 motors
-        shooterSubsystem.shoot(shooterSpeed);
+        shooterSubsystem.shoot(shooterRPM);
         bumpSubsystem.bump(bumpSpeed);
         suckSubsystem.suck(suckSpeed);
     }
@@ -70,7 +70,7 @@ public class ShooterFullRun extends Command {
     public void end(boolean interrupted) {
 
         // Stop all three motors
-        shooterSubsystem.shoot(0.0);
+        shooterSubsystem.shoot(0);
         bumpSubsystem.bump(0.0);
         suckSubsystem.suck(0.0);
     }

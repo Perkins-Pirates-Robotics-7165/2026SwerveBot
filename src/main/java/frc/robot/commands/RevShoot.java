@@ -15,7 +15,7 @@ public class RevShoot extends Command {
     private final SuckSubsystem suckSubsystem;
 
     // Shooter & Bump speeds for the rev
-    private final double shooterSpeed;
+    private final int shooterRPM;
     private final double bumpSpeed;
 
     // Suck speed & supplier to start the suck or not
@@ -29,7 +29,7 @@ public class RevShoot extends Command {
      * @param shooterSubsystem - The subsystem for shooting
      * @param bumpSubsystem - The subsystem for bumping the balls
      * @param suckSubsystem - The subsystem for sucking balls
-     * @param shooterSpeed - Shooter motor speed [-1.0, 1.0].
+     * @param shooterRPM - Shooter motor speed [-1.0, 1.0].
      * @param bumpSpeed - Bump motor speed [-1.0, 1.0].  
      * @param startSuck - Boolean suplier used for when to start the suck motor (true -> start)
      * @param suckSpeed - Suck motor speed [-1.0, 1.0].  
@@ -38,7 +38,7 @@ public class RevShoot extends Command {
         ShooterSubsystem shooterSubsystem, 
         BumpSubsystem bumpSubsystem,
         SuckSubsystem suckSubsystem,
-        double shooterSpeed,
+        int shooterRPM,
         double bumpSpeed,
         Supplier<Boolean> startSuck,
         double suckSpeed
@@ -50,7 +50,7 @@ public class RevShoot extends Command {
         this.bumpSubsystem = bumpSubsystem;
 
         // Save the shooter speed
-        this.shooterSpeed = shooterSpeed;
+        this.shooterRPM = shooterRPM;
 
         // Bump speed
         this.bumpSpeed = bumpSpeed;
@@ -71,7 +71,7 @@ public class RevShoot extends Command {
     @Override
     public void execute() {
         // Start reving the shooter & bump
-        shooterSubsystem.shoot(shooterSpeed);
+        shooterSubsystem.shoot(shooterRPM);
         bumpSubsystem.bump(bumpSpeed);
 
         // If the startSuck supplier is true, run the suck motor, turn it off if supplier is false
@@ -85,7 +85,7 @@ public class RevShoot extends Command {
     // When the command is finished
     @Override
     public void end(boolean interrupted) {
-        shooterSubsystem.shoot(0.0);
+        shooterSubsystem.shoot(500);
         bumpSubsystem.bump(0.0);
         suckSubsystem.suck(0.0);
     }
