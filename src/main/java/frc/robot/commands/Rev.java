@@ -11,7 +11,7 @@ public class Rev extends Command {
     private final BumpSubsystem bumpSubsystem;
 
     // Shooter & Bump speeds for the rev
-    private final double shooterSpeed;
+    private final int shooterSpeed;
     private final double bumpSpeed;
 
     
@@ -29,7 +29,7 @@ public class Rev extends Command {
     public Rev(
         ShooterSubsystem shooterSubsystem, 
         BumpSubsystem bumpSubsystem,
-        double shooterSpeed,
+        int shooterSpeed,
         double bumpSpeed
     ) {
 
@@ -63,7 +63,7 @@ public class Rev extends Command {
     // When the command is finished
     @Override
     public void end(boolean interrupted) {
-        shooterSubsystem.shoot(0.0);
+        shooterSubsystem.shoot(0);
         bumpSubsystem.bump(0.0);
     }
 

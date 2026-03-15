@@ -70,7 +70,7 @@ public class AlignToFunnel extends Command {
         drivetrain.applyRequest(() ->
             drive.withVelocityX(0.0) // Drive forward with negative Y (forward)
                 .withVelocityY(0.0) // Drive left with negative X (left)
-                .withRotationalRate(clonedRotationDrive * MaxAngularRate) // Rotate clockwie with negative X (left)
+                .withRotationalRate(clonedRotationDrive * DriveConstants.MaxAngularRate) // Rotate clockwie with negative X (left)
                 .withCenterOfRotation(Translation2d.kZero) // Change the center of rotation as needed
         );
     }
