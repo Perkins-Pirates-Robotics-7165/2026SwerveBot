@@ -20,6 +20,7 @@ public class LimelightSubsystem extends SubsystemBase {
 
     // Bot position entry
     private final NetworkTableEntry botposeEntry;
+    private final double[] botposeDefaultArrayCache;
     
     public LimelightSubsystem() {
         
@@ -34,8 +35,9 @@ public class LimelightSubsystem extends SubsystemBase {
         taEntry = limelightTable.getEntry("ta");
         tvEntry = limelightTable.getEntry("tv");
 
-        // Set the bot position entry
+        // Set the bot position entry + default array cache
         botposeEntry = limelightTable.getEntry("botpose_targetspace");
+        this.botposeDefaultArrayCache = new double[6];
     }
 
     // Returns the offset of the camera from the april tag on the x axes
@@ -95,7 +97,7 @@ public class LimelightSubsystem extends SubsystemBase {
      * 
      */
     public double[] getBotPose() {
-        return botposeEntry.getDoubleArray(new double[6]);
+        return botposeEntry.getDoubleArray(this.botposeDefaultArrayCache);
     }
 
     /*
