@@ -45,7 +45,7 @@ public class Rev extends Command {
 
         
         // Adds the requirement of subsystem(s) so two commands can't use it at once
-        addRequirements(shooterSubsystem);
+        addRequirements(shooterSubsystem, bumpSubsystem);
     }
 
     // Runs once when initialized
