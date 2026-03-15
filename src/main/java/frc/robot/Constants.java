@@ -117,7 +117,7 @@ public class Constants {
     public static class LimelightConstants {
 
         // Limelight server name
-        public static final String limelightName = "";
+        public static final String limelightName = "limelight";
     }
 
     // Constants for the programatic controlled commands (limelight & PID)
