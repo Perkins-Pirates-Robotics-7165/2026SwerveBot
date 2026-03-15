@@ -108,8 +108,9 @@ public class RobotContainer {
         // Set the rotational rate to 0 for strafe (since it will always be 0)
         strafe.RotationalRate = 0.0;
 
-        turnerSubsystem.turn(TurnerConstants.turnMotorSpeed);
-        // bumpSubsystem.bump(BumpConstants.bumpForwardSpeed);
+        turnerSubsystem.setDefaultCommand(
+            turnerSubsystem.run(() -> turnerSubsystem.turn(TurnerConstants.turnMotorSpeed))
+        );
 
         // Set all commands to configure
         configureBindings();
