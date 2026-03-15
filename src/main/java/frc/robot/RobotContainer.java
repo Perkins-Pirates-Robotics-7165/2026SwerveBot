@@ -25,6 +25,8 @@ import frc.robot.Constants.ShooterConstants;
 import frc.robot.Constants.SuckConstants;
 import frc.robot.Constants.TurnerConstants;
 import frc.robot.Constants.WallBedConstants;
+import frc.robot.commands.AlignToFunnel;
+import frc.robot.commands.ApproachFunnel;
 import frc.robot.commands.Intake;
 import frc.robot.commands.MoveWallBed;
 import frc.robot.commands.RevShoot;
@@ -171,7 +173,16 @@ public class RobotContainer {
         ));
 
 
-        // Set Wheel Brake - A
+        // Align to Funnel - A
+        primary.a().whileTrue(
+            Commands.sequence(
+                new ApproachFunnel(drivetrain, limelightSubsystem, DriveConstants.funnelTargetDistance).withTimeout(DriveConstants.approachFunnelTeleopTimeout),
+                new AlignToFunnel(drivetrain, limelightSubsystem).withTimeout(DriveConstants.alignFunnelTeleopTimeout)
+            )
+        );
+
+
+        // Set Wheel Brake - Left Bumper
         primary.leftBumper().whileTrue(drivetrain.applyRequest(() -> brake));
 
 

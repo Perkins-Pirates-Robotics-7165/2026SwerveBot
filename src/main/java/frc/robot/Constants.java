@@ -27,6 +27,13 @@ public class Constants {
         // Max speeds
         public static final double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond);
         public static final double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond);
+
+        // Auto align distance (meters)
+        public static final double funnelTargetDistance = 0.8;
+
+        // Auto aim & align timeouts (seconds)
+        public static final double approachFunnelTeleopTimeout = 0.6;
+        public static final double alignFunnelTeleopTimeout = 0.6;
     }
 
     // Constants for the shooter subsystem
