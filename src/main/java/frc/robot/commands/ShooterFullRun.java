@@ -70,7 +70,7 @@ public class ShooterFullRun extends Command {
     public void end(boolean interrupted) {
 
         // Stop all three motors
-        shooterSubsystem.shoot(0);
+        shooterSubsystem.shoot(500);
         bumpSubsystem.bump(0.0);
         suckSubsystem.suck(0.0);
     }
