@@ -147,6 +147,12 @@ public class Constants {
             // Target distance from funnel (meters)
             public static final double targetDistance = 0.8;
 
+            // Max seconds that the wall bed will run before gravity takes over
+            public static final double wallBedLowerTimeout = 1.0;
+
+            // Time that the shooter / bumper motor will spend reving before the suck motor starts (seconds)
+            public static final double shooterRevSeconds = 3.0;
+
         }
     }
 

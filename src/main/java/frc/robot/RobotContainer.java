@@ -29,10 +29,12 @@ import frc.robot.commands.Intake;
 import frc.robot.commands.MoveWallBed;
 import frc.robot.commands.RevShoot;
 import frc.robot.commands.ShooterFullRun;
+import frc.robot.commands.auto.AimAndEmptyBin;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.BumpSubsystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SuckSubsystem;
 import frc.robot.subsystems.TurnerSubsystem;
@@ -79,6 +81,7 @@ public class RobotContainer {
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
     private final WallBedSubsystem wallBedSubsystem = new WallBedSubsystem();
     private final TurnerSubsystem turnerSubsystem = new TurnerSubsystem();
+    private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
 
 
     /* Controllers */
@@ -250,6 +253,6 @@ public class RobotContainer {
      * Returns what command will be ran in autonomus, passing it to Robot.java
      */
     public Command getAutonomousCommand() {
-        return null;
+        return AimAndEmptyBin.getCommand(drivetrain, shooterSubsystem, bumpSubsystem, suckSubsystem, wallBedSubsystem, limelightSubsystem);
     }
 }
