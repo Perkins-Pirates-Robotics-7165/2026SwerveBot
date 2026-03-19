@@ -34,6 +34,14 @@ public class Constants {
         // Auto aim & align timeouts (seconds)
         public static final double approachFunnelTeleopTimeout = 0.6;
         public static final double alignFunnelTeleopTimeout = 0.6;
+
+        // Auto Turn PID
+        public static final double rotateP = 5.0;
+        public static final double rotateI = 0.0;
+        public static final double rotateD = 0.0;
+
+        // Auto turn tollerence on ending (degrees)
+        public static final double rotationTolerence = 3.0;
     }
 
     // Constants for the shooter subsystem
@@ -43,7 +51,7 @@ public class Constants {
         public static final int shooterMotorID = 1;
 
         // Motor base speeds
-        public static final int shooterForwardSpeed = 3800;
+        public static final int shooterForwardSpeed = 3400;
         public static final int shooterReverseSpeed = -4500;
 
         // Rev Shoot trigger threshold
@@ -105,7 +113,7 @@ public class Constants {
         public static final int turnMotorID = 9;
 
         // Base speed
-        public static final double turnMotorSpeed = .6;
+        public static final double turnMotorSpeed = 0.75;
 
     }
 
@@ -155,6 +163,13 @@ public class Constants {
 
             // Time that the shooter / bumper motor will spend reving before the suck motor starts (seconds)
             public static final double shooterRevSeconds = 3.0;
+
+            // Max seconds AlignToFunnel will run
+            public static final double alignToFunnelTimeout = 0.1;
+            public static final double approachFunnelTimeout = 0.1;
+
+            // Final angle to end up at
+            public static final int moveToAngle = 255;
 
         }
     }

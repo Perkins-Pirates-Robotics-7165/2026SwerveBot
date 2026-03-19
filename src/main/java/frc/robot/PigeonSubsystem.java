@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
 
@@ -11,7 +11,7 @@ import frc.robot.Constants.PigeonConstants;
 public class PigeonSubsystem extends SubsystemBase {
 
     // Save the new pigeon
-    private static final Pigeon2 pigeon = new Pigeon2(PigeonConstants.pigeonID);
+    private final Pigeon2 pigeon = new Pigeon2(PigeonConstants.pigeonID);
 
 
     /* Full Rotation Structures */
@@ -24,7 +24,7 @@ public class PigeonSubsystem extends SubsystemBase {
      * Rotation2d.getTan() -> Can return the slope, but not recommended to use due to deviding by 0
      * 
      */
-    public static Rotation2d getRotation2d() {
+    public Rotation2d getRotation2d() {
         return pigeon.getRotation2d();
     }
 
@@ -37,7 +37,7 @@ public class PigeonSubsystem extends SubsystemBase {
      * Rotation3d.getZ() -> Get robot yaw / left + right deviation
      * 
      */
-    public static Rotation3d getRotation3d() {
+    public Rotation3d getRotation3d() {
         return pigeon.getRotation3d();
     }
 
@@ -45,17 +45,17 @@ public class PigeonSubsystem extends SubsystemBase {
     /* Get Pitch, Yaw, and Roll */
 
     // Get forward / backward tilt (Pitch)
-    public static double getForwardBackTilt() {
+    public double getForwardBackTilt() {
         return pigeon.getPitch().getValueAsDouble();
     }
 
     // Get left / right deviation (Yaw)
-    public static double getLeftRightDeviation() {
+    public double getLeftRightDeviation() {
         return pigeon.getYaw().getValueAsDouble();
     }
 
     // Get left / right tilt (Roll)
-    public static double getLeftRightTilt() {
+    public double getLeftRightTilt() {
         return pigeon.getRoll().getValueAsDouble();
     }
 
@@ -63,12 +63,12 @@ public class PigeonSubsystem extends SubsystemBase {
     /* Set Yaw */
 
     // Set left / right deviation (Yaw)
-    public static void setLeftRightDeviation(double rotationAngle) {
+    public void setLeftRightDeviation(double rotationAngle) {
         pigeon.setYaw(rotationAngle);
     }
 
     // Set left / right deviation (Yaw)
-    public static void setLeftRightDeviation(Angle rotationAngle) {
+    public void setLeftRightDeviation(Angle rotationAngle) {
         pigeon.setYaw(rotationAngle);
     }
 

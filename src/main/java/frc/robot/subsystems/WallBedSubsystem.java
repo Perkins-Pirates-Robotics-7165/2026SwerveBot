@@ -28,7 +28,7 @@ public class WallBedSubsystem extends SubsystemBase {
 
         // Apply current limits to both wall bed motors
         CurrentLimitsConfigs currentLimits = new CurrentLimitsConfigs();
-        currentLimits.StatorCurrentLimit = 40;
+        currentLimits.StatorCurrentLimit = 8;
         currentLimits.StatorCurrentLimitEnable = true;
         wallBedMainMotor.getConfigurator().apply(currentLimits);
         wallBedFollowerMotor.getConfigurator().apply(currentLimits);

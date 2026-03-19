@@ -8,6 +8,7 @@ import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -23,6 +24,7 @@ import frc.robot.Constants.ShooterConstants;
 import frc.robot.Constants.SuckConstants;
 import frc.robot.Constants.TurnerConstants;
 import frc.robot.Constants.WallBedConstants;
+import frc.robot.Constants.ProgramaticCommandConstants.AimAndEmptyBinConstants;
 import frc.robot.commands.AlignToFunnel;
 import frc.robot.commands.ApproachFunnel;
 import frc.robot.commands.Intake;
@@ -39,6 +41,8 @@ import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SuckSubsystem;
 import frc.robot.subsystems.TurnerSubsystem;
 import frc.robot.subsystems.WallBedSubsystem;
+import frc.robot.commands.Suck;
+import frc.robot.commands.Rev;
 
 public class RobotContainer {
 
@@ -84,6 +88,7 @@ public class RobotContainer {
     private final WallBedSubsystem wallBedSubsystem = new WallBedSubsystem();
     private final TurnerSubsystem turnerSubsystem = new TurnerSubsystem();
     private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
+    private final PigeonSubsystem pigeonSubsystem = new PigeonSubsystem();
 
 
     /* Controllers */
@@ -109,9 +114,14 @@ public class RobotContainer {
         strafe.RotationalRate = 0.0;
 
         turnerSubsystem.turn(TurnerConstants.turnMotorSpeed);
+        
 
         // Set all commands to configure
         configureBindings();
+    }
+
+    public void roboPeriocic() {
+        SmartDashboard.putNumber("Roll DEv", pigeonSubsystem.getLeftRightDeviation());
     }
 
     /*
@@ -173,16 +183,18 @@ public class RobotContainer {
 
 
         // Align to Funnel - A
-        primary.a().whileTrue(
-            Commands.sequence(
-                new ApproachFunnel(drivetrain, limelightSubsystem, DriveConstants.funnelTargetDistance).withTimeout(DriveConstants.approachFunnelTeleopTimeout),
-                new AlignToFunnel(drivetrain, limelightSubsystem).withTimeout(DriveConstants.alignFunnelTeleopTimeout)
-            )
-        );
+        // primary.a().whileTrue(
+        //     Commands.sequence(
+        //         new AlignToFunnel(drivetrain, limelightSubsystem).withTimeout(DriveConstants.alignFunnelTeleopTimeout),
+        //         new ApproachFunnel(drivetrain, limelightSubsystem, DriveConstants.funnelTargetDistance).withTimeout(DriveConstants.approachFunnelTeleopTimeout)
+        //     )
+        // );
 
 
         // Set Wheel Brake - Left Bumper
         primary.leftBumper().whileTrue(drivetrain.applyRequest(() -> brake));
+
+        primary.x().whileTrue(new InstantCommand(() -> drivetrain.runOnce(() -> drivetrain.seedFieldCentric())));
 
 
 
@@ -193,31 +205,29 @@ public class RobotContainer {
 
         // Shoot - Right trigger + Left Bumper
         secondary.rightTrigger(ShooterConstants.triggerThreshold).whileTrue(
-            new RevShoot(
+            new Rev(
                 shooterSubsystem, 
                 bumpSubsystem, 
-                suckSubsystem, 
                 ShooterConstants.shooterForwardSpeed,
-                BumpConstants.bumpReverseSpeed,
-                () -> secondary.leftBumper().getAsBoolean(), 
-                SuckConstants.suckForwardSpeed
+                BumpConstants.bumpReverseSpeed
             )
+        );
+
+        secondary.leftBumper().whileTrue(
+            new Suck(suckSubsystem, 0.6)
         );
 
         // Shoot Reverse - A
         secondary.a().whileTrue(
-            new ShooterFullRun(
-                shooterSubsystem, 
-                bumpSubsystem, 
-                suckSubsystem, 
-                ShooterConstants.shooterReverseSpeed,
-                BumpConstants.bumpReverseSpeed,
-                SuckConstants.suckReverseSpeed
-            )
+            new Suck(suckSubsystem, -0.6)
         );
                 
 
         /* Bump */
+
+        secondary.y().whileTrue(
+            new Rev(shooterSubsystem, bumpSubsystem, ShooterConstants.shooterReverseSpeed, BumpConstants.bumpForwardSpeed)
+        );
         
         /* Suck */
 
@@ -263,6 +273,6 @@ public class RobotContainer {
      * Returns what command will be ran in autonomus, passing it to Robot.java
      */
     public Command getAutonomousCommand() {
-        return AimAndEmptyBin.getCommand(drivetrain, shooterSubsystem, bumpSubsystem, suckSubsystem, wallBedSubsystem, limelightSubsystem);
+        return AimAndEmptyBin.getCommand(drivetrain, shooterSubsystem, bumpSubsystem, suckSubsystem, wallBedSubsystem, limelightSubsystem, pigeonSubsystem, AimAndEmptyBinConstants.moveToAngle);
     }
 }
