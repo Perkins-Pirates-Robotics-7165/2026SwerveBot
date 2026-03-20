@@ -20,7 +20,7 @@ public class Constants {
     public static class DriveConstants {
 
         // Speed multipliers
-        public static final double driveSpeedMultiplier = 0.48;
+        public static final double driveSpeedMultiplier = 0.60;
         public static final double rotationSpeedMultiplier = 0.5;
         public static final double strafeSpeed = 0.3;
 
@@ -169,7 +169,10 @@ public class Constants {
             public static final double approachFunnelTimeout = 0.1;
 
             // Final angle to end up at
-            public static final int moveToAngle = 255;
+            // Right Side of target
+            // public static final int moveToAngle = 230;
+            // Left Side of target
+            public static final int moveToAngle = -230;
 
         }
     }
